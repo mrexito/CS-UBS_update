@@ -1,0 +1,166 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+  EDITOR
+}
+
+enum OrgNodeType {
+  DIVISION
+  PERSON
+}
+
+enum ReactionType {
+  LIKE
+  DISLIKE
+}
+
+model User {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  username      String?  @unique            // filled from OAuth display name or chosen by user
+  email         String?  @unique
+  password      String?                     // bcrypt hash; null for OAuth users
+  image         String?  @map("photoUrl") @default("https://res.cloudinary.com/dymwgac6m/image/upload/v1765210908/296fe121-5dfa-43f4-98b5-db50019738a7_bxzq63.jpg")
+  permissions   String[] @default([])
+  bio           String?
+  emailVerified DateTime?
+  role          Role     @default(USER)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  posts           BlogPost[]
+  blogReactions   BlogReaction[]
+  blogComments    BlogComment[]
+  orgChartEntries OrgChart[]
+  accounts  Account[]
+  sessions  Session[]
+}
+
+model Account {
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String  @db.ObjectId
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+  oauth_token_secret String?
+  oauth_token        String?
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model BlogPost {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  title     String
+  content   String
+  excerpt   String?  @default("")
+  images    String[] @default([])
+  tags      String[] @default([])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  likeCount    Int            @default(0)
+  dislikeCount Int            @default(0)
+  commentCount Int            @default(0)
+  reactions    BlogReaction[]
+  comments     BlogComment[]
+
+  @@index([createdAt])
+  @@index([userId])
+}
+
+model BlogReaction {
+  id        String       @id @default(auto()) @map("_id") @db.ObjectId
+  postId    String       @db.ObjectId
+  userId    String       @db.ObjectId
+  type      ReactionType
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  post BlogPost @relation(fields: [postId], references: [id])
+  user User     @relation(fields: [userId], references: [id])
+
+  @@unique([postId, userId])
+  @@index([postId])
+  @@index([userId])
+}
+
+model BlogComment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  postId    String   @db.ObjectId
+  userId    String   @db.ObjectId
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  post BlogPost @relation(fields: [postId], references: [id])
+  user User     @relation(fields: [userId], references: [id])
+
+  @@index([postId, createdAt])
+  @@index([userId])
+}
+
+model OrgChart {
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String?      @db.ObjectId
+  user          User?        @relation(fields: [userId], references: [id])
+  linkedUserId  String?      @db.ObjectId
+  parentId      String?      @db.ObjectId
+  parent        OrgChart?    @relation("OrgChartHierarchy", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  children      OrgChart[]   @relation("OrgChartHierarchy")
+  name          String
+  roleTitle     String       @default("")
+  department    String?
+  description   String?
+  photoUrl      String?
+  nodeType      OrgNodeType  @default(DIVISION)
+  createdById   String       @db.ObjectId @default("000000000000000000000000")
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@index([parentId])
+  @@index([createdById])
+  @@index([linkedUserId])
+}

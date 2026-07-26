@@ -1,0 +1,728 @@
+{
+  "metadata": {
+    "title": "cs_ubs_fusion",
+    "description": "Wissenshub zur Fusion von Credit Suisse (CS) und UBS: Fallstudien, Blogs und Organigramme – mit Kontext, Learnings und laufenden Updates."
+  },
+  "blogs": {
+    "anmeldenUmBlogErstellen": "Bitte melde dich an, um einen Blog zu erstellen.",
+    "anonymerAutor": "Anonym",
+    "bearbeitenButton": "Bearbeiten",
+    "blogGeloescht": "Blog gelöscht.",
+    "blogLoeschenBestaetigung": "Diesen Blog löschen? Dies kann nicht rückgängig gemacht werden.",
+    "blogLoeschenFehlgeschlagen": "Blog konnte nicht gelöscht werden.",
+    "blogLoeschenKeinZugriff": "Du darfst diesen Blog nicht löschen.",
+    "bitteAnmelden": "Bitte melde dich an, um zu posten.",
+    "bitteAnmeldenBearbeiten": "Bitte melde dich an, um zu bearbeiten.",
+    "bitteAnmeldenKommentar": "Melde dich an, um mitzudiskutieren.",
+    "blogAktualisiert": "Blog aktualisiert.",
+    "blogErstellt": "Blog erstellt",
+    "blogKonnteNichtAktualisiertWerden": "Blog konnte nicht aktualisiert werden.",
+    "blogKonnteNichtErstelltWerden": "Blog konnte nicht erstellt werden.",
+    "blogNichtGefunden": "Blog wurde nicht gefunden.",
+    "commentCountLabel": "{count, plural, one {# Kommentar} other {# Kommentare}}",
+    "commentMaxChars": "Max. {max} Zeichen",
+    "deleteBlogButton": "Löschen",
+    "dislike": "Gefällt mir nicht",
+    "editBlogButton": "Bearbeiten",
+    "editPageEyebrow": "Eintrag aktualisieren",
+    "editPageTitle": "Blog bearbeiten",
+    "errorBildUpload": "Bild-Upload fehlgeschlagen. Bitte erneut versuchen.",
+    "feedEyebrow": "Wissensfeed",
+    "feedLead": "Verfolge Remediation-Tagebücher, interne Learnings und Governance-Updates von Kolleginnen und Kollegen.",
+    "feedTitle": "Blogs",
+    "inhalt": "Inhalt",
+    "imageUploading": "Bild wird hochgeladen…",
+    "kommentarAnzahl": "{count, plural, one {# Kommentar} other {# Kommentare}}",
+    "kommentareHeading": "{count, plural, one {# Kommentar} other {# Kommentare}}",
+    "kommentarErstellt": "Kommentar erstellt.",
+    "kommentareTitel": "Diskussion",
+    "kommentarFehler": "Kommentar konnte nicht gespeichert werden.",
+    "kommentarGeloescht": "Kommentar gelöscht.",
+    "kommentarKeineBerechtigung": "Du darfst diesen Kommentar nicht löschen.",
+    "kommentarLabel": "Teile deine Gedanken",
+    "kommentarLoeschenBestaetigung": "Diesen Kommentar löschen?",
+    "kommentarLoeschenFehlgeschlagen": "Kommentar konnte nicht gelöscht werden.",
+    "kommentarLoeschenLabel": "Löschen",
+    "kommentarPflicht": "Bitte gib einen Kommentar ein.",
+    "kommentarPlaceholder": "Schreibe deinen Kommentar...",
+    "kommentarSenden": "Kommentar posten",
+    "kommentarZuKurz": "Der Kommentar ist zu kurz.",
+    "kommentarZuLang": "Der Kommentar ist zu lang.",
+    "like": "Gefällt mir",
+    "newBlogButton": "Neuen Blog erstellen",
+    "newBlogLink": "Neuer Blog",
+    "newPageEyebrow": "Erkenntnisse teilen",
+    "newPageLead": "Zusammenfassungen, interne Notizen und Remediation-Tagebücher sind willkommen.",
+    "noBlogs": "Noch keine Blogs vorhanden",
+    "nochKeineKommentare": "Noch keine Kommentare",
+    "ohneTitel": "(Ohne Titel)",
+    "reactionAktualisiert": "Reaktion aktualisiert.",
+    "reactionFehlgeschlagen": "Reaktion konnte nicht aktualisiert werden.",
+    "sectionHeading": "Blogs",
+    "titelUndInhaltAusfüllen": "Titel und Inhalt ausfüllen",
+    "title": "Titel",
+    "titlePlaceholder": "Titel deines Blogs",
+    "toBlogButton": "Zum Blog",
+    "uploadFehlgeschlagen": "Upload fehlgeschlagen",
+    "unknownAuthor": "Unbekannt",
+    "viewCommentsButton": "Kommentare ansehen",
+    "wasMöchtestDuTeilen": "Was möchtest du teilen?",
+    "wirdGespeichertLoading": "Wird gespeichert...",
+    "zumLogin": "Zum Login"
+  },
+  "buttons": {
+    "speichern": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen"
+  },
+  "common": {
+    "languageSwitcherAriaLabel": "Sprache auswählen",
+    "locales": {
+      "de": "Deutsch",
+      "en": "Englisch",
+      "fr": "Französisch",
+      "it": "Italienisch",
+      "es": "Spanisch"
+    }
+  },
+  "home": {
+    "header": "Startseite",
+    "heroDescription": "Diese Plattform ist ein Studienprojekt im Studiengang Wirtschaftsinformatik der Berner Fachhochschule. Sie bewahrt die Dokumentation der CS–UBS-Fusion, teilt geprüfte Fallmaterialien und lädt betroffene Mitarbeitende ein, sich anzumelden, Reflexionen zu veröffentlichen und sich im lebenden Organigramm zu verorten.",
+    "heroImageAlt": "Archivaufnahme der CS–UBS-Fusion",
+    "heroBullets": {
+      "archive": "Unabhängige Dokumentation der CS–UBS-Fusionschronik",
+      "project": "Einzelprojekt im Studiengang Wirtschaftsinformatik der BFH",
+      "secure": "Sicherer Login für alle, die beitragen oder ihre Rolle sichtbar machen wollen"
+    },
+    "heroPrimaryCta": "Updates durchstöbern",
+    "heroSecondaryCta": "Organigramm erkunden",
+    "highlight": {
+      "caseArchive": {
+        "title": "Fallarchiv",
+        "copy": "Lies strukturierte Dossiers, die die CS–UBS-Fusion und den Zusammenbruch der Credit Suisse dokumentieren."
+      },
+      "orgParticipation": {
+        "title": "Organigramm-Teilnahme",
+        "copy": "Ehemalige Mitarbeitende können sich anmelden und sich im lebenden Organigramm verorten."
+      },
+      "sharedExperience": {
+        "title": "Geteilte Erfahrung",
+        "copy": "Authentifizierte Nutzerinnen und Nutzer veröffentlichen Blogs mit Lessons Learned, Remediation-Arbeit und Augenzeugenberichten."
+      },
+      "open": "Öffnen →"
+    },
+    "overviewHeading": "Worum es hier geht",
+    "overviewBody": "Die Plattform fungiert als Archiv für die CS–UBS-Fusion und bündelt Fallstudien, Blogs und Organigramm-Einträge an einem Ort. Eingeloggte Nutzerinnen und Nutzer können eigene Erfahrungen teilen, bestehende Fälle kommentieren und sich in der Organisationsstruktur sichtbar machen.",
+    "overviewPills": {
+      "cases": "Fallstudien lesen",
+      "blogs": "Blogs veröffentlichen",
+      "organigram": "Organigramm pflegen"
+    }
+  },
+  "login": {
+    "anmelden": "Anmelden",
+    "anmeldenMit": "Anmelden mit",
+    "anmeldungLäuft": "Anmeldung läuft",
+    "EmailOBenutzername": "Email oder Benutzername",
+    "etwasIstSchief": "Etwas ist schief gelaufen",
+    "falscheInformation": "Falsche Anmeldeinformationen",
+    "githubLogoAlt": "GitHub-Logo",
+    "googleLogoAlt": "Google-Logo",
+    "signInWithGoogle": "Mit Google anmelden",
+    "signInWithGitHub": "Mit GitHub anmelden",
+    "secureAreaEyebrow": "Geschützter Bereich",
+    "secureAreaLead": "Zentraler Einstieg zum Schreiben von Blogs, zum Aktualisieren deines Profils und zum Eintragen im Organigramm.",
+    "ssoReady": "OAuth bereit",
+    "darkModeAware": "Dark Mode unterstützt",
+    "credentialsReady": "Passwort-Login",
+    "sessionPersists": "Bleibt angemeldet",
+    "MeldeDichAn": "Melde dich an",
+    "oder": "Oder",
+    "passwort": "Passwort",
+    "problemeBeimAnmelden": "Probleme beim Anmelden",
+    "registrieren": "Registrieren",
+    "loginRequired": "Bitte melde dich an, um die Benutzerliste zu sehen."
+  },
+  "register": {
+    "eyebrow": "Account erstellen",
+    "title": "Registrieren",
+    "lead": "Erstelle einen Account, um Blogs zu veröffentlichen und im Organigramm sichtbar zu werden.",
+    "fields": {
+      "username": {
+        "label": "Benutzername",
+        "placeholder": "Benutzername"
+      },
+      "email": {
+        "label": "E-Mail",
+        "placeholder": "E-Mail"
+      },
+      "password": {
+        "label": "Passwort",
+        "placeholder": "Passwort"
+      }
+    },
+    "submit": {
+      "label": "Registrieren",
+      "loading": "Registrierung läuft"
+    },
+    "errors": {
+      "fillAllFields": "Bitte fülle alle Felder aus.",
+      "passwordRequired": "Bitte gib ein Passwort ein.",
+      "failed": "Registrierung fehlgeschlagen.",
+      "generic": "Ein Fehler ist aufgetreten."
+    },
+    "success": {
+      "registered": "Registrierung erfolgreich. Bitte melde dich an."
+    }
+  },
+  "navbar": {
+    "aboutUs": "Über uns",
+    "blogsLink": "Blogs",
+    "brandLockup": "CS · UBS · FUSION",
+    "case": "Fall",
+    "logoutLabel": "Abmelden",
+    "logoAlt": "Fusion-Logo",
+    "login": "Anmelden",
+    "organigram": "Organigramm",
+    "searchLabel": "Website durchsuchen",
+    "searchPlaceholder": "Fälle, Blogs, Organigramm durchsuchen...",
+    "users": "Benutzer",
+    "userAvatarAlt": "Profilbild von {name}",
+    "userAvatarAltFallback": "Profilbild",
+    "userFallbackName": "Nutzer"
+  },
+  "theme": {
+    "labels": {
+      "light": "Hell",
+      "dark": "Dunkel"
+    },
+    "currentThemeSrOnly": "Aktuelles Theme: {theme}"
+  },
+  "footer": {
+    "badgeLabel": "CS · UBS · Fusion",
+    "description": "Ein kompakter Wissenshub, der zentrale Fallstudien, Governance-Learnings und die sich wandelnde Organisationsstruktur abdeckt.",
+    "exploreHeading": "Entdecken",
+    "caseLibraryHeading": "Fallbibliothek",
+    "stayInSyncHeading": "Bleib auf dem Laufenden",
+    "stayInSyncBody": "Verfolge Governance-Updates, teile Erkenntnisse und halte das interne Organigramm aktuell, damit alle dasselbe Bild haben.",
+    "links": {
+      "blogs": "Blogs",
+      "organigram": "Organigramm",
+      "about": "Über uns",
+      "archegos": "Archegos",
+      "greensill": "Greensill"
+    }
+  },
+  "about": {
+    "eyebrow": "Über uns",
+    "hero": {
+      "title": "Über uns",
+      "lead": "Das Projekt entsteht im Studiengang Wirtschaftsinformatik an der Berner Fachhochschule (BFH) und wird von einer einzelnen Studentin bzw. einem einzelnen Studenten umgesetzt. Ziel ist es, den Zusammenschluss von Credit Suisse und UBS sowie den Kollaps der Credit Suisse faktenbasiert zu dokumentieren.",
+      "supporting": "Die Plattform verbindet Recherchearbeit mit Software Engineering und zeigt, wie ein unabhängiges Archiv innerhalb eines Studienprojekts belastbare Quellen, Blogs und Organigramm-Daten in einem konsistenten Interface vereint."
+    },
+    "framework": {
+      "title": "Rahmenbedingungen",
+      "items": [
+        "Business-Information-Systems-Curriculum der BFH als methodischer Rahmen.",
+        "Einzelprojekt mit klarer Verantwortlichkeit und transparentem Quellenapparat.",
+        "Faktenbasierte Dokumentation des CS–UBS-Mergers inklusive Archegos- und Greensill-Fällen."
+      ]
+    },
+    "cards": [
+      {
+        "title": "Studien- und Forschungsrahmen",
+        "body": "Die Plattform dient als praktische Fallstudie innerhalb des Business-Information-Systems-Curriculums der BFH. Sie verbindet Software-Engineering mit Recherchearbeit und zeigt, wie ein einzelnes Projekt verlässliche Informationen aufbereiten kann."
+      },
+      {
+        "title": "Inhaltlicher Fokus",
+        "body": "Im Mittelpunkt stehen die Ereignisse rund um den CS–UBS-Merger, inklusive der Hintergründe des Zusammenbruchs der Credit Suisse. Fallstudien, Blogs und ein interaktives Organigramm werden genutzt, um Entwicklungen nachvollziehbar zu halten."
+      }
+    ],
+    "goals": {
+      "title": "Ziele der Plattform",
+      "items": [
+        "Strukturiertes Wissen zu Fällen wie Archegos oder Greensill bereitstellen.",
+        "Ehemaligen Mitarbeitenden sowie Betroffenen einen sicheren Login zu ermöglichen.",
+        "Erfahrungsberichte, Analysen oder Hinweise als Blogbeiträge zu sammeln.",
+        "Optional eine Selbstregistrierung im Organigramm zu erlauben, um Rollen sichtbar zu machen."
+      ]
+    },
+    "participation": {
+      "title": "Teilnahme und Transparenz",
+      "body": "Gäste können alle öffentlich gepflegten Inhalte lesen. Wer sich anmeldet, darf eigenständig Beiträge einstellen oder die Organigramm-Daten ergänzen. Jede Änderung ist nachvollziehbar und folgt einem faktenorientierten, transparenten Ton.",
+      "access": {
+        "title": "Zugänge",
+        "body": "Secure Login schützt sensible Erfahrungsberichte, während öffentliche Besucher weiterhin recherchieren und lernen können."
+      }
+    }
+  },
+  "cases": {
+    "archegos": {
+      "eyebrow": "Fallstudie",
+      "title": "Archegos: Was der Kollaps über Risikokultur verrät",
+      "lead": "Eine aufbereitete Analyse, die den kompletten Ablauf – von den ersten Warnsignalen über die strukturellen Schwächen bis zu den regulatorischen Folgen – nachvollziehbar macht.",
+      "labels": {
+        "takeaways": "Kernaussagen",
+        "toc": "Inhaltsverzeichnis",
+        "timeline": "Chronik",
+        "reference": "Referenz"
+      },
+      "keyTakeaways": [
+        "- Rund USD 5.5 Milliarden Verlust durch verspätete Liquidationen und unzureichende Margins",
+        "- Extrem gehebelte Total-Return-Swaps machten wirtschaftliche Beteiligungen unsichtbar",
+        "- Warnsignale und CPOC-Eskalationen blieben ohne konsequente Massnahmen"
+      ],
+      "sections": [
+        {
+          "id": "einordnung",
+          "title": "Einordnung und Kernaussagen",
+          "paragraphs": [
+            "Im März 2021 erlitt Credit Suisse einen Verlust von rund USD 5.5 Milliarden, ausgelöst durch den Zusammenbruch von Archegos Capital Management. Archegos war ein in den USA ansässiges Family Office, also eine private Vermögensverwaltung für eine einzelne wohlhabende Person. Im Gegensatz zu klassischen Hedgefonds unterliegen Family Offices deutlich geringeren regulatorischen Anforderungen, insbesondere in Bezug auf Transparenz und Offenlegung gegenüber Markt und Aufsichtsbehörden.",
+            "Archegos nutzte diese Struktur, um sehr grosse, stark gehebelte und hoch konzentrierte Aktienpositionen aufzubauen. Dabei setzte das Unternehmen nicht auf den direkten Kauf von Aktien, sondern auf komplexe Finanzinstrumente, sogenannte Total Return Swaps (TRS). Diese Konstruktion ermöglichte es, wirtschaftliches Eigentum an Aktien zu kontrollieren, ohne als Aktionär sichtbar zu werden.",
+            "Credit Suisse betreute Archegos über ihre Prime-Services-Division, also jenen Geschäftsbereich, der Hedgefonds und Family Offices mit Finanzierung, Derivaten und Abwicklungsdienstleistungen versorgt. Der Archegos-Fall zeigt, dass der enorme Verlust nicht plötzlich entstand, sondern das Ergebnis eines langjährigen schrittweisen Abbaus von Risikodisziplin war. Warnsignale wurden erkannt, jedoch wiederholt relativiert oder aus geschäftlichen Erwägungen heraus nicht konsequent umgesetzt."
+          ]
+        },
+        {
+          "id": "hintergrund",
+          "title": "Hintergrund: Archegos und Credit Suisse",
+          "paragraphs": [
+            "Die Beziehung zwischen Credit Suisse und Archegos reicht bis in die frühen 2000er-Jahre zurück. Bereits 2003 wurde Archegos – damals noch unter dem Namen Tiger Asia – Kunde bei der Bank. Ab 2005 nutzte Tiger Asia sogenannte Equity Swaps, um Aktienengagements über Credit Suisse aufzubauen.",
+            "Nach schweren Vorwürfen wegen Insiderhandels und Marktmanipulation kam es 2012 zu einem Vergleich mit US-Behörden. In der Folge wurde Tiger Asia in Archegos Capital Management umbenannt und als Family Office weitergeführt. Trotz dieser Vorgeschichte blieb die Geschäftsbeziehung bestehen. Interne Prüfungen zur Reputation des Kunden führten nicht zu substanziellen Einschränkungen, während das Exposure der Bank gegenüber Archegos kontinuierlich anwuchs.",
+            "Für Aussenstehende wirkt dies rückblickend wie ein schleichender Gewöhnungseffekt: Ein Kunde, der über Jahre hohe Erträge generiert, wird zunehmend als gegeben akzeptiert – selbst wenn seine Historie und sein Risikoprofil Anlass zur Vorsicht bieten."
+          ]
+        },
+        {
+          "id": "instrumente",
+          "title": "Wie Archegos Exposure aufbaute: TRS, Bullet Swaps und Margining",
+          "paragraphs": [
+            "Um den Fall zu verstehen, ist es entscheidend, die Funktionsweise der eingesetzten Finanzinstrumente zu kennen. Total Return Swaps sind Verträge, bei denen eine Bank die Kursentwicklung einer Aktie an einen Kunden weitergibt. Der Kunde erhält Gewinne und trägt Verluste, ohne die Aktie selbst zu besitzen. Die Bank hält die Aktie auf ihrer eigenen Bilanz.",
+            "Für Archegos hatte dieses Modell mehrere Vorteile. Es ermöglichte den Aufbau sehr grosser Positionen mit vergleichsweise wenig Eigenkapital. Zudem blieb das tatsächliche Ausmass der Beteiligungen für den Markt weitgehend unsichtbar. Besonders risikoreich waren sogenannte Bullet Swaps, bei denen Gewinne und Verluste erst am Ende der Laufzeit verrechnet werden. Dadurch konnten Positionen lange gehalten und immer weiter ausgeweitet werden.",
+            "Hinzu kam die Art der Besicherung. Credit Suisse verlangte von Archegos überwiegend eine statische Initial Margin. Das bedeutet, dass die hinterlegte Sicherheitsleistung in absoluten Dollarbeträgen gleich blieb, selbst wenn das Risiko durch steigende Aktienkurse deutlich zunahm. Ein dynamisches Margining, bei dem bei wachsendem Risiko automatisch zusätzliche Sicherheiten verlangt worden wären, wurde zwar diskutiert, aber lange nicht umgesetzt. Für Laien lässt sich das so zusammenfassen: Die Risiken wuchsen schneller als die Sicherheitsnetze."
+          ]
+        },
+        {
+          "id": "warnsignale",
+          "title": "Vorboten der Krise: Warnsignale, CPOC und verpasste Chancen",
+          "paragraphs": [
+            "Bereits Jahre vor dem Kollaps gab es deutliche Anzeichen dafür, dass sich Risiken aufbauten. Ab 2017 kam es zu wiederholten Überschreitungen interner Risikoschwellen. Statt diese als Anlass für eine grundlegende Neubewertung der Kundenbeziehung zu nutzen, gewährte die Bank wiederholt Ausnahmen und Übergangsfristen.",
+            "Ein besonders folgenreicher Schritt erfolgte 2019, als die erforderlichen Sicherheiten auf Wunsch von Archegos deutlich gesenkt wurden. Gleichzeitig nahm die Grösse und Konzentration der Positionen weiter zu. Im Laufe des Jahres 2020 wurden interne Exposure-Limits nahezu regelmässig verletzt. Mitarbeitende im Risikomanagement äusserten wiederholt Bedenken, hatten jedoch Schwierigkeiten, diese gegenüber dem Handelsbereich durchzusetzen.",
+            "Nach einem früheren Verlustereignis richtete die Bank ein spezielles Oversight-Gremium ein, das Counterparty Oversight Committee (CPOC). Archegos wurde dort als besonders riskanter Kunde identifiziert. Dennoch blieb es bei Diskussionen ohne klare Konsequenzen. Entscheidende Führungspersonen nahmen nicht immer an den Sitzungen teil, und Verantwortung wurde nicht eindeutig wahrgenommen. Risiken waren sichtbar – aber niemand griff entschlossen ein."
+          ]
+        },
+        {
+          "id": "default",
+          "title": "Der Default: Margin Calls, Eskalation und Verlust",
+          "paragraphs": [
+            "Als sich die Kurse der wichtigsten Archegos-Aktien im März 2021 abrupt verschlechterten, eskalierte die Situation schnell. Die hoch gehebelten und stark konzentrierten Positionen lösten massive Margin Calls aus. Archegos war nicht mehr in der Lage, die geforderten Sicherheiten bereitzustellen.",
+            "Credit Suisse erklärte schliesslich einen Event of Default, also den formalen Vertragsbruch des Kunden. In der Folge mussten grosse Aktienpositionen unter erheblichem Zeitdruck verkauft werden. Da mehrere Banken gleichzeitig verkauften und der Markt nur begrenzte Liquidität bot, fielen die Preise stark. Während einige Wettbewerber frühzeitig mit Blockverkäufen begannen, zögerte Credit Suisse – mit erheblichen Folgen.",
+            "Am Ende stand ein Verlust von rund USD 5.5 Milliarden, einer der grössten Einzelverluste in der Geschichte der Bank."
+          ]
+        },
+        {
+          "id": "portfolio",
+          "title": "Das Archegos-Portfolio: Leverage und Konzentration",
+          "paragraphs": [
+            "Kurz vor dem Kollaps kontrollierte Archegos ein aussergewöhnlich grosses Aktienportfolio. Dem eingesetzten Eigenkapital stand ein Vielfaches an Marktengagement gegenüber. Das Portfolio war nahezu vollständig auf steigende Kurse ausgerichtet.",
+            "Besonders problematisch war die extreme Konzentration auf wenige Aktien. Bei einzelnen Unternehmen hielt Archegos wirtschaftliche Beteiligungen, die einen erheblichen Teil aller frei handelbaren Aktien ausmachten. Für fachfremde Leser bedeutet das: Sobald diese Positionen verkauft werden mussten, reichten schon kleine Verkaufsvolumina aus, um die Kurse massiv unter Druck zu setzen."
+          ]
+        },
+        {
+          "id": "folgen",
+          "title": "Folgen und Reaktionen: Credit Suisse, Markt, Ratings",
+          "paragraphs": [
+            "Nach Bekanntwerden des Verlustes reagierte Credit Suisse mit tiefgreifenden Massnahmen. Die Bank setzte Aktienrückkäufe aus, verkleinerte ihre Investmentbank und zog sich weitgehend aus dem Prime-Services-Geschäft zurück. Führende Manager traten zurück, und eine externe Untersuchung stellte gravierende Mängel im Risikomanagement fest.",
+            "Auch die Marktreaktion fiel heftig aus. Der Aktienkurs brach ein, und die Kosten zur Absicherung gegen einen Kreditausfall stiegen deutlich. Ratingagenturen stuften den Ausblick für Credit Suisse auf negativ, was die Finanzierung der Bank zusätzlich belastete."
+          ]
+        },
+        {
+          "id": "regulierung",
+          "title": "Regulatorische und rechtliche Folgen",
+          "paragraphs": [
+            "Aufsichtsbehörden in mehreren Ländern griffen ein. In der Schweiz stellte die FINMA schwerwiegende Mängel in Governance und Risikokultur fest. In Grossbritannien und den USA wurden hohe Geldstrafen verhängt und umfassende Verbesserungen im Risikomanagement angeordnet.",
+            "Parallel dazu gingen US-Behörden gegen Archegos selbst vor. Gründer Bill Hwang wurde wegen Marktmanipulation und Betrugs verurteilt und zu einer langjährigen Haftstrafe sowie zu erheblichen Rückzahlungen verpflichtet."
+          ]
+        },
+        {
+          "id": "fazit",
+          "title": "Fazit des Falls",
+          "paragraphs": [
+            "Der Archegos-Fall zeigt eindrücklich, dass selbst grosse und etablierte Banken scheitern können, wenn Risikokontrollen systematisch ausgehöhlt werden. Nicht ein einzelner Fehler führte zum Desaster, sondern eine Kette aus Zugeständnissen, fehlender Eskalation und schwacher Führung.",
+            "Risiken wurden gesehen, aber nicht konsequent adressiert – bis ein vergleichsweise kleiner Marktschock ausreichte, um einen Milliardenverlust auszulösen."
+          ]
+        }
+      ],
+      "timeline": {
+        "heading": "Wie sich die Ereignisse aufschaukelten",
+        "range": "2003 – 2024"
+      },
+      "timelineEntries": [
+        {
+          "year": "2003–2005",
+          "title": "Beginn der Geschäftsbeziehung",
+          "description": "Archegos, damals Tiger Asia, wird Prime-Services-Kunde von Credit Suisse und nutzt Equity Swaps, um Aktienengagements ohne direkten Besitz aufzubauen."
+        },
+        {
+          "year": "2012",
+          "title": "Rebranding nach Rechtsfällen",
+          "description": "Nach Insiderhandels- und Manipulationsvorwürfen einigt sich Tiger Asia mit US-Behörden, benennt sich in Archegos Capital Management um und führt die Beziehung zur Bank fort."
+        },
+        {
+          "year": "2015–2018",
+          "title": "Reputationsprüfungen ohne Wirkung",
+          "description": "Interne Reputations- und Risikoanalysen bringen keine Einschränkungen. Archegos bleibt wichtiger, profitabler Kunde trotz bekannter Historie."
+        },
+        {
+          "year": "2017",
+          "title": "Erste strukturelle Warnsignale",
+          "description": "Interne Risikoschwellen werden regelmässig verletzt, doch Credit Suisse gewährt Ausnahmen und lässt die wachsenden Positionen bestehen."
+        },
+        {
+          "year": "2019",
+          "title": "Senkung der Sicherheiten",
+          "description": "Auf Wunsch von Archegos reduziert die Bank die Initial Margins, wodurch das Leverage der Swap-Geschäfte weiter steigt."
+        },
+        {
+          "year": "2020",
+          "title": "Eskalierende Risiken und CPOC",
+          "description": "Exposure-Limits werden laufend verletzt; das neu eingerichtete Counterparty Oversight Committee soll kritische Gegenparteien überwachen."
+        },
+        {
+          "year": "September 2020",
+          "title": "Als kritisch eingestuft",
+          "description": "Das CPOC benennt Archegos als hochriskant wegen Verschuldung und Konzentration – dennoch folgen keine konsequenten Massnahmen."
+        },
+        {
+          "year": "Ende 2020",
+          "title": "Strukturänderungen ohne Entlastung",
+          "description": "Das Swap-Portfolio wandert zu einer Einheit mit höheren Limits. Risiken bleiben bestehen, Limitüberschreitungen gehen weiter."
+        },
+        {
+          "year": "März 2021 (Anfang)",
+          "title": "Letzte Warnsignale",
+          "description": "Im CPOC werden zusätzliche Sicherheiten und dynamische Margins diskutiert, während Credit Suisse Sicherheiten zurückgibt und neue Geschäfte zulässt."
+        },
+        {
+          "year": "22.–24. März 2021",
+          "title": "Markteinbruch und Margin Calls",
+          "description": "Fallende Kurse zentraler Positionen führen zu massiven Nachschussforderungen, die Archegos nicht mehr bedienen kann."
+        },
+        {
+          "year": "26. März 2021",
+          "title": "Default",
+          "description": "Credit Suisse erklärt den Event of Default; Banken beginnen, die zugrunde liegenden Aktienbestände zu liquidieren."
+        },
+        {
+          "year": "Ende März 2021",
+          "title": "Milliardenverlust",
+          "description": "Gleichzeitige Verkäufe drücken die Kurse; Credit Suisse reagiert spät und verbucht rund USD 5.5 Milliarden Verlust."
+        },
+        {
+          "year": "April 2021",
+          "title": "Konsequenzen bei Credit Suisse",
+          "description": "Aktienrückkäufe werden gestoppt, die Investmentbank verkleinert, Prime Services zurückgefahren und externe Untersuchungen gestartet."
+        },
+        {
+          "year": "2021–2023",
+          "title": "Aufsichtliche Massnahmen",
+          "description": "FINMA, britische und US-Behörden stellen schwere Governance- und Risikomängel fest, verhängen Auflagen und Strafen."
+        },
+        {
+          "year": "2024",
+          "title": "Verurteilung von Bill Hwang",
+          "description": "US-Gerichte sprechen den Archegos-Gründer wegen Marktmanipulation und Betrugs schuldig; es folgen Haftstrafe und hohe Rückzahlungen."
+        }
+      ],
+      "reference": {
+        "title": "The Fall of Credit Suisse",
+        "lines": [
+          "How Governance and Risk Management Failures led to the Collapse: A Case Study of Archegos and Greensill",
+          "Bachelor Thesis",
+          "Autor: Alex Büschlen",
+          "Studiengang: International Business Administration",
+          "Semester: 6. Semester",
+          "Betreuer: Prof. Dr. Raúl Diego Gimeno",
+          "Datum: 21.05.2025"
+        ]
+      },
+      "cta": "Weiter zum Greensill-Case"
+    },
+    "greensill": {
+      "eyebrow": "Fallstudie",
+      "title": "Greensill: Supply Chain Finance unter Druck",
+      "lead": "Eine detaillierte Aufarbeitung der Supply-Chain-Finance-Fonds – von der engen Verflechtung mit Greensill über die Warnsignale bis zu den regulatorischen Konsequenzen.",
+      "labels": {
+        "takeaways": "Kernaussagen",
+        "toc": "Inhaltsverzeichnis",
+        "timeline": "Chronik",
+        "reference": "Referenz"
+      },
+      "keyTakeaways": [
+        "- Rund USD 10 Milliarden an Supply-Chain-Finance-Fonds mussten eingefroren werden, was das Vertrauen in das Asset Management erschütterte.",
+        "- Greensill strukturierte Forderungen, die zunehmend Future Receivables ähnelten und damit faktisch zu unbesicherten Unternehmenskrediten wurden.",
+        "- Credit Suisse vereinte mehrere Rollen – Fondsanbieterin, Kreditgeberin und Partnerin – wodurch Interessenkonflikte und Kontrolllücken entstanden."
+      ],
+      "sections": [
+        {
+          "id": "einordnung",
+          "title": "Einordnung und Kernaussagen",
+          "paragraphs": [
+            "Der Greensill-Fall war neben Archegos einer der beiden zentralen Skandale, die das Vertrauen in die Credit Suisse nachhaltig erschütterten. Während Archegos vor allem ein klassischer Handels- und Risikomanagement-Fall war, offenbarte Greensill tiefgreifende Probleme im Asset Management, in der Produktkontrolle und im Umgang mit Interessenkonflikten.",
+            "Greensill Capital war ein auf Supply Chain Finance spezialisiertes Finanzunternehmen, das Rechnungen von Lieferanten vorfinanzierte und diese Forderungen an Investoren weiterverkaufte. Credit Suisse verpackte diese Forderungen in Investmentfonds und verkaufte sie als konservative, kurzfristige Anlageprodukte.",
+            "Als Greensill Anfang 2021 zusammenbrach, mussten Fonds im Umfang von rund USD 10 Milliarden eingefroren werden."
+          ]
+        },
+        {
+          "id": "hintergrund",
+          "title": "Hintergrund: Greensill Capital und Credit Suisse",
+          "paragraphs": [
+            "Greensill Capital wurde 2011 gegründet und präsentierte sich als innovativer Finanzdienstleister an der Schnittstelle zwischen Unternehmen, Lieferanten und Kapitalmarkt. Das Unternehmen versprach, Lieferketten effizienter zu finanzieren und gleichzeitig Investoren stabile Erträge bei geringem Risiko zu bieten.",
+            "Die Beziehung zu Credit Suisse entwickelte sich ab Mitte der 2010er-Jahre. Innerhalb der Bank übernahm insbesondere das Asset Management eine zentrale Rolle. Credit Suisse wurde nicht nur Vertriebspartner, sondern auch ein entscheidender Wachstumstreiber für Greensill, indem sie den Zugang zu institutionellen Investoren ermöglichte.",
+            "Mit der Zeit entstand eine enge wirtschaftliche Verflechtung: Credit Suisse verwaltete Fonds, die fast ausschliesslich auf von Greensill strukturierte Forderungen setzten, vergab Kredite an Greensill selbst und unterstützte das Unternehmen bei strategischen Projekten wie einer geplanten Börsennotierung."
+          ]
+        },
+        {
+          "id": "supply-chain-finance",
+          "title": "Das Geschäftsmodell von Supply Chain Finance",
+          "paragraphs": [
+            "Supply Chain Finance ist grundsätzlich ein einfaches Konzept. Lieferanten stellen Rechnungen an grosse Unternehmen aus und erhalten ihr Geld früher, indem ein Finanzintermediär die Rechnung vorfinanziert. Investoren erhalten im Gegenzug eine Rendite, die aus der späteren Zahlung des Kunden entsteht.",
+            "Für Laien wichtig: In der klassischen Form basiert dieses Modell auf real existierenden, kurzfristigen Rechnungen von bonitätsstarken Unternehmen. Das Risiko gilt daher als begrenzt, solange die Schuldner zuverlässig zahlen.",
+            "Greensill ging jedoch einen Schritt weiter. Neben bestehenden Rechnungen finanzierte das Unternehmen zunehmend sogenannte „Future Receivables“ – also Umsätze, die erst in der Zukunft entstehen sollten. Wirtschaftlich ähnelten diese Konstrukte weniger klassischer Handelsfinanzierung und eher unbesicherten Unternehmenskrediten, was das Risiko deutlich erhöhte."
+          ]
+        },
+        {
+          "id": "fonds",
+          "title": "Die Supply-Chain-Finance-Fonds der Credit Suisse",
+          "paragraphs": [
+            "Ab 2017 lancierte Credit Suisse mehrere Supply-Chain-Finance-Fonds, die nahezu ausschliesslich in von Greensill arrangierte Forderungen investierten. Diese Fonds wuchsen rasch und verwalteten bis 2020 rund USD 10 Milliarden von etwa 1’200 professionellen Investoren.",
+            "Die Fonds wurden als liquide, risikoarme Produkte mit kurzer Laufzeit positioniert. Viele Investoren betrachteten sie als Alternative zu Geldmarktfonds. Tatsächlich hing das Risiko jedoch stark von der Qualität der zugrunde liegenden Forderungen, der Konzentration auf einzelne Schuldner und der fortlaufenden Gültigkeit von Kreditversicherungen ab.",
+            "Ein wesentlicher Teil der Forderungen war gegen Zahlungsausfall versichert. Diese Versicherungen vermittelten zusätzliche Sicherheit – allerdings nur solange sie tatsächlich bestanden und erneuert wurden."
+          ]
+        },
+        {
+          "id": "risiken",
+          "title": "Strukturelle Risiken und Warnsignale",
+          "paragraphs": [
+            "Mehrere Risikofaktoren verstärkten sich über die Zeit:",
+            "Ein zentrales Problem war die Konzentration auf wenige Schuldner, insbesondere auf die GFG Alliance. Ein erheblicher Teil der Fonds hing damit indirekt vom finanziellen Zustand eines einzelnen Industriekonglomerats ab.",
+            "Hinzu kam die starke Abhängigkeit von Kreditversicherern. Ein grosser Teil der wahrgenommenen Sicherheit basierte auf dem Versicherungsschutz. Fiel dieser weg, änderte sich das Risikoprofil der Fonds schlagartig.",
+            "Zudem verliess sich Credit Suisse in hohem Masse auf die Kreditprüfung durch Greensill selbst. Eigene, unabhängige Prüfungen waren begrenzt. Gleichzeitig bestanden Interessenkonflikte, da die Bank sowohl Fondsanbieter als auch Kreditgeber und strategischer Partner von Greensill war."
+          ]
+        },
+        {
+          "id": "zusammenbruch",
+          "title": "Der Zusammenbruch im Frühjahr 2021",
+          "paragraphs": [
+            "Anfang 2021 kam es zur entscheidenden Zäsur. Der wichtigste Kreditversicherer verlängerte den Versicherungsschutz für neue Forderungen nicht mehr. Gleichzeitig geriet der grösste Schuldner der Fonds, die GFG Alliance, zunehmend unter finanziellen Druck.",
+            "Ohne Versicherung und mit wachsenden Zweifeln an der Werthaltigkeit der Forderungen brach das Vertrauen in die Fonds abrupt zusammen. Am 1. März 2021 setzte Credit Suisse den Handel sämtlicher Supply-Chain-Finance-Fonds aus, um weitere Mittelabflüsse zu verhindern.",
+            "Nur wenige Tage später meldete Greensill Capital Insolvenz an. Damit wurde offensichtlich, dass ein grosser Teil der Fondsinvestitionen nicht kurzfristig liquidierbar war."
+          ]
+        },
+        {
+          "id": "rolle",
+          "title": "Rolle der Credit Suisse",
+          "paragraphs": [
+            "Credit Suisse spielte im Greensill-Fall mehrere Rollen gleichzeitig. Die Bank war Fondsanbieter, Vermögensverwalter, Vertriebspartner, Kreditgeber und strategischer Berater von Greensill.",
+            "Diese Mehrfachrolle führte zu erheblichen Interessenkonflikten. Interne Bedenken gegen die Vergabe eines Kredits an Greensill wurden überstimmt. Gleichzeitig blieb die Überwachung der Fondsrisiken fragmentiert, da Zuständigkeiten zwischen Geschäftsbereichen aufgeteilt waren.",
+            "Der Fall zeigte, dass formelle Prozesse vorhanden waren, deren Unabhängigkeit und Durchsetzungskraft jedoch unzureichend waren."
+          ]
+        },
+        {
+          "id": "folgen",
+          "title": "Folgen für Investoren, Markt und Management",
+          "paragraphs": [
+            "Rund USD 10 Milliarden an Fondsvermögen wurden eingefroren. Die Rückzahlung an Investoren zog sich über Jahre hin und war mit erheblicher Unsicherheit verbunden. Bis 2024 konnten zwar grosse Teile zurückgeführt werden, vollständige Klarheit bestand jedoch lange Zeit nicht.",
+            "Der Imageschaden für Credit Suisse war erheblich. Das Vertrauen in das Asset Management und in die Produktkontrolle der Bank wurde nachhaltig beschädigt. Mehrere Führungskräfte wurden freigestellt oder entlassen, und das Management leitete eine strategische Neuausrichtung ein."
+          ]
+        },
+        {
+          "id": "konsequenzen",
+          "title": "Regulatorische und rechtliche Konsequenzen",
+          "paragraphs": [
+            "Aufsichtsbehörden in mehreren Ländern untersuchten den Greensill-Fall. Die Schweizer FINMA stellte schwere Mängel in Organisation, Governance und Risikokontrolle fest und ordnete Korrekturmassnahmen an.",
+            "In Deutschland führte der Fall zur Insolvenz der Greensill Bank. In Grossbritannien und den USA wurden weitere Untersuchungen eingeleitet, insbesondere im Zusammenhang mit der GFG Alliance und möglichen Täuschungen von Investoren."
+          ]
+        },
+        {
+          "id": "fazit",
+          "title": "Fazit des Falls",
+          "paragraphs": [
+            "Der Greensill-Fall verdeutlicht, dass vermeintlich sichere Finanzprodukte erhebliche Risiken bergen können, wenn Transparenz, unabhängige Kontrolle und klare Verantwortlichkeiten fehlen. Delegierte Kreditprüfung, starke Konzentration und ungelöste Interessenkonflikte führten dazu, dass Risiken systematisch unterschätzt wurden.",
+            "Gemeinsam mit Archegos markierte Greensill einen Wendepunkt für Credit Suisse – und war ein zentraler Auslöser für den nachhaltigen Vertrauensverlust, der schliesslich in der Übernahme durch UBS mündete."
+          ]
+        }
+      ],
+      "timeline": {
+        "heading": "Wie sich die Ereignisse aufschaukelten",
+        "range": "2011 – 2024"
+      },
+      "timelineEntries": [
+        {
+          "year": "2011",
+          "title": "Gründung von Greensill Capital",
+          "description": "Das Unternehmen positioniert sich im Vereinigten Königreich als Spezialist für Supply Chain Finance mit dem Versprechen stabiler, kurzfristiger Erträge."
+        },
+        {
+          "year": "2014–2016",
+          "title": "Aufbau des Geschäftsmodells",
+          "description": "Greensill beginnt, Lieferantenrechnungen vorzufinanzieren und die Forderungen – abgesichert durch Kreditversicherungen – an Investoren weiterzugeben."
+        },
+        {
+          "year": "2016",
+          "title": "Beginn der Zusammenarbeit mit Credit Suisse",
+          "description": "Das Geschäftsmodell überzeugt das Asset Management der Bank, die Kooperation wird Schritt für Schritt ausgebaut."
+        },
+        {
+          "year": "2017",
+          "title": "Lancierung der Supply-Chain-Finance-Fonds",
+          "description": "Credit Suisse bringt Fonds auf den Markt, die fast ausschliesslich in Greensill-Forderungen investieren und als konservative Produkte gelten."
+        },
+        {
+          "year": "2018",
+          "title": "Einführung von Future Receivables",
+          "description": "Greensill finanziert zunehmend zukünftige Umsätze; das Risikoprofil verschiebt sich von Handelsfinanzierung hin zu Unternehmenskrediten."
+        },
+        {
+          "year": "2019",
+          "title": "Starkes Wachstum und Abhängigkeiten",
+          "description": "Die Fondsvolumen steigen, gleichzeitig nimmt die Konzentration auf wenige Schuldner – insbesondere die GFG Alliance – zu."
+        },
+        {
+          "year": "2020",
+          "title": "Warnsignale und Interessenkonflikte",
+          "description": "Das Risiko hängt von einzelnen Schuldnern und von Kreditversicherungen ab. Credit Suisse vereint mehrere Rollen, wodurch unabhängige Kontrolle erschwert wird."
+        },
+        {
+          "year": "Sep.–Nov. 2020",
+          "title": "Vertiefung der Beziehung",
+          "description": "Credit Suisse prüft eine Börsennotierung, vergibt einen Bridge Loan über rund USD 160 Mio. und überstimmt interne Bedenken."
+        },
+        {
+          "year": "Ende 2020",
+          "title": "Abhängigkeit von Versicherern",
+          "description": "Der Erfolg der Fonds hängt entscheidend von der fortlaufenden Erneuerung des Versicherungsschutzes ab."
+        },
+        {
+          "year": "Februar 2021",
+          "title": "Wegfall der Kreditversicherung",
+          "description": "Der wichtigste Versicherer verlängert die Deckung nicht mehr; zentrale Schuldner geraten unter Druck."
+        },
+        {
+          "year": "1. März 2021",
+          "title": "Einfrieren der Fonds",
+          "description": "Credit Suisse stoppt den Handel sämtlicher Supply-Chain-Finance-Fonds und friert rund USD 10 Milliarden Anlegergelder ein."
+        },
+        {
+          "year": "8. März 2021",
+          "title": "Insolvenz von Greensill",
+          "description": "Die Zahlungsunfähigkeit des Unternehmens macht klar, dass viele Forderungen illiquide oder umstritten sind."
+        },
+        {
+          "year": "März–April 2021",
+          "title": "Beginn der Liquidation",
+          "description": "Credit Suisse startet die Abwicklung der Fonds; Rückzahlungen gestalten sich langsam und komplex."
+        },
+        {
+          "year": "2021",
+          "title": "Konsequenzen innerhalb der Bank",
+          "description": "Der Vertrauensverlust führt zu personellen Konsequenzen und zu Anpassungen in der Produktgovernance."
+        },
+        {
+          "year": "2021–2023",
+          "title": "Aufsichtliche Untersuchungen",
+          "description": "Behörden in der Schweiz, Deutschland und Grossbritannien stellen schwere Mängel fest und ordnen Massnahmen an."
+        },
+        {
+          "year": "2024",
+          "title": "Teilweise Rückzahlungen",
+          "description": "Ein Grossteil der eingefrorenen Gelder wird zurückgeführt, doch nicht alle Investoren erhalten vollständigen Ausgleich."
+        }
+      ],
+      "reference": {
+        "title": "The Fall of Credit Suisse",
+        "lines": [
+          "How Governance and Risk Management Failures led to the Collapse: A Case Study of Archegos and Greensill",
+          "Bachelor Thesis",
+          "Autor: Alex Büschlen",
+          "Studiengang: International Business Administration",
+          "Semester: 6. Semester",
+          "Betreuer: Prof. Dr. Raúl Diego Gimeno",
+          "Datum: 21.05.2025"
+        ]
+      },
+      "cta": "Zur Archegos-Analyse"
+    }
+  },
+  "organigram": {
+    "eyebrow": "Organigramm-Insights",
+    "addYourselfHeading": "Füge dich dem Organigramm hinzu",
+    "alreadyRegistered": "Du bist bereits im Organigramm eingetragen.",
+    "departmentLabel": "Abteilung",
+    "departmentPlaceholder": "Gib deine Abteilung ein",
+    "error": "Beim Speichern ist ein Fehler aufgetreten. Bitte versuche es erneut.",
+    "deleteAdminLabel": "Eintrag entfernen",
+    "deleteConfirm": "Diesen Eintrag aus dem Organigramm entfernen?",
+    "deleteError": "Eintrag konnte nicht entfernt werden.",
+    "deleteHeading": "Einträge verwalten",
+    "deleteSelectPlaceholder": "Person auswählen",
+    "deleteSelfLabel": "Meinen Eintrag entfernen",
+    "deleteSuccess": "Eintrag entfernt.",
+    "functionLabel": "Funktion",
+    "functionPlaceholder": "Wie lautet deine Rolle?",
+    "intro": "Auf dieser Seite findest du die aktuellen Organisationsstrukturen. Du kannst dich ausserdem selbst in die passende Division eintragen, damit andere dich schneller finden.",
+    "loginPrompt": "Melde dich an, um dich selbst einzutragen.",
+    "parentLabel": "Übergeordnete Division",
+    "submitLabel": "Eintrag senden",
+    "success": "Dein Eintrag wurde erstellt und erscheint nun im Organigramm.",
+    "nameLabel": "Name",
+    "photoLabel": "Foto",
+    "descriptionLabel": "Beschreibung",
+    "descriptionPlaceholder": "Optionaler Kontext oder Kurzbeschreibung (max. 500 Zeichen)",
+    "createTitle": "Organigramm-Eintrag erstellen",
+    "parentNone": "Kein Elternknoten (oberste Ebene)",
+    "saveLabel": "Änderungen speichern",
+    "cancelLabel": "Schliessen",
+    "editLabel": "Bearbeiten",
+    "viewDetails": "Eintragsdetails",
+    "cycleError": "Die gewählte Überordnung würde einen Kreis erzeugen. Bitte anderen Elternknoten wählen.",
+    "uploadLabel": "Hochladen"
+  },
+  "userEdit": {
+    "aktualisierungFehlgeschlagen": "Aktualisierung fehlgeschlagen",
+    "benutzername": "Benutzername",
+    "bildHochladen": "Bild hochladen",
+    "bio": "Bio",
+    "bioZuLang": "Die Bio darf maximal {limit} Zeichen enthalten.",
+    "eyebrow": "Profil",
+    "keinBild": "Kein Bild",
+    "keineBerechtigung": "Keine Berechtigung",
+    "neuesPasswort": "Neues Passwort",
+    "nichtAngemelddet": "Nicht angemeldet",
+    "passwortAnzeigen": "Passwort anzeigen",
+    "passwortVerbergen": "Passwort verbergen",
+    "profilAktualisiert": "Profil aktualisiert!",
+    "profilBearbeiten": "Profil bearbeiten",
+    "profilbild": "Profilbild",
+    "profileImagePreviewAlt": "Profilbild-Vorschau",
+    "speichere": "Speichere",
+    "überDich": "Über dich",
+    "usernamePlaceholder": "Benutzername",
+    "usernameOderEmailBereitsVergeben": "Username oder E-Mail ist bereits vergeben"
+  },
+  "user": {
+    "accountDeleted": "Account gelöscht.",
+    "accountDeleteFailed": "Account konnte nicht gelöscht werden.",
+    "deleteAccountButton": "Account löschen",
+    "deleteAccountConfirm": "Diesen Account löschen? Dadurch werden Beiträge, Kommentare und der Organigramm-Eintrag entfernt.",
+    "directoryEyebrow": "Verzeichnis",
+    "directoryLead": "Durchstöbere Mitwirkende und öffne ihre öffentlichen Profile.",
+    "directoryTitle": "Nutzer",
+    "email": "Email",
+    "fallbackName": "Nutzer",
+    "keineBerechtigung": "Keine Berechtigung.",
+    "keineBioHinterlegt": "Keine Bio hinterlegt",
+    "mitgliedSeit": "Mitglied seit",
+    "profil": "Profil",
+    "profileImageAlt": "Profilbild",
+    "profilAktualisieren": "Profil aktualisieren"
+  }
+}
