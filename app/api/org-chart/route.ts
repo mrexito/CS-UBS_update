@@ -78,8 +78,8 @@ export async function POST(req: Request) {
     },
   });
 
-  revalidatePath(`${localePrefix}/organigram`);
-  revalidateTag(ORG_CHART_TAG);
+  revalidatePath(`${localePrefix}/organigram`,"page");
+  revalidateTag(ORG_CHART_TAG,"page");
 
   return NextResponse.json(created, { status: 201 });
 }
@@ -116,7 +116,7 @@ export async function DELETE(req: Request) {
   const locale = url.searchParams.get("locale") ?? "";
   const localePrefix = locale ? `/${locale}` : "/";
   revalidatePath(`${localePrefix}/organigram`);
-  revalidateTag(ORG_CHART_TAG);
+  revalidateTag(ORG_CHART_TAG,"page");
   return NextResponse.json({ ok: true }, { status: 200 });
 }
 
@@ -169,6 +169,6 @@ export async function PATCH(req: Request) {
   });
 
   revalidatePath(`${localePrefix}/organigram`);
-  revalidateTag(ORG_CHART_TAG);
+  revalidateTag(ORG_CHART_TAG,"page");
   return NextResponse.json(updated);
 }

@@ -188,14 +188,14 @@ export async function deleteBlogAction(locale: string, blogId: string): Promise<
 }
 
 async function revalidateBlogRoutes(locale: string, postId: string, authorId: string) {
-	revalidateTag(BLOG_LIST_TAG);
-	revalidateTag(blogDetailTag(postId));
+	revalidateTag(BLOG_LIST_TAG,"page");
+	revalidateTag(blogDetailTag(postId),"page");
 	if (authorId) {
-		revalidateTag(userBlogsTag(authorId));
+		revalidateTag(userBlogsTag(authorId),"page");
 	}
-	revalidatePath(`/${locale}/blogs`);
-	revalidatePath(`/${locale}/blogs/${postId}`);
-	revalidatePath(`/${locale}/users/${authorId}`);
+	revalidatePath(`/${locale}/blogs`,"page");
+	revalidatePath(`/${locale}/blogs/${postId}`,"page");
+	revalidatePath(`/${locale}/users/${authorId}`,"page");
 }
 
 export async function toggleReactionAction(

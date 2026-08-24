@@ -42,11 +42,11 @@ export async function deleteUserAction(locale: string, userId: string): Promise<
 
     const localePrefix = locale ? `/${locale}` : "";
 
-    revalidateTag(BLOG_LIST_TAG);
-    blogIds.forEach((id) => revalidateTag(blogDetailTag(id)));
-    revalidateTag(userBlogsTag(userId));
-    revalidatePath(`${localePrefix}/blogs`);
-    revalidatePath(`${localePrefix}/users`);
+    revalidateTag(BLOG_LIST_TAG,"page");
+    blogIds.forEach((id) => revalidateTag(blogDetailTag(id),"page"));
+    revalidateTag(userBlogsTag(userId),"page");
+    revalidatePath(`${localePrefix}/blogs`,"page");
+    revalidatePath(`${localePrefix}/users`,"page");
 
     return {
       success: t("accountDeleted"),
