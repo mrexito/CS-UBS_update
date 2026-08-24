@@ -7,6 +7,10 @@ import { PageSection } from "@/components/layout/PageSection";
 import type { Metadata } from "next";
 import { buildAlternates, defaultDescription, defaultOgImage, siteName } from "@/lib/seo";
 
+// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+ 
+
 type PageProps = { params: Promise<{ locale: string }> };
 
 // =========================

@@ -9,6 +9,10 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { PageSection } from "@/components/layout/PageSection";
 
+// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+ 
+
 type PageProps = { params: Promise<{ locale: string }>; searchParams: Promise<{ auth?: string; callbackUrl?: string }> };
 
 const LoginPage = async ({ params, searchParams }: PageProps) => {

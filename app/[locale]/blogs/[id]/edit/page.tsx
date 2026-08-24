@@ -8,6 +8,10 @@ import { PageSection } from "@/components/layout/PageSection";
 import { getTranslations } from "next-intl/server";
 import DeleteBlogButton from "@/components/blog/DeleteBlogButton";
 
+// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+ 
+
 // Server-rendered edit page that preloads existing content into the editor.
 type PageProps = { params: Promise<{ locale: string; id: string }> };
 
