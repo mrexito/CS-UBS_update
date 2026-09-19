@@ -30,6 +30,7 @@
     "cloudinary": "^2.10.1",
     "d3": "^7.9.0",
     "d3-org-chart": "^3.1.1",
+    "fuse.js": "^7.5.0",
     "i18nexus-cli": "^3.8.2",
     "jsonwebtoken": "^9.0.3",
     "mongodb": "^7.5.0",
