@@ -186,7 +186,7 @@ Die bestehenden Keys `navbar.searchLabel`/`navbar.searchPlaceholder` bleiben unv
 - [x] **D2** Ergebnis-Dropdown mit Kategorie-Badges, Hervorhebung, Leer-/Lade-/Kein-Treffer-Zuständen
 - [x] **D3** Tastaturnavigation + ARIA-Combobox/Listbox-Muster
 - [x] **D4** Einbindung in `navbar.tsx` anstelle des bisherigen `<input>`
-- [ ] **E1** `OrganigramClient.tsx`: `?node=<id>` auslesen und Eintrag automatisch öffnen
+- [x] **E1** `OrganigramClient.tsx`: `?node=<id>` auslesen und Eintrag automatisch öffnen
 - [x] **F1** Neue i18n-Keys (`search`-Namespace) in allen 5 Sprachdateien ergänzen und übersetzen (vorgezogen, da die Komponente ohne sie nicht lauffähig ist)
 - [ ] **G1** Manuelle Tests im Dev-Server (siehe Testplan)
 - [ ] **G2** `npm run lint` und TypeScript-Check ohne neue Fehler
@@ -202,10 +202,10 @@ Die bestehenden Keys `navbar.searchLabel`/`navbar.searchPlaceholder` bleiben unv
 
 - **Blog-Tags**: Das Feld `tags` existiert im Schema, wird aber von keinem bestehenden Formular befüllt. Die Suche berücksichtigt es bereits, liefert dort aber vorerst keine Treffer – bewusst ausserhalb des Scopes dieser Ausschreibung (mit Auftraggeber abgestimmt).
 - **In-Memory-Suche**: Bei der aktuellen Datenmenge (rund 37 Dokumente: 21 Fall-Dokumente je Sprache, 5 Blogbeiträge, 11 Organigramm-Einträge) mit 3–5 ms je Anfrage deutlich schnell genug. Bei deutlichem Wachstum (z. B. tausende Blogbeiträge) sollte auf datenbankseitige Indizierung (MongoDB Atlas Search) umgestellt werden.
-- **Organigramm-Deep-Link**: Öffnet das passende Detail-Modal, zentriert den Baum aber nicht automatisch auf den Knoten (aus Aufwandsgründen nicht Teil des Scopes) – bei Bedarf später über die d3-org-chart-API nachrüstbar.
+- **Organigramm-Detailansicht ist kein echtes Vollbild-Overlay** (bestehender Fehler, nicht durch diese Arbeit verursacht): Das Panel nutzt `fixed inset-0`, liegt aber im Wrapper `animate-fade-up` aus `app/[locale]/organigram/page.tsx`. Dessen CSS-Transform erzeugt einen Containing Block, wodurch sich `fixed` auf diesen Container statt auf das Browserfenster bezieht (gemessen: 1200x1004 ab y=413 statt 1440x900 ab y=0). Betrifft auch normale Klicks im Diagramm. Die Suche umgeht das, indem sie die Detailansicht nach einem Deep-Link in den Sichtbereich scrollt. Sauber waere, das Panel wie `components/ui/confirm-dialog.tsx` per `createPortal` auszulagern - das veraendert aber das Verhalten bestehender Klicks und gehoert in ein eigenes Arbeitspaket.
 - **Fälle-Slugs**: Es existiert weiterhin keine zentrale Registry der Fallstudien (an 4 Stellen hart codiert: Navbar, Footer, Sitemap, Startseite); die Suche führt dafür lediglich eine eigene, minimale Konstante ein, behebt die bestehende Duplizierung aber nicht (separates Aufräumthema, ausserhalb des Scopes).
 - **i18nexus**: `messages/*.json` werden laut `package.json` (`i18n:pull`) unter Umständen über den i18nexus-Dienst verwaltet. Neu ergänzte `search`-Keys sollten dort nachgezogen werden, damit sie bei einem künftigen Pull nicht überschrieben werden.
-- `**npm run lint` und `ts-node` sind derzeit projektweit defekt\*\* (bereits vor dieser Arbeit, durch das Upgrade auf TypeScript 7): `typescript-eslint` unterstützt TS 7.0 noch nicht (`Error: typescript-eslint does not support TS 7.0`), dieselbe Ursache legt auch das Script `create:admin` lahm. Als Qualitätssicherung dient deshalb `npx tsc --noEmit` (läuft fehlerfrei) zusammen mit den manuellen Tests. Sobald `typescript-eslint` TS 7 unterstützt bzw. auf TS 6 zurückgegangen wird, sollte Aufgabe G2 nachgeholt werden.
+- `**npm run lint` und `ts-node` sind derzeit projektweit defekt (bereits vor dieser Arbeit, durch das Upgrade auf TypeScript 7): `typescript-eslint` unterstützt TS 7.0 noch nicht (`Error: typescript-eslint does not support TS 7.0`), dieselbe Ursache legt auch das Script `create:admin` lahm. Als Qualitätssicherung dient deshalb `npx tsc --noEmit` (läuft fehlerfrei) zusammen mit den manuellen Tests. Sobald `typescript-eslint` TS 7 unterstützt bzw. auf TS 6 zurückgegangen wird, sollte Aufgabe G2 nachgeholt werden.
 
 ## 8. Testplan (manuell, da kein automatisierter Testlauf vorhanden ist)
 
@@ -276,7 +276,7 @@ Auswirkung auf die Suche: Das Ergebnis-Dropdown war zunächst vollständig durch
 
 **Empfehlung als eigenes Arbeitspaket**: `@config "../../tailwind.config.ts";` in `app/[locale]/globals.css` ergänzen. Das würde die Token-Klassen projektweit reaktivieren – verändert aber das Erscheinungsbild vieler bestehender Seiten und gehört deshalb nicht in diese Ausschreibung.
 
-**Noch offen (Aufgabe E1)**: Organigramm-Treffer verlinken bereits korrekt auf `/organigram?node=<id>`; der Parameter wird von `OrganigramClient.tsx` aber noch nicht ausgewertet, das Detail-Modal öffnet sich also noch nicht automatisch.
+**Nachgetragen in E1**: Organigramm-Treffer verlinken auf `/organigram?node=<id>`; die Auswertung des Parameters ist inzwischen umgesetzt (siehe Notizen E1).
 
 ### **D1–D4**
 
@@ -289,3 +289,13 @@ Auswirkung auf die Suche: Das Ergebnis-Dropdown war zunächst vollständig durch
 **3. E1 fehlt noch:** Organigramm-Treffer verlinken bereits korrekt auf `/organigram?node=<id>`, aber `OrganigramClient.tsx` wertet den Parameter noch nicht aus – das Detail-Modal öffnet sich also noch nicht automatisch.
 
 Die Testprozesse habe ich beendet, dein Nuxt-Server auf Port 3000 blieb unberührt. Weiter mit E1?
+
+### E1:
+
+**1. Der Query-Parameter wird nach dem Öffnen aus der URL entfernt.** Sonst liesse sich derselbe Treffer kein zweites Mal ansteuern: Bliebe die URL gleich, würde ein erneuter Klick keine Navigation auslösen und der Eintrag sich nach dem Schliessen nicht wieder öffnen.
+
+**2. Zwischenspeicher für den Fall, dass der Deep-Link zu früh kommt.** Das Diagramm wird dynamisch nachgeladen; trifft der Link vorher ein, wird die Knoten-ID gemerkt und direkt nach dem ersten Rendern angewendet.
+
+**3. Noch ein bestehender Fehler gefunden.** Die Detailansicht nutzt `fixed inset-0`, liegt aber im Wrapper `animate-fade-up` aus `page.tsx`. Dessen CSS-Transform erzeugt einen Containing Block, wodurch sich `fixed` auf diesen Container statt aufs Browserfenster bezieht – gemessen 1200×1004 ab y=413 statt 1440×900 ab y=0. Das betrifft auch normale Klicks im Diagramm, nicht nur die Suche. Konkret hiess das: Nach einem Deep-Link landete man oben auf der Seite, während die geöffnete Detailansicht weit unten ausserhalb des Sichtbereichs lag. Ich habe das für den Deep-Link-Fall mit einem gezielten Scroll gelöst. Die saubere Lösung wäre, das Panel wie `confirm-dialog.tsx` per `createPortal` auszulagern – das ändert aber das Verhalten bestehender Klicks, deshalb habe ich es als eigenes Arbeitspaket dokumentiert.
+
+Damit sind A1–F1 erledigt. Offen bleiben nur noch **G1–G3** (manuelle Abnahme, Lint/Typecheck, Doku finalisieren) – wobei `npm run lint` wegen der TypeScript-7-Inkompatibilität weiterhin projektweit nicht läuft.

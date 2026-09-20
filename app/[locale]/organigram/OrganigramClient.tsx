@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { z } from "zod";
 import { CldUploadWidget } from "next-cloudinary";
 import type { CloudinaryUploadWidgetResults } from "next-cloudinary";
@@ -120,6 +120,7 @@ export default function OrganigramClient({
   currentUserId,
 }: Props) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [nodes, setNodes] = useState<OrgChartEntry[]>(initialNodes);
   const [formState, setFormState] = useState<FormState>(() => ({
     name: "",
@@ -164,6 +165,10 @@ export default function OrganigramClient({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const chartRef = useRef<OrgChartType<ChartNode> | null>(null);
   const localeRef = useRef(locale);
+  // Der Deep-Link kann eintreffen, bevor das Diagramm geladen ist.
+  const pendingFocusRef = useRef<string | null>(null);
+  const detailsRef = useRef<HTMLDivElement | null>(null);
+  const scrollToDetailsRef = useRef(false);
 
   useEffect(() => {
     localeRef.current = locale;
@@ -218,6 +223,39 @@ export default function OrganigramClient({
 
   const personNodes = useMemo(() => formattedNodes.filter((node) => node.nodeType === "PERSON"), [formattedNodes]);
   const nodeById = useMemo(() => new Map(formattedNodes.map((n) => [n.id, n])), [formattedNodes]);
+
+  const focusChartOnNode = (nodeId: string) => {
+    const chart = chartRef.current;
+    if (!chart) {
+      pendingFocusRef.current = nodeId;
+      return;
+    }
+    pendingFocusRef.current = null;
+    chart.setCentered(nodeId).setHighlighted(nodeId).render();
+  };
+
+  // Suchtreffer verlinken auf /organigram?node=<id> und öffnen den Eintrag direkt.
+  useEffect(() => {
+    const requestedNodeId = searchParams.get("node");
+    if (!requestedNodeId || !nodeById.has(requestedNodeId)) return;
+
+    setSelectedNodeId(requestedNodeId);
+    setEditState(null);
+    scrollToDetailsRef.current = true;
+    focusChartOnNode(requestedNodeId);
+
+    // Parameter entfernen, damit derselbe Treffer erneut angesteuert werden kann.
+    window.history.replaceState(null, "", window.location.pathname);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams, nodeById]);
+
+  // Die Detailansicht liegt innerhalb eines animierten Containers und damit nicht
+  // zwingend im sichtbaren Bereich, wenn man über einen Deep-Link hier landet.
+  useEffect(() => {
+    if (!scrollToDetailsRef.current || !detailsRef.current) return;
+    scrollToDetailsRef.current = false;
+    detailsRef.current.scrollIntoView({ block: "center" });
+  }, [selectedNodeId]);
 
   const isDescendant = (candidateParentId: string | null | undefined, nodeId: string) => {
     if (!candidateParentId) return false;
@@ -303,6 +341,8 @@ export default function OrganigramClient({
           .render()
           .expandAll()
           .fit({ animate: false });
+
+        if (pendingFocusRef.current) focusChartOnNode(pendingFocusRef.current);
       } catch (error) {
         console.error("Failed to load org chart library", error);
       }
@@ -675,7 +715,7 @@ export default function OrganigramClient({
       </div>
 
       {selectedNode && (
-        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 p-4">
+        <div ref={detailsRef} className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 p-4">
           <div className="w-full max-w-md rounded-2xl border border-border bg-[hsl(var(--bg))] p-6 shadow-2xl dark:bg-surface">
             <div className="flex items-start justify-between gap-3">
               <div>

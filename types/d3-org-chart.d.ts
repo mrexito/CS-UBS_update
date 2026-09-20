@@ -16,6 +16,8 @@ declare module "d3-org-chart" {
     onNodeClick(handler: (node: { data: TNode }) => void): this;
     data(nodes: TNode[]): this;
     expandAll(): this;
+    setCentered(nodeId: string): this;
+    setHighlighted(nodeId: string): this;
     fit(options?: { animate?: boolean; nodes?: unknown[]; scale?: boolean }): this;
     render(): this;
     destroy?(): void;
