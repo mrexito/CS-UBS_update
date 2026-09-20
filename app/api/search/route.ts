@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { routing } from "@/i18n/routing";
-import { MAX_QUERY_LENGTH, searchContent } from "@/lib/search/searchEngine";
+import { MAX_QUERY_LENGTH } from "@/lib/search/constants";
+import { searchContent } from "@/lib/search/searchEngine";
 import type { SearchResponse } from "@/lib/search/types";
 
 const searchParamsSchema = z.object({

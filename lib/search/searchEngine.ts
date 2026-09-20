@@ -1,9 +1,7 @@
 import Fuse, { type FuseResult, type IFuseOptions } from "fuse.js";
+import { MIN_QUERY_LENGTH } from "./constants";
 import { collectSearchDocuments } from "./providers";
 import type { MatchRange, SearchDocument, SearchResultDTO } from "./types";
-
-export const MIN_QUERY_LENGTH = 2;
-export const MAX_QUERY_LENGTH = 100;
 
 const RESULT_LIMIT = 8;
 /** Verhindert, dass ein einzelner Bereich (z. B. die vielen Fall-Abschnitte) die Liste belegt. */

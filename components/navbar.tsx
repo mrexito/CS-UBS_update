@@ -10,6 +10,7 @@ import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { usePathname } from "next/navigation";
 import { Button, buttonClassNames } from "@/components/ui/button";
 import { PageSection } from "@/components/layout/PageSection";
+import { SearchBox } from "@/components/search/SearchBox";
 import { useTheme } from "@/components/theme/ThemeProvider";
 
 const Navbar = () => {
@@ -77,29 +78,7 @@ const Navbar = () => {
             </div>
           </Link>
 
-          <form role="search" className="w-full flex-1 min-w-0 md:max-w-xl lg:max-w-2xl">
-            <label htmlFor="site-search" className="sr-only">
-              {t("searchLabel")}
-            </label>
-            <div className="flex items-center gap-2 rounded-full border border-border/80 bg-surface-2 px-4 py-2 text-sm text-muted shadow-sm focus-within:border-primary focus-within:text-text">
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden className="text-muted">
-                <path
-                  d="M13.5 12.5l4 4m-1.5-7a6 6 0 11-12 0 6 6 0 0112 0z"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <input
-                id="site-search"
-                type="search"
-                placeholder={t("searchPlaceholder")}
-                className="w-full bg-transparent text-sm text-text placeholder:text-muted focus:outline-none"
-                aria-label={t("searchLabel")}
-              />
-            </div>
-          </form>
+          <SearchBox />
 
           <div className="flex flex-wrap items-center justify-end gap-3 text-sm font-medium text-muted">
             {status === "loading" ? (

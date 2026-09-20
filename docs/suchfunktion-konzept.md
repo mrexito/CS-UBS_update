@@ -39,6 +39,7 @@ Die drei Inhaltsbereiche sind strukturell sehr unterschiedlich (statische i18n-T
 ```
 lib/search/
   types.ts               # SearchDocument, SearchResultDTO, SearchProvider
+  constants.ts            # MIN/MAX_QUERY_LENGTH, Debounce – importfrei, client-sicher
   textUtils.ts            # stripHtml() auf Basis von sanitize-html (bereits Abhängigkeit)
   searchEngine.ts          # Fuse.js-Konfiguration, Merge + Suche, Mapping auf SearchResultDTO
   providers/
@@ -49,9 +50,13 @@ lib/search/
 app/api/search/route.ts     # GET-Handler, Zod-Validierung, analog app/api/org-chart/route.ts
 components/search/
   SearchBox.tsx             # ersetzt das <input> in navbar.tsx
-  useDebouncedSearch.ts      # kleiner Hook: Debounce + fetch + AbortController
-  highlight.tsx             # Hilfsfunktion zum Hervorheben von Treffer-Indizes
+  useSiteSearch.ts           # Hook: Debounce + fetch + AbortController
+  HighlightedText.tsx        # hebt Treffer-Indizes mit <mark> hervor
 ```
+
+> `constants.ts` ist bewusst frei von Importen: Die Client-Komponente braucht die Mindestlänge,
+> darf aber nicht `searchEngine.ts` importieren – sonst landeten Fuse.js und die Prisma-Provider
+> im Browser-Bundle.
 
 > Abweichung gegenüber dem ursprünglichen Entwurf: Die Blog-Projektionsquery liegt direkt in
 > `providers/blogs.ts` statt in einer eigenen Datei `lib/blogSearchProjection.ts` – sie wird
@@ -94,7 +99,7 @@ export type SearchProvider = (locale: string) => Promise<SearchDocument[]>;
 
 Zwei bewusste Verfeinerungen gegenüber dem ersten Entwurf:
 
-- `**body` statt `snippet` im Dokument\*\*: Das Matching braucht den vollständigen Text, die Anzeige
+- `**body` statt `snippet` im Dokument: Das Matching braucht den vollständigen Text, die Anzeige
   dagegen einen kurzen Ausschnitt. Würde man beides im selben Feld führen, würden die von Fuse.js
   gelieferten Trefferpositionen nicht mehr zum gekürzten Anzeigetext passen. Das Kürzen samt
   Umrechnung der Positionen passiert deshalb erst beim Mapping auf `SearchResultDTO` (Aufgabe C1).
@@ -177,12 +182,12 @@ Die bestehenden Keys `navbar.searchLabel`/`navbar.searchPlaceholder` bleiben unv
 - [x] **B3** Organigramm-Provider: bestehende `getOrgChartEntries()` auf Suchdokumente abbilden
 - [x] **C1** Fuse.js-Suchlogik (Gewichtung, Schwellenwert, Highlighting-Mapping) in `lib/search/searchEngine.ts`
 - [x] **C2** API-Route `GET /api/search` mit Zod-Validierung und Mindestlängen-Kurzschluss
-- [ ] **D1** `components/search/SearchBox.tsx`: State, Debounce, Fetch mit Abbruch
-- [ ] **D2** Ergebnis-Dropdown mit Kategorie-Badges, Hervorhebung, Leer-/Lade-/Kein-Treffer-Zuständen
-- [ ] **D3** Tastaturnavigation + ARIA-Combobox/Listbox-Muster
-- [ ] **D4** Einbindung in `navbar.tsx` anstelle des bisherigen `<input>`
+- [x] **D1** `components/search/SearchBox.tsx`: State, Debounce, Fetch mit Abbruch
+- [x] **D2** Ergebnis-Dropdown mit Kategorie-Badges, Hervorhebung, Leer-/Lade-/Kein-Treffer-Zuständen
+- [x] **D3** Tastaturnavigation + ARIA-Combobox/Listbox-Muster
+- [x] **D4** Einbindung in `navbar.tsx` anstelle des bisherigen `<input>`
 - [ ] **E1** `OrganigramClient.tsx`: `?node=<id>` auslesen und Eintrag automatisch öffnen
-- [ ] **F1** Neue i18n-Keys (`search`-Namespace) in allen 5 Sprachdateien ergänzen und übersetzen
+- [x] **F1** Neue i18n-Keys (`search`-Namespace) in allen 5 Sprachdateien ergänzen und übersetzen (vorgezogen, da die Komponente ohne sie nicht lauffähig ist)
 - [ ] **G1** Manuelle Tests im Dev-Server (siehe Testplan)
 - [ ] **G2** `npm run lint` und TypeScript-Check ohne neue Fehler
 - [ ] **G3** Diese Dokumentation bei Bedarf finalisieren/ergänzen
@@ -200,7 +205,7 @@ Die bestehenden Keys `navbar.searchLabel`/`navbar.searchPlaceholder` bleiben unv
 - **Organigramm-Deep-Link**: Öffnet das passende Detail-Modal, zentriert den Baum aber nicht automatisch auf den Knoten (aus Aufwandsgründen nicht Teil des Scopes) – bei Bedarf später über die d3-org-chart-API nachrüstbar.
 - **Fälle-Slugs**: Es existiert weiterhin keine zentrale Registry der Fallstudien (an 4 Stellen hart codiert: Navbar, Footer, Sitemap, Startseite); die Suche führt dafür lediglich eine eigene, minimale Konstante ein, behebt die bestehende Duplizierung aber nicht (separates Aufräumthema, ausserhalb des Scopes).
 - **i18nexus**: `messages/*.json` werden laut `package.json` (`i18n:pull`) unter Umständen über den i18nexus-Dienst verwaltet. Neu ergänzte `search`-Keys sollten dort nachgezogen werden, damit sie bei einem künftigen Pull nicht überschrieben werden.
-- **`npm run lint` und `ts-node` sind derzeit projektweit defekt** (bereits vor dieser Arbeit, durch das Upgrade auf TypeScript 7): `typescript-eslint` unterstützt TS 7.0 noch nicht (`Error: typescript-eslint does not support TS 7.0`), dieselbe Ursache legt auch das Script `create:admin` lahm. Als Qualitätssicherung dient deshalb `npx tsc --noEmit` (läuft fehlerfrei) zusammen mit den manuellen Tests. Sobald `typescript-eslint` TS 7 unterstützt bzw. auf TS 6 zurückgegangen wird, sollte Aufgabe G2 nachgeholt werden.
+- `**npm run lint` und `ts-node` sind derzeit projektweit defekt\*\* (bereits vor dieser Arbeit, durch das Upgrade auf TypeScript 7): `typescript-eslint` unterstützt TS 7.0 noch nicht (`Error: typescript-eslint does not support TS 7.0`), dieselbe Ursache legt auch das Script `create:admin` lahm. Als Qualitätssicherung dient deshalb `npx tsc --noEmit` (läuft fehlerfrei) zusammen mit den manuellen Tests. Sobald `typescript-eslint` TS 7 unterstützt bzw. auf TS 6 zurückgegangen wird, sollte Aufgabe G2 nachgeholt werden.
 
 ## 8. Testplan (manuell, da kein automatisierter Testlauf vorhanden ist)
 
@@ -229,23 +234,58 @@ Die API-Route wurde im Dev-Server gegen die echte Datenbank getestet (22 Request
 
 **Verifizierte Fälle**
 
-| Szenario | Eingabe | Ergebnis |
-| --- | --- | --- |
-| Fall-Abschnitt (de) | `Warnsignale` | Treffer u. a. `/greensill#risiken` und `/archegos#warnsignale`, Hervorhebungsposition im Titel exakt auf dem Wort |
-| Sprachabhängigkeit | `collapse` in de / en / fr | nur Englisch liefert die Fall-Treffer mit englischen Titeln; Deutsch und Französisch greifen erwartungsgemäss nicht auf englischen Text zu |
-| Blog | `Transformation` | `/blogs/695bea1a…`, Snippet aus dem HTML-Inhalt sauber als reiner Text |
-| Organigramm | `Investment Bank` | `/organigram?node=…`, Score 0.000 (exakter Treffer) |
-| Tippfehler | `Archegoz` | findet weiterhin die Archegos-Abschnitte |
-| Bereichsmischung | `Transformation` | Blog- und Organigramm-Treffer erscheinen gemeinsam in einer Liste |
-| Kein Treffer | `xyzxyz123` | `200` mit leerer Liste |
-| Zu kurz / leer | `a` bzw. `` | `200` mit leerer Liste, kein Suchlauf |
-| Ungültige Sprache | `locale=xx` | `400` mit Zod-Fehlermeldung |
-| Zu lange Eingabe | 150 Zeichen | `400` |
-| Ohne `locale` | – | Fallback auf Deutsch, liefert Treffer |
-| Injection-Versuch | `{"$ne":null}` | `200` mit leerer Liste – der Ausdruck erreicht nie eine Datenbankabfrage |
+| Szenario            | Eingabe                    | Ergebnis                                                                                                                                   |
+| ------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Fall-Abschnitt (de) | `Warnsignale`              | Treffer u. a. `/greensill#risiken` und `/archegos#warnsignale`, Hervorhebungsposition im Titel exakt auf dem Wort                          |
+| Sprachabhängigkeit  | `collapse` in de / en / fr | nur Englisch liefert die Fall-Treffer mit englischen Titeln; Deutsch und Französisch greifen erwartungsgemäss nicht auf englischen Text zu |
+| Blog                | `Transformation`           | `/blogs/695bea1a…`, Snippet aus dem HTML-Inhalt sauber als reiner Text                                                                     |
+| Organigramm         | `Investment Bank`          | `/organigram?node=…`, Score 0.000 (exakter Treffer)                                                                                        |
+| Tippfehler          | `Archegoz`                 | findet weiterhin die Archegos-Abschnitte                                                                                                   |
+| Bereichsmischung    | `Transformation`           | Blog- und Organigramm-Treffer erscheinen gemeinsam in einer Liste                                                                          |
+| Kein Treffer        | `xyzxyz123`                | `200` mit leerer Liste                                                                                                                     |
+| Zu kurz / leer      | `a` bzw. ``                | `200` mit leerer Liste, kein Suchlauf                                                                                                      |
+| Ungültige Sprache   | `locale=xx`                | `400` mit Zod-Fehlermeldung                                                                                                                |
+| Zu lange Eingabe    | 150 Zeichen                | `400`                                                                                                                                      |
+| Ohne `locale`       | –                          | Fallback auf Deutsch, liefert Treffer                                                                                                      |
+| Injection-Versuch   | `{"$ne":null}`             | `200` mit leerer Liste – der Ausdruck erreicht nie eine Datenbankabfrage                                                                   |
 
 **Antwortzeiten**: warm 3.6–5.3 ms je Anfrage (erster Aufruf 1.4 s durch Kaltstart von Modulen, Datenbankverbindung und Cache-Aufbau). Die Anforderung „keine spürbaren Verzögerungen" ist damit serverseitig erfüllt.
 
 **Erkenntnis aus dem Test**: Ohne die Begrenzung je Bereich belegten die 19 Fall-Abschnitte die Trefferliste nahezu vollständig. Die Regel „höchstens 4 je Bereich, danach nach Relevanz auffüllen" wurde deshalb eingeführt.
 
 **Kein Fehler, sondern Quelldaten**: In einem Blog-Snippet erscheint `werden.Besonders` ohne Leerzeichen. Eine Prüfung des Rohinhalts hat gezeigt, dass das Leerzeichen bereits im gespeicherten Beitrag fehlt – die Textaufbereitung arbeitet korrekt.
+
+### Notizen D1-D4 (Frontend)
+
+Die Oberfläche wurde im Browser (Chrome, ferngesteuert über das DevTools-Protokoll) getestet – 23 Prüfungen, keine Fehlschläge. Geprüft wurden: Dropdown-Anzeige, Hervorhebung, Kategorie-Badges, Deep-Links, Pfeiltasten-Navigation, Escape, Enter (inkl. Sprung zum Abschnitt), Blog- und Organigramm-Treffer, zu kurze/leere/trefferlose Eingaben sowie der Sprachwechsel mit korrektem `/en`-Präfix.
+
+**F1 vorgezogen**: Die i18n-Keys mussten zusammen mit der Komponente entstehen, da diese ohne sie nicht lauffähig ist. Alle 5 Sprachdateien haben denselben `search`-Namespace mit 9 Keys (geprüft auf Schlüsselgleichheit).
+
+**Gefundener Fehler im Projekt (nicht durch diese Arbeit verursacht)**: Die Farb-Utilities von Tailwind funktionieren projektweit nicht. `globals.css` nutzt Tailwind 4 (`@import "tailwindcss"`), die Farben sind aber in `tailwind.config.ts` im Tailwind-3-Stil unter `theme.extend.colors` definiert. Tailwind 4 lädt diese Konfiguration nur mit einer `@config`-Direktive in der CSS-Datei, die hier fehlt. Messung im Browser:
+
+```
+bg-surface    -> rgba(0, 0, 0, 0)   (transparent)
+bg-surface-2  -> rgba(0, 0, 0, 0)
+bg-primary    -> rgba(0, 0, 0, 0)
+text-muted    -> geerbte Textfarbe, nicht der Token-Wert
+```
+
+Die App wirkt dennoch gestaltet, weil die Farben grösstenteils direkt in `globals.css` stehen und einzelne Stellen wie `components/ui/button.tsx` bereits mit `bg-[hsl(var(--bg))]` arbeiten – also mit demselben Workaround.
+
+Auswirkung auf die Suche: Das Ergebnis-Dropdown war zunächst vollständig durchsichtig und dadurch unlesbar (der Seiteninhalt schien hindurch). Die neuen Komponenten verwenden deshalb durchgängig `hsl(var(--token))` als Arbitrary Value, passend zum bereits vorhandenen Muster in `button.tsx`. Verifiziert in hellem und dunklem Design (Panel-Hintergrund hell: `rgb(248, 250, 252)`, dunkel: deckendes Dunkelblau).
+
+**Empfehlung als eigenes Arbeitspaket**: `@config "../../tailwind.config.ts";` in `app/[locale]/globals.css` ergänzen. Das würde die Token-Klassen projektweit reaktivieren – verändert aber das Erscheinungsbild vieler bestehender Seiten und gehört deshalb nicht in diese Ausschreibung.
+
+**Noch offen (Aufgabe E1)**: Organigramm-Treffer verlinken bereits korrekt auf `/organigram?node=<id>`; der Parameter wird von `OrganigramClient.tsx` aber noch nicht ausgewertet, das Detail-Modal öffnet sich also noch nicht automatisch.
+
+### **D1–D4**
+
+- **F1 habe ich vorgezogen** – die Komponente ist ohne die Übersetzungen nicht lauffähig;
+
+**1. Ein echter Fehler im Projekt, den ich dabei gefunden habe.** Die Farb-Utilities von Tailwind funktionieren projektweit nicht: `globals.css` nutzt Tailwind 4, die Farben stehen aber im Tailwind-3-Stil in `tailwind.config.ts`, die Tailwind 4 ohne `@config`-Direktive gar nicht lädt. Gemessen im Browser liefern `bg-surface`, `bg-surface-2`, `bg-primary` allesamt `rgba(0,0,0,0)`. Mein Dropdown war deshalb zunächst komplett durchsichtig und unlesbar – der Seiteninhalt schien hindurch. Ich habe es mit `hsl(var(--token))` gelöst, also demselben Workaround, den `button.tsx` schon verwendet. Die saubere Lösung wäre eine Zeile `@config "../../tailwind.config.ts";` in `globals.css`, das ändert aber das Erscheinungsbild vieler bestehender Seiten und gehört meiner Meinung nach in ein eigenes Arbeitspaket – sag Bescheid, wenn ich das angehen soll.
+
+**2. Der erste Testlauf zeigte zwei Fehlschläge, die keine waren** – ein Cookie hatte die Sprache auf Englisch gestellt und mein Testskript hatte das Eingabefeld nicht geleert. Nach der Korrektur lief alles durch.
+
+**3. E1 fehlt noch:** Organigramm-Treffer verlinken bereits korrekt auf `/organigram?node=<id>`, aber `OrganigramClient.tsx` wertet den Parameter noch nicht aus – das Detail-Modal öffnet sich also noch nicht automatisch.
+
+Die Testprozesse habe ich beendet, dein Nuxt-Server auf Port 3000 blieb unberührt. Weiter mit E1?

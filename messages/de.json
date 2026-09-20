@@ -191,6 +191,19 @@
     "userAvatarAltFallback": "Profilbild",
     "userFallbackName": "Nutzer"
   },
+  "search": {
+    "category": {
+      "case": "Fall",
+      "blog": "Blog",
+      "orgchart": "Organigramm"
+    },
+    "minLength": "Bitte mindestens {count} Zeichen eingeben.",
+    "loading": "Suche läuft…",
+    "noResults": "Keine Treffer für „{query}“.",
+    "error": "Die Suche ist momentan nicht verfügbar.",
+    "resultsListLabel": "Suchergebnisse",
+    "resultsAnnouncement": "{count} Treffer gefunden."
+  },
   "theme": {
     "labels": {
       "light": "Hell",
