@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, type CSSProperties } from "react";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import LocaleSwitcher from "./localeSwitcher";
@@ -10,15 +10,13 @@ import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { usePathname } from "next/navigation";
 import { Button, buttonClassNames } from "@/components/ui/button";
 import { PageSection } from "@/components/layout/PageSection";
-import { useTheme } from "@/components/theme/ThemeProvider";
+import { SearchBox } from "@/components/search/SearchBox";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
   const t = useTranslations("navbar");
   const locale = useLocale();
   const pathname = usePathname();
-  const { resolvedTheme } = useTheme();
-  const [isMounted, setIsMounted] = useState(false);
   const authedFromSession = Boolean(session?.user);
   const shouldRenderUsers = status === "authenticated" || (status === "loading" && authedFromSession);
   const normalizedPath = useMemo(() => {
@@ -49,14 +47,6 @@ const Navbar = () => {
     return items;
   }, [t, shouldRenderUsers]);
 
-  const safeTheme = isMounted ? resolvedTheme : "light";
-  const logoSrc = safeTheme === "dark" ? "/logo_darkmode.svg" : "/logo_lightmode.svg";
-  const logoutSrc = safeTheme === "dark" ? "/logout_darkmode.svg" : "/logout_lightmode.svg";
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   // Prefetch login route on mount for snappier navigation after login/logout
   useEffect(() => {
     window?.requestIdleCallback?.(() => {
@@ -70,36 +60,31 @@ const Navbar = () => {
         <PageSection className="flex flex-col gap-4 py-4 md:flex-row md:items-center md:justify-between">
           <Link href="/" className="flex items-center gap-3 text-left">
             <div className="relative flex h-12 w-32 items-center justify-center rounded-2xl border border-border bg-surface-2 shadow-sm">
-              <Image src={logoSrc} alt={t("logoAlt")} width={260} height={260} className="h-8 w-auto" priority />
+              {/* Umschaltung über die dark-Klasse am <html>-Element: so stimmt
+                  das Logo bereits beim ersten Paint. */}
+              <Image
+                src="/logo_lightmode.svg"
+                alt={t("logoAlt")}
+                width={260}
+                height={260}
+                className="h-8 w-auto dark:hidden"
+                priority
+              />
+              <Image
+                src="/logo_darkmode.svg"
+                alt={t("logoAlt")}
+                width={260}
+                height={260}
+                className="hidden h-8 w-auto dark:block"
+                priority
+              />
             </div>
             <div className="hidden text-sm font-semibold uppercase tracking-[0.35em] text-muted sm:block">
               {t("brandLockup")}
             </div>
           </Link>
 
-          <form role="search" className="w-full flex-1 min-w-0 md:max-w-xl lg:max-w-2xl">
-            <label htmlFor="site-search" className="sr-only">
-              {t("searchLabel")}
-            </label>
-            <div className="flex items-center gap-2 rounded-full border border-border/80 bg-surface-2 px-4 py-2 text-sm text-muted shadow-sm focus-within:border-primary focus-within:text-text">
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden className="text-muted">
-                <path
-                  d="M13.5 12.5l4 4m-1.5-7a6 6 0 11-12 0 6 6 0 0112 0z"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <input
-                id="site-search"
-                type="search"
-                placeholder={t("searchPlaceholder")}
-                className="w-full bg-transparent text-sm text-text placeholder:text-muted focus:outline-none"
-                aria-label={t("searchLabel")}
-              />
-            </div>
-          </form>
+          <SearchBox />
 
           <div className="flex flex-wrap items-center justify-end gap-3 text-sm font-medium text-muted">
             {status === "loading" ? (
@@ -141,7 +126,21 @@ const Navbar = () => {
                   onClick={() => signOut({ callbackUrl: "/" })}
                   aria-label={t("logoutLabel")}
                 >
-                  <Image src={logoutSrc} alt={t("logoutLabel")} width={16} height={16} className="object-contain" />
+                  <Image
+                    src="/logout_lightmode.svg"
+                    alt={t("logoutLabel")}
+                    width={16}
+                    height={16}
+                    className="object-contain dark:hidden"
+                  />
+                  <Image
+                    src="/logout_darkmode.svg"
+                    alt=""
+                    aria-hidden
+                    width={16}
+                    height={16}
+                    className="hidden object-contain dark:block"
+                  />
                   <span className="sr-only">{t("logoutLabel")}</span>
                 </Button>
               </>

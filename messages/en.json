@@ -191,6 +191,19 @@
     "userAvatarAltFallback": "User avatar",
     "userFallbackName": "User"
   },
+  "search": {
+    "category": {
+      "case": "Case",
+      "blog": "Blog",
+      "orgchart": "Org chart"
+    },
+    "minLength": "Please enter at least {count} characters.",
+    "loading": "Searching…",
+    "noResults": "No results for “{query}”.",
+    "error": "Search is currently unavailable.",
+    "resultsListLabel": "Search results",
+    "resultsAnnouncement": "{count} results found."
+  },
   "theme": {
     "labels": {
       "light": "Light",

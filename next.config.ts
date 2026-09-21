@@ -2,8 +2,12 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
-  
   /* config options here */
+  experimental: {
+    // Das Paket "typescript" ist auf die TS-6-API gealiast (siehe package.json),
+    // liefert aber kein "tsc"-Binary. Darum den Typecheck ueber die JS-API laufen lassen.
+    useTypeScriptCli: false,
+  },
   images: {
     // Erlaube Avatare von GitHub & Google
     remotePatterns: [

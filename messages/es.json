@@ -191,6 +191,19 @@
     "userAvatarAltFallback": "Avatar de usuario",
     "userFallbackName": "Usuario"
   },
+  "search": {
+    "category": {
+      "case": "Caso",
+      "blog": "Blog",
+      "orgchart": "Organigrama"
+    },
+    "minLength": "Introduzca al menos {count} caracteres.",
+    "loading": "Buscando…",
+    "noResults": "Sin resultados para «{query}».",
+    "error": "La búsqueda no está disponible en este momento.",
+    "resultsListLabel": "Resultados de búsqueda",
+    "resultsAnnouncement": "{count} resultados encontrados."
+  },
   "theme": {
     "labels": {
       "light": "Claro",

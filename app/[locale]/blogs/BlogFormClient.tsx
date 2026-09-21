@@ -212,34 +212,41 @@ function SubmitButton() {
 export default function BlogFormClient({ action, initialTitle = "", initialContent = "", isEdit = false }: Props) {
 	const formRef = useRef<HTMLFormElement | null>(null);
 	const [content, setContent] = useState(initialContent);
-	const [state, formAction] = useActionState<BlogFormState, FormData>(action, {
+	const router = useRouter();
+	const t = useTranslations("blogs");
+
+	// Meldung, Reset und Weiterleitung hängen am Absenden, nicht am Renderzustand.
+	// Darum laufen sie direkt in der Action statt in einem Effekt, der auf das
+	// Ergebnis reagiert.
+	const submit = async (previousState: BlogFormState, formData: FormData): Promise<BlogFormState> => {
+		const nextState = await action(previousState, formData);
+
+		if (nextState?.error) {
+			toast.error(nextState.error);
+		}
+		if (nextState?.success) {
+			toast.success(nextState.success);
+		}
+
+		if (nextState?.redirectPath) {
+			router.push(nextState.redirectPath);
+			return nextState;
+		}
+
+		if (nextState?.success && !isEdit) {
+			formRef.current?.reset();
+			setContent("");
+		}
+
+		return nextState;
+	};
+
+	// Der Zustand wird nur noch in der Action ausgewertet, die Ansicht braucht ihn nicht.
+	const [, formAction] = useActionState<BlogFormState, FormData>(submit, {
 		error: null,
 		success: null,
 		redirectPath: null,
 	});
-	const router = useRouter();
-	const t = useTranslations("blogs");
-
-	useEffect(() => {
-		if (state?.error) {
-			toast.error(state.error);
-		}
-		if (state?.success) {
-			toast.success(state.success);
-		}
-	}, [state?.error, state?.success]);
-
-	useEffect(() => {
-		if (state?.redirectPath) {
-			router.push(state.redirectPath);
-			return;
-		}
-		if (!state?.success || isEdit) return;
-		if (formRef.current) {
-			formRef.current.reset();
-		}
-		setContent("");
-	}, [state?.success, state?.redirectPath, isEdit, router]);
 
 	return (
 		<form ref={formRef} action={formAction} className="surface-card space-y-5 border border-border/70 shadow-sm">
