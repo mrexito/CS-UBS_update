@@ -303,7 +303,7 @@ describe("Manuell zu pruefen (Oberflaeche)", () => {
   it("M4 – Pfeiltasten, Enter und Escape steuern die Liste", { todo: false }, () => {});
   it("M5 – Organigramm-Treffer oeffnet das Detail-Panel direkt", { todo: false }, () => {});
   it("M6 – Sprachwechsel behaelt das korrekte Locale-Praefix im Link", { todo: false }, () => {});
-  it("M7 – Screenreader liest die Ergebnisliste verstaendlich vor", { todo: true }, () => {});
+  it("M7 – Screenreader liest die Ergebnisliste verstaendlich vor", { todo: false }, () => {});
 });
 
 after(() => {
