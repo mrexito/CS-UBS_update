@@ -6,7 +6,7 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useState,
+  useSyncExternalStore,
   type ReactNode,
 } from "react";
 
@@ -20,49 +20,86 @@ type ThemeContextValue = {
 };
 
 const THEME_STORAGE_KEY = "theme";
+const COLOR_SCHEME_QUERY = "(prefers-color-scheme: dark)";
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("light");
-  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>("light");
-  const [isHydrated, setIsHydrated] = useState(false);
+/**
+ * Das Inline-Skript in app/layout.tsx setzt die dark-Klasse am <html>-Element
+ * vor dem ersten Paint. Der Store hier liest dieselbe Quelle, damit React den
+ * Wert nur noch mitliest statt ihn nach dem Mounten nachzuziehen.
+ */
+const listeners = new Set<() => void>();
 
-  const applyTheme = useCallback((nextTheme: Theme, persist = true) => {
-    if (typeof window === "undefined") return;
-    const root = document.documentElement;
-    const resolved: ResolvedTheme = nextTheme;
+/** Auswahl dieser Sitzung, falls localStorage nicht beschreibbar ist. */
+let sessionTheme: Theme | null = null;
 
-    root.classList.toggle("dark", resolved === "dark");
-    root.style.colorScheme = resolved;
-    setResolvedTheme(resolved);
-
-    if (persist) {
-      localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+function readStoredTheme(): Theme | null {
+  try {
     const stored = localStorage.getItem(THEME_STORAGE_KEY);
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initialTheme: Theme = stored === "light" || stored === "dark" ? stored : prefersDark ? "dark" : "light";
-    setThemeState(initialTheme);
-    applyTheme(initialTheme, false);
-    setIsHydrated(true);
-  }, [applyTheme]);
+    return stored === "light" || stored === "dark" ? stored : null;
+  } catch {
+    return null;
+  }
+}
 
+function getSnapshot(): Theme {
+  const stored = sessionTheme ?? readStoredTheme();
+  if (stored) return stored;
+  return window.matchMedia(COLOR_SCHEME_QUERY).matches ? "dark" : "light";
+}
+
+function getServerSnapshot(): Theme {
+  return "light";
+}
+
+function subscribe(onStoreChange: () => void) {
+  listeners.add(onStoreChange);
+  const media = window.matchMedia(COLOR_SCHEME_QUERY);
+  media.addEventListener("change", onStoreChange);
+  window.addEventListener("storage", onStoreChange);
+  return () => {
+    listeners.delete(onStoreChange);
+    media.removeEventListener("change", onStoreChange);
+    window.removeEventListener("storage", onStoreChange);
+  };
+}
+
+function applyThemeToDocument(theme: Theme) {
+  const root = document.documentElement;
+  root.classList.toggle("dark", theme === "dark");
+  root.style.colorScheme = theme;
+}
+
+function storeTheme(theme: Theme) {
+  sessionTheme = theme;
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+  } catch {
+    // Kein Speicher verfügbar: die Auswahl gilt dann nur für diese Sitzung.
+  }
+  listeners.forEach((listener) => listener());
+}
+
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+  // Reine Synchronisation nach aussen: die Klasse am <html>-Element nachziehen,
+  // wenn die Auswahl oder die Systemeinstellung wechselt.
   useEffect(() => {
-    if (!isHydrated) return;
-    applyTheme(theme);
-  }, [theme, applyTheme, isHydrated]);
+    applyThemeToDocument(theme);
+  }, [theme]);
+
+  const setTheme = useCallback((nextTheme: Theme) => {
+    storeTheme(nextTheme);
+  }, []);
 
   const value = useMemo<ThemeContextValue>(
     () => ({
       theme,
-      resolvedTheme,
-      setTheme: setThemeState,
+      resolvedTheme: theme,
+      setTheme,
     }),
-    [theme, resolvedTheme]
+    [theme, setTheme]
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

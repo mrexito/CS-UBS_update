@@ -22,7 +22,12 @@ export function SearchBox() {
 
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(-1);
+  // Die Markierung gehört zu einer konkreten Trefferliste. Kommt eine neue
+  // Liste, verfällt sie beim Rendern von selbst - ohne Reset per Effekt.
+  const [activeSelection, setActiveSelection] = useState<{
+    results: SearchResultDTO[];
+    index: number;
+  } | null>(null);
 
   const containerRef = useRef<HTMLFormElement>(null);
   const baseId = useId();
@@ -31,15 +36,27 @@ export function SearchBox() {
 
   const { status, results } = useSiteSearch(query, locale);
 
+  const activeIndex = activeSelection?.results === results ? activeSelection.index : -1;
+
+  const selectIndex = (index: number) => setActiveSelection({ results, index });
+  const clearSelection = () => setActiveSelection(null);
+  const moveSelection = (step: 1 | -1) =>
+    setActiveSelection((previous) => {
+      const current = previous?.results === results ? previous.index : -1;
+      const next =
+        step === 1
+          ? (current + 1) % results.length
+          : current <= 0
+            ? results.length - 1
+            : current - 1;
+      return { results, index: next };
+    });
+
   const trimmed = query.trim();
   const isTooShort = trimmed.length > 0 && trimmed.length < MIN_QUERY_LENGTH;
   const showPanel = isOpen && trimmed.length > 0;
   const hasResults = results.length > 0;
   const showListbox = showPanel && hasResults;
-
-  useEffect(() => {
-    setActiveIndex(-1);
-  }, [results]);
 
   useEffect(() => {
     if (!showPanel) return;
@@ -52,7 +69,7 @@ export function SearchBox() {
 
   const goToResult = (result: SearchResultDTO) => {
     setIsOpen(false);
-    setActiveIndex(-1);
+    clearSelection();
     router.push(result.href);
   };
 
@@ -65,7 +82,7 @@ export function SearchBox() {
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Escape") {
       setIsOpen(false);
-      setActiveIndex(-1);
+      clearSelection();
       return;
     }
     if (!hasResults) return;
@@ -73,11 +90,11 @@ export function SearchBox() {
     if (event.key === "ArrowDown") {
       event.preventDefault();
       setIsOpen(true);
-      setActiveIndex((index) => (index + 1) % results.length);
+      moveSelection(1);
     } else if (event.key === "ArrowUp") {
       event.preventDefault();
       setIsOpen(true);
-      setActiveIndex((index) => (index <= 0 ? results.length - 1 : index - 1));
+      moveSelection(-1);
     }
   };
 
@@ -148,7 +165,7 @@ export function SearchBox() {
                   id={optionId(index)}
                   role="option"
                   aria-selected={index === activeIndex}
-                  onMouseEnter={() => setActiveIndex(index)}
+                  onMouseEnter={() => selectIndex(index)}
                   className={index === activeIndex ? "bg-[hsl(var(--surface-2))]" : ""}
                 >
                   <Link
@@ -156,7 +173,7 @@ export function SearchBox() {
                     tabIndex={-1}
                     onClick={() => {
                       setIsOpen(false);
-                      setActiveIndex(-1);
+                      clearSelection();
                     }}
                     className="block px-4 py-2.5"
                   >

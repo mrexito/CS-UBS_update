@@ -235,18 +235,21 @@ export default function OrganigramClient({
   };
 
   // Suchtreffer verlinken auf /organigram?node=<id> und öffnen den Eintrag direkt.
+  // Ausgelöst wird das von einer Navigation ausserhalb dieser Komponente, darum
+  // gibt es keinen Handler, in den die Auswahl wandern könnte. Der Parameter
+  // wird direkt wieder entfernt, damit derselbe Treffer erneut greift.
   useEffect(() => {
     const requestedNodeId = searchParams.get("node");
     if (!requestedNodeId || !nodeById.has(requestedNodeId)) return;
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Reaktion auf eine externe Navigation
     setSelectedNodeId(requestedNodeId);
     setEditState(null);
     scrollToDetailsRef.current = true;
     focusChartOnNode(requestedNodeId);
 
-    // Parameter entfernen, damit derselbe Treffer erneut angesteuert werden kann.
     window.history.replaceState(null, "", window.location.pathname);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [searchParams, nodeById]);
 
   // Die Detailansicht liegt innerhalb eines animierten Containers und damit nicht

@@ -11,6 +11,9 @@ type SearchState = {
   results: SearchResultDTO[];
 };
 
+/** Antworten gehören immer zu genau einer Eingabe, darum wird sie mitgeführt. */
+type FetchedState = SearchState & { query: string };
+
 const IDLE_STATE: SearchState = { status: "idle", results: [] };
 
 /**
@@ -19,27 +22,30 @@ const IDLE_STATE: SearchState = { status: "idle", results: [] };
  * eine neuere überschreiben.
  */
 export function useSiteSearch(query: string, locale: string): SearchState {
-  const [state, setState] = useState<SearchState>(IDLE_STATE);
+  const [fetched, setFetched] = useState<FetchedState | null>(null);
+
+  const trimmed = query.trim();
+  const isActive = trimmed.length >= MIN_QUERY_LENGTH;
 
   useEffect(() => {
-    const trimmed = query.trim();
-    if (trimmed.length < MIN_QUERY_LENGTH) {
-      setState(IDLE_STATE);
-      return;
-    }
+    if (!isActive) return;
 
     const controller = new AbortController();
     const timer = setTimeout(async () => {
-      setState((previous) => ({ status: "loading", results: previous.results }));
+      setFetched((previous) => ({
+        status: "loading",
+        results: previous?.results ?? [],
+        query: trimmed,
+      }));
       try {
         const params = new URLSearchParams({ q: trimmed, locale });
         const response = await fetch(`/api/search?${params}`, { signal: controller.signal });
         if (!response.ok) throw new Error(`Search request failed: ${response.status}`);
         const data: SearchResponse = await response.json();
-        setState({ status: "ready", results: data.results });
+        setFetched({ status: "ready", results: data.results, query: trimmed });
       } catch {
         if (controller.signal.aborted) return;
-        setState({ status: "error", results: [] });
+        setFetched({ status: "error", results: [], query: trimmed });
       }
     }, SEARCH_DEBOUNCE_MS);
 
@@ -47,7 +53,15 @@ export function useSiteSearch(query: string, locale: string): SearchState {
       clearTimeout(timer);
       controller.abort();
     };
-  }, [query, locale]);
+  }, [trimmed, locale, isActive]);
 
-  return state;
+  // Zu kurze Eingaben brauchen keinen eigenen State: der Leerzustand ergibt
+  // sich direkt aus der Eingabe.
+  if (!isActive || !fetched) return IDLE_STATE;
+
+  // Fehlt die Antwort zur aktuellen Eingabe noch, bleibt die letzte Liste
+  // sichtbar, damit die Treffer beim Tippen nicht flackern.
+  if (fetched.query !== trimmed) return { status: "loading", results: fetched.results };
+
+  return { status: fetched.status, results: fetched.results };
 }

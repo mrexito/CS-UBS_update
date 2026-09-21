@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, type CSSProperties } from "react";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import LocaleSwitcher from "./localeSwitcher";
@@ -11,15 +11,12 @@ import { usePathname } from "next/navigation";
 import { Button, buttonClassNames } from "@/components/ui/button";
 import { PageSection } from "@/components/layout/PageSection";
 import { SearchBox } from "@/components/search/SearchBox";
-import { useTheme } from "@/components/theme/ThemeProvider";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
   const t = useTranslations("navbar");
   const locale = useLocale();
   const pathname = usePathname();
-  const { resolvedTheme } = useTheme();
-  const [isMounted, setIsMounted] = useState(false);
   const authedFromSession = Boolean(session?.user);
   const shouldRenderUsers = status === "authenticated" || (status === "loading" && authedFromSession);
   const normalizedPath = useMemo(() => {
@@ -50,14 +47,6 @@ const Navbar = () => {
     return items;
   }, [t, shouldRenderUsers]);
 
-  const safeTheme = isMounted ? resolvedTheme : "light";
-  const logoSrc = safeTheme === "dark" ? "/logo_darkmode.svg" : "/logo_lightmode.svg";
-  const logoutSrc = safeTheme === "dark" ? "/logout_darkmode.svg" : "/logout_lightmode.svg";
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   // Prefetch login route on mount for snappier navigation after login/logout
   useEffect(() => {
     window?.requestIdleCallback?.(() => {
@@ -71,7 +60,24 @@ const Navbar = () => {
         <PageSection className="flex flex-col gap-4 py-4 md:flex-row md:items-center md:justify-between">
           <Link href="/" className="flex items-center gap-3 text-left">
             <div className="relative flex h-12 w-32 items-center justify-center rounded-2xl border border-border bg-surface-2 shadow-sm">
-              <Image src={logoSrc} alt={t("logoAlt")} width={260} height={260} className="h-8 w-auto" priority />
+              {/* Umschaltung über die dark-Klasse am <html>-Element: so stimmt
+                  das Logo bereits beim ersten Paint. */}
+              <Image
+                src="/logo_lightmode.svg"
+                alt={t("logoAlt")}
+                width={260}
+                height={260}
+                className="h-8 w-auto dark:hidden"
+                priority
+              />
+              <Image
+                src="/logo_darkmode.svg"
+                alt={t("logoAlt")}
+                width={260}
+                height={260}
+                className="hidden h-8 w-auto dark:block"
+                priority
+              />
             </div>
             <div className="hidden text-sm font-semibold uppercase tracking-[0.35em] text-muted sm:block">
               {t("brandLockup")}
@@ -120,7 +126,21 @@ const Navbar = () => {
                   onClick={() => signOut({ callbackUrl: "/" })}
                   aria-label={t("logoutLabel")}
                 >
-                  <Image src={logoutSrc} alt={t("logoutLabel")} width={16} height={16} className="object-contain" />
+                  <Image
+                    src="/logout_lightmode.svg"
+                    alt={t("logoutLabel")}
+                    width={16}
+                    height={16}
+                    className="object-contain dark:hidden"
+                  />
+                  <Image
+                    src="/logout_darkmode.svg"
+                    alt=""
+                    aria-hidden
+                    width={16}
+                    height={16}
+                    className="hidden object-contain dark:block"
+                  />
                   <span className="sr-only">{t("logoutLabel")}</span>
                 </Button>
               </>

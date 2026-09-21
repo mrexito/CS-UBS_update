@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, useTransition } from "react";
+import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import toast from "react-hot-toast";
@@ -18,6 +18,21 @@ export type ReactionBarProps = {
   isAuthenticated: boolean;
 };
 
+type ReactionState = {
+  counts: { like: number; dislike: number };
+  userReaction: ReactionType | null;
+};
+
+type LocalState = { base: ReactionState; value: ReactionState } | null;
+
+function isSameState(a: ReactionState, b: ReactionState) {
+  return (
+    a.counts.like === b.counts.like &&
+    a.counts.dislike === b.counts.dislike &&
+    a.userReaction === b.userReaction
+  );
+}
+
 export function ReactionBar({
   locale,
   postId,
@@ -28,18 +43,22 @@ export function ReactionBar({
 }: ReactionBarProps) {
   const t = useTranslations("blogs");
   const router = useRouter();
-  const [counts, setCounts] = useState(() => ({
-    like: initialLikeCount ?? 0,
-    dislike: initialDislikeCount ?? 0,
-  }));
-  const [userReaction, setUserReaction] = useState<ReactionType | null>(initialUserReaction);
   const [isPending, startTransition] = useTransition();
   const formatter = useMemo(() => new Intl.NumberFormat(locale), [locale]);
 
-  useEffect(() => {
-    setCounts({ like: initialLikeCount ?? 0, dislike: initialDislikeCount ?? 0 });
-    setUserReaction(initialUserReaction);
-  }, [initialDislikeCount, initialLikeCount, initialUserReaction]);
+  const serverState: ReactionState = {
+    counts: { like: initialLikeCount ?? 0, dislike: initialDislikeCount ?? 0 },
+    userReaction: initialUserReaction,
+  };
+
+  // Der lokale Stand gilt nur so lange, wie die Server-Props unverändert sind.
+  // Liefert der Server neue Zahlen, verfällt er beim Rendern von selbst -
+  // dafür braucht es keinen Effekt, der Props in State kopiert.
+  const [localState, setLocalState] = useState<LocalState>(null);
+  const isLocalStateCurrent = localState !== null && isSameState(localState.base, serverState);
+  const { counts, userReaction } = isLocalStateCurrent ? localState.value : serverState;
+
+  const applyLocalState = (value: ReactionState) => setLocalState({ base: serverState, value });
 
   const applyOptimisticReaction = (
     currentReaction: ReactionType | null,
@@ -71,13 +90,10 @@ export function ReactionBar({
     return { like, dislike, reaction };
   };
 
-  const buttons = useMemo(
-    () => [
-      { type: "LIKE" as ReactionType, count: counts.like, label: t("like") },
-      { type: "DISLIKE" as ReactionType, count: counts.dislike, label: t("dislike") },
-    ],
-    [counts.dislike, counts.like, t]
-  );
+  const buttons = [
+    { type: "LIKE" as ReactionType, count: counts.like, label: t("like") },
+    { type: "DISLIKE" as ReactionType, count: counts.dislike, label: t("dislike") },
+  ];
 
   const handleReaction = (nextReaction: ReactionType) => {
     if (!isAuthenticated) {
@@ -85,31 +101,34 @@ export function ReactionBar({
       return;
     }
 
-    const previousState = { counts, userReaction };
+    const previousState: ReactionState = { counts, userReaction };
     const optimistic = applyOptimisticReaction(userReaction, nextReaction, counts);
-    setCounts({ like: optimistic.like, dislike: optimistic.dislike });
-    setUserReaction(optimistic.reaction ?? null);
+    applyLocalState({
+      counts: { like: optimistic.like, dislike: optimistic.dislike },
+      userReaction: optimistic.reaction ?? null,
+    });
 
     startTransition(() => {
       toggleReactionAction(locale, postId, nextReaction)
         .then((result) => {
           if (result.error) {
-            setCounts(previousState.counts);
-            setUserReaction(previousState.userReaction);
+            applyLocalState(previousState);
             toast.error(result.error);
             return;
           }
 
-          if (typeof result.likeCount === "number" && typeof result.dislikeCount === "number") {
-            setCounts({ like: result.likeCount, dislike: result.dislikeCount });
-          }
-          setUserReaction(result.userReaction ?? null);
+          applyLocalState({
+            counts:
+              typeof result.likeCount === "number" && typeof result.dislikeCount === "number"
+                ? { like: result.likeCount, dislike: result.dislikeCount }
+                : { like: optimistic.like, dislike: optimistic.dislike },
+            userReaction: result.userReaction ?? null,
+          });
           router.refresh();
         })
         .catch((error) => {
           console.error("toggleReactionAction", error);
-          setCounts(previousState.counts);
-          setUserReaction(previousState.userReaction);
+          applyLocalState(previousState);
           toast.error(t("reactionFehlgeschlagen"));
         });
     });

@@ -1,4 +1,4 @@
-import { joinText, normalizeWhitespace } from "../textUtils";
+import { joinText } from "../textUtils";
 import type { SearchDocument } from "../types";
 
 /**

@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useMemo, useState } from "react";
+import { useActionState, useMemo, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -63,8 +63,28 @@ export function CommentsSection({
   const t = useTranslations("blogs");
   const router = useRouter();
   const [content, setContent] = useState("");
-  const createComment = createCommentAction.bind(null, locale, postId);
-  const [state, formAction] = useActionState<CommentFormState, FormData>(createComment, {
+
+  // Meldung, Reset und Neuladen hängen am Absenden, nicht am Renderzustand, und
+  // laufen darum direkt in der Action statt in einem Effekt auf das Ergebnis.
+  const createComment = async (
+    previousState: CommentFormState,
+    formData: FormData
+  ): Promise<CommentFormState> => {
+    const nextState = await createCommentAction(locale, postId, previousState, formData);
+
+    if (nextState?.error) {
+      toast.error(nextState.error);
+    }
+    if (nextState?.success) {
+      toast.success(nextState.success);
+      setContent("");
+      router.refresh();
+    }
+
+    return nextState;
+  };
+
+  const [, formAction] = useActionState<CommentFormState, FormData>(createComment, {
     error: null,
     success: null,
   });
@@ -92,17 +112,6 @@ export function CommentsSection({
     };
     return map[locale] ?? map.en;
   })();
-
-  useEffect(() => {
-    if (state?.error) {
-      toast.error(state.error);
-    }
-    if (state?.success) {
-      toast.success(state.success);
-      setContent("");
-      router.refresh();
-    }
-  }, [router, state?.error, state?.success]);
 
   const formatter = useMemo(
     () => new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeStyle: "short" }),
