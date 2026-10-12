@@ -12,6 +12,7 @@ const CATEGORY_KEY: Record<SearchResultType, string> = {
   case: "category.case",
   blog: "category.blog",
   orgchart: "category.orgchart",
+  regulatoryCompliance: "category.regulatoryCompliance",
 };
 
 export function SearchBox() {
