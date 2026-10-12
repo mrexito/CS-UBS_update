@@ -27,10 +27,12 @@ const TERMS = {
   typo: "Archegoz", // bewusster Tippfehler
   blog: "Transformation", // Teil eines Blog-Titels/-Inhalts
   orgchart: "Investment Bank", // Division im Organigramm
+  rcTerm: "CET1", // Kennzahl auf der Kapitalquoten-Seite
+  rcTopic: "Kapitalquoten", // Thementitel der Kapitalquoten
   noHit: "xyzxyz123",
 };
 
-const VALID_TYPES = new Set(["case", "blog", "orgchart"]);
+const VALID_TYPES = new Set(["case", "blog", "orgchart", "regulatoryCompliance"]);
 const RESULT_LIMIT = 8; // lib/search/searchEngine.ts
 const MAX_RESULTS_PER_TYPE = 4; // lib/search/searchEngine.ts
 
@@ -288,6 +290,48 @@ describe("Suche: Ergebnisform und Begrenzung", () => {
     const { durationMs } = await search(TERMS.caseSection, "de");
 
     assert.ok(durationMs < 500, `Antwortzeit ${durationMs.toFixed(1)} ms`);
+  });
+});
+
+describe("Suche: Regulatory Compliance", () => {
+  it("T21 – CET1 liefert die Kapitalquoten-Seite", async () => {
+    const { status, results } = await search(TERMS.rcTerm, "de");
+
+    assert.equal(status, 200);
+    const rc = ofType(results, "regulatoryCompliance");
+    assert.ok(rc.length > 0, `Keine Regulatory-Compliance-Treffer fuer "${TERMS.rcTerm}"`);
+    assert.ok(
+      rc.some((result) => result.href === "/regulatory-compliance/capital-ratios"),
+      `Erwartet Treffer mit href "/regulatory-compliance/capital-ratios". Erhalten:\n  ${describeResults(rc)}`
+    );
+  });
+
+  it("T22 – Kapitalquoten: Thementitel liefert die Kapitalquoten-Seite", async () => {
+    const { status, results } = await search(TERMS.rcTopic, "de");
+
+    assert.equal(status, 200);
+    assert.ok(
+      results.some(
+        (result) =>
+          result.type === "regulatoryCompliance" &&
+          result.href === "/regulatory-compliance/capital-ratios"
+      ),
+      `Erwartet Treffer mit href "/regulatory-compliance/capital-ratios". Erhalten:\n  ${describeResults(results)}`
+    );
+  });
+
+  it("T23 – Abschnitt 7.1 verlinkt auf die Sprungmarke #rwa", async () => {
+    const { results } = await search(TERMS.rcTerm, "de");
+    const rwa = ofType(results, "regulatoryCompliance").find((result) =>
+      result.href.endsWith("#rwa")
+    );
+
+    assert.ok(
+      rwa,
+      `Kein Treffer mit Sprungmarke #rwa. Erhalten:\n  ${describeResults(ofType(results, "regulatoryCompliance"))}`
+    );
+    assert.equal(rwa.href, "/regulatory-compliance/capital-ratios#rwa");
+    assert.equal(rwa.context, TERMS.rcTopic);
   });
 });
 
