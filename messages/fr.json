@@ -191,7 +191,7 @@
     "userAvatarAltFallback": "Avatar utilisateur",
     "userFallbackName": "Utilisateur",
     "regulatoryCompliance": "Regulatory Compliance",
-    "regulatoryComplianceTopics": "Regulatory Compliance — Themen"
+    "regulatoryComplianceTopics": "Regulatory Compliance — Thèmes"
   },
   "search": {
     "category": {
@@ -743,94 +743,94 @@
   },
   "regulatoryCompliance": {
     "overview": {
-      "eyebrow": "Fallstudie · Bachelorarbeit",
+      "eyebrow": "Étude de cas · Travail de bachelor",
       "title": "Regulatory Compliance",
-      "lead": "Wie Credit Suisse die regulatorischen Kapital- und Liquiditätsanforderungen erfüllte — und warum das die Krise 2023 nicht verhinderte. Fünf Kapitel, von den Kapitalquoten bis zum Write-down der AT1-Anleihen.",
+      "lead": "Comment Credit Suisse a respecté les exigences réglementaires en matière de fonds propres et de liquidité, et pourquoi cela n’a pas empêché la crise de 2023. Cinq chapitres, des ratios de fonds propres jusqu’au write-down des obligations AT1.",
       "storyline": {
         "title": "Storyline",
-        "text": "Die Themen folgen dem Verlauf der Analyse: von formaler Compliance bis zum Vertrauensverlust und dessen regulatorischen Konsequenzen."
+        "text": "Les thèmes suivent le fil de l’analyse : de la conformité formelle à la perte de confiance et à ses conséquences réglementaires."
       },
-      "flowLabel": "Ablauf"
+      "flowLabel": "Déroulement"
     },
     "topics": {
       "capitalRatios": {
-        "title": "Kapitalquoten",
-        "short": "Kapital",
-        "description": "RWA- und Leverage-basierte Kapitalanforderungen im Vergleich zu FINMA-Zielwerten, Q1 2019–Q2 2023.",
-        "meta": "Tabelle 5 · Tabelle 6"
+        "title": "Ratios de fonds propres",
+        "short": "Fonds propres",
+        "description": "Exigences de fonds propres fondées sur les RWA et sur le ratio de levier, comparées aux valeurs cibles de la FINMA, Q1 2019–Q2 2023.",
+        "meta": "Tableau 5 · Tableau 6"
       },
       "liquidity": {
-        "title": "Liquidität",
-        "short": "Liquidität",
-        "description": "LCR- und NSFR-Kennzahlen: Blieb CS trotz Vertrauensverlust über den Mindestanforderungen?",
-        "meta": "Tabelle 7"
+        "title": "Liquidité",
+        "short": "Liquidité",
+        "description": "Indicateurs LCR et NSFR : CS est-elle restée au-dessus des exigences minimales malgré la perte de confiance ?",
+        "meta": "Tableau 7"
       },
       "crisis": {
-        "title": "Krise & Marktvertrauen",
-        "short": "Krise",
-        "description": "Kapitalquoten, Aktienkursverlauf und Rating-Herabstufungen — wie formal solide Zahlen das Vertrauen nicht retteten.",
-        "meta": "Marktdaten & Ratings"
+        "title": "Crise et confiance du marché",
+        "short": "Crise",
+        "description": "Ratios de fonds propres, évolution du cours et dégradations de notation : comment des chiffres formellement solides n’ont pas rétabli la confiance.",
+        "meta": "Données de marché et notations"
       },
       "measures": {
-        "title": "Regulatorische Massnahmen",
-        "short": "Massnahmen",
-        "description": "TBTF-Regulierung, Notfallplan, Abwicklungsplan sowie präventive FINMA- und SNB-Massnahmen.",
+        "title": "Mesures réglementaires",
+        "short": "Mesures",
+        "description": "Réglementation TBTF, plan d’urgence, plan de résolution ainsi que mesures préventives de la FINMA et de la BNS.",
         "meta": "Recovery & Resolution"
       },
       "at1": {
-        "title": "AT1-Instrumente",
+        "title": "Instruments AT1",
         "short": "AT1",
-        "description": "Trigger-Ereignisse, der Write-down der CS-AT1-Anleihen und die FINMA-Argumentation dahinter.",
-        "meta": "Tabelle 9"
+        "description": "Événements déclencheurs, write-down des obligations AT1 de CS et argumentation de la FINMA à ce sujet.",
+        "meta": "Tableau 9"
       }
     },
     "placeholder": {
       "back": "Regulatory Compliance",
-      "comingSoon": "Inhalt folgt"
+      "comingSoon": "Contenu à venir"
     },
     "capitalRatios": {
-      "eyebrow": "Kapitel 7 · Capital Compliance Analysis",
-      "title": "Kapitalanforderungen: Blieb CS regulatorisch compliant?",
-      "lead": "Von Q1 2019 bis zur Übernahme durch UBS lagen die RWA- und Leverage-basierten Kapitalquoten von Credit Suisse durchgehend über den bindenden regulatorischen Mindestanforderungen — trotz wiederholter Verluste, Bussgelder und Restrukturierungskosten.",
+      "eyebrow": "Chapitre 7 · Capital Compliance Analysis",
+      "title": "Exigences de fonds propres : CS est-elle restée conforme à la réglementation ?",
+      "lead": "Du Q1 2019 jusqu’au rachat par UBS, les ratios de fonds propres de Credit Suisse fondés sur les RWA et sur le ratio de levier sont restés en permanence au-dessus des exigences minimales réglementaires contraignantes, malgré des pertes répétées, des amendes et des coûts de restructuration.",
       "labels": {
-        "takeaways": "Kernaussagen",
-        "reference": "Quellenangabe",
-        "next": "Liquidität",
-        "actual": "Ist",
-        "target": "Zielwert",
-        "quarter": "Quartal"
+        "takeaways": "Points clés",
+        "reference": "Référence",
+        "next": "Liquidité",
+        "actual": "Réel",
+        "target": "Cible",
+        "quarter": "Trimestre"
       },
       "keyTakeaways": [
-        "CS blieb bei CET1, Going Concern, Gone Concern und TLAC stets über dem institutsspezifischen Zielwert.",
-        "Der sprunghafte CET1-Anstieg in Q1 2023 ist massgeblich durch Bilanzsummen-Rückgang, nicht durch Kapitalzufuhr, bedingt.",
-        "Auch ungewichtet (Leverage Ratio) erfüllte CS die Anforderungen im gesamten Beobachtungszeitraum."
+        "CS est restée en permanence au-dessus de la cible propre à l’établissement pour le CET1, le Going Concern, le Gone Concern et le TLAC.",
+        "La forte hausse du ratio CET1 au Q1 2023 s’explique principalement par la réduction du total du bilan, et non par une injection de capital.",
+        "Même non pondéré (ratio de levier), CS a respecté les exigences sur l’ensemble de la période d’observation."
       ],
       "sections": {
         "rwa": {
-          "title": "7.1 RWA-basierte Kapitalquoten",
-          "intro": "Die CET1-Quote von CS wird ihrem institutsspezifischen Zielwert gegenübergestellt. Auch in Krisenquartalen (Q3/Q4 2022) blieb der Abstand zum regulatorischen Minimum deutlich positiv.",
-          "chartTitle": "CET1-Quote: Ist vs. Zielwert (%)",
-          "actualLabel": "CET1 (Ist)",
-          "tableCaption": "Tabelle 5 — CS Capital (RWA-based) Ratios in %, 2019–2023 (Auszug)",
+          "title": "7.1 Ratios de fonds propres fondés sur les RWA",
+          "intro": "Le ratio CET1 de CS est comparé à sa cible propre à l’établissement. Même pendant les trimestres de crise (Q3/Q4 2022), la distance au minimum réglementaire est restée nettement positive.",
+          "chartTitle": "Ratio CET1 : réel vs cible (%)",
+          "actualLabel": "CET1 (réel)",
+          "tableCaption": "Tableau 5 — Ratios de fonds propres de CS (fondés sur les RWA) en %, 2019–2023 (extrait)",
           "columns": {
-            "quarter": "Quartal",
+            "quarter": "Trimestre",
             "cet1": "CET1",
-            "target": "Ziel CET1",
+            "target": "Cible CET1",
             "goingConcern": "Going Concern",
             "goneConcern": "Gone Concern",
             "tlac": "TLAC"
           }
         },
         "leverage": {
-          "title": "7.2 Leverage-basierte Kapitalquoten",
-          "intro": "Auch ungewichtet betrachtet — ohne Risikogewichtung der Aktiven — blieb CS im gesamten Beobachtungszeitraum über den quartalsspezifischen Zielwerten.",
-          "chartTitle": "CET1 Leverage Ratio: Ist vs. Zielwert (%)",
-          "actualLabel": "Leverage Ratio (Ist)",
-          "tableCaption": "Tabelle 6 — CS Leverage Ratios in %, 2019–2023 (Auszug)",
+          "title": "7.2 Ratios de fonds propres fondés sur le ratio de levier",
+          "intro": "Considéré sans pondération des risques des actifs, CS est également restée au-dessus des cibles propres à chaque trimestre sur toute la période d’observation.",
+          "chartTitle": "Ratio de levier CET1 : réel vs cible (%)",
+          "actualLabel": "Ratio de levier (réel)",
+          "tableCaption": "Tableau 6 — Ratios de levier de CS en %, 2019–2023 (extrait)",
           "columns": {
-            "quarter": "Quartal",
-            "cet1": "CET1 Lev.",
-            "target": "Ziel",
+            "quarter": "Trimestre",
+            "cet1": "CET1 levier",
+            "target": "Cible",
             "goingConcern": "Going Concern",
             "goneConcern": "Gone Concern",
             "tlac": "TLAC"
@@ -838,9 +838,9 @@
         }
       },
       "reference": {
-        "title": "Quellenangabe",
+        "title": "Référence",
         "lines": [
-          "TODO: Quellenangabe für Kapitel 7 (Bachelorarbeit, CS-Geschäftsberichte, FINMA) ergänzen."
+          "TODO : compléter la source du chapitre 7 (travail de bachelor, rapports annuels de CS, FINMA)."
         ]
       }
     }
