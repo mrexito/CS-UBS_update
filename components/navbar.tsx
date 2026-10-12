@@ -11,10 +11,14 @@ import { usePathname } from "next/navigation";
 import { Button, buttonClassNames } from "@/components/ui/button";
 import { PageSection } from "@/components/layout/PageSection";
 import { SearchBox } from "@/components/search/SearchBox";
+import { RC_BASE_PATH, RC_TOPICS } from "@/lib/regulatoryCompliance";
+
+type NavItem = { href: string; label: string };
 
 const Navbar = () => {
   const { data: session, status } = useSession();
   const t = useTranslations("navbar");
+  const tRc = useTranslations("regulatoryCompliance");
   const locale = useLocale();
   const pathname = usePathname();
   const authedFromSession = Boolean(session?.user);
@@ -33,11 +37,12 @@ const Navbar = () => {
     }
     return pathname.length > 0 ? pathname : "/";
   }, [locale, pathname]);
-  const navItems = useMemo(() => {
-    const items = [
+  const navItems = useMemo<NavItem[]>(() => {
+    const items: NavItem[] = [
       { href: "/blogs", label: t("blogsLink") },
       { href: "/archegos", label: `Archegos-${t("case")}` },
       { href: "/greensill", label: `Greensill-${t("case")}` },
+      { href: RC_BASE_PATH, label: t("regulatoryCompliance") },
     ];
     if (shouldRenderUsers) {
       items.push({ href: "/users", label: t("users") });
@@ -46,6 +51,42 @@ const Navbar = () => {
     items.push({ href: "/about", label: t("aboutUs") });
     return items;
   }, [t, shouldRenderUsers]);
+
+  // Unter-Navigation nur auf den Regulatory-Compliance-Seiten (inkl. Locale-Prefix,
+  // dieser ist in normalizedPath bereits entfernt).
+  const isRcSection =
+    normalizedPath === RC_BASE_PATH ||
+    normalizedPath.startsWith(`${RC_BASE_PATH}/`);
+  const topicItems = useMemo<NavItem[]>(
+    () =>
+      RC_TOPICS.map((topic) => ({
+        href: `${RC_BASE_PATH}/${topic.slug}`,
+        label: tRc(`topics.${topic.key}.title`),
+      })),
+    [tRc],
+  );
+
+  const renderPill = (item: NavItem, index: number) => {
+    // Auf der Übersicht ist keine Unter-Pill aktiv: der Pfad "/regulatory-compliance"
+    // beginnt nie mit einem Unterseiten-Href.
+    const isActive = normalizedPath.startsWith(item.href);
+    const pillClasses = buttonClassNames({
+      variant: isActive ? "primary" : "secondary",
+      size: "sm",
+      className: "min-w-[6rem] text-center",
+    });
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        aria-current={isActive ? "page" : undefined}
+        className={pillClasses}
+        style={{ animationDelay: `${index * 60}ms` } as CSSProperties}
+      >
+        <span className="transition-colors">{item.label}</span>
+      </Link>
+    );
+  };
 
   // Prefetch login route on mount for snappier navigation after login/logout
   useEffect(() => {
@@ -159,28 +200,25 @@ const Navbar = () => {
       <div className="border-b border-border/70 bg-surface/60 dark:border-border/45">
         <PageSection>
           <nav className="flex flex-wrap gap-3 overflow-x-auto py-3 text-sm font-semibold">
-            {navItems.map((item, index) => {
-              const isActive = normalizedPath.startsWith(item.href);
-              const navButtonClasses = buttonClassNames({
-                variant: isActive ? "primary" : "secondary",
-                size: "sm",
-                className: "min-w-[6rem] text-center",
-              });
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={isActive ? "page" : undefined}
-                  className={navButtonClasses}
-                  style={{ animationDelay: `${index * 60}ms` } as CSSProperties}
-                >
-                  <span className="transition-colors">{item.label}</span>
-                </Link>
-              );
-            })}
+            {navItems.map(renderPill)}
           </nav>
         </PageSection>
       </div>
+      {isRcSection ? (
+        <div className="border-b border-border/70 bg-surface-2/60 dark:border-border/45">
+          <PageSection className="flex flex-col gap-2 py-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-muted">
+              {t("regulatoryComplianceTopics")}
+            </p>
+            <nav
+              aria-label={t("regulatoryComplianceTopics")}
+              className="flex flex-wrap gap-3 overflow-x-auto text-sm font-semibold"
+            >
+              {topicItems.map(renderPill)}
+            </nav>
+          </PageSection>
+        </div>
+      ) : null}
     </header>
   );
 };

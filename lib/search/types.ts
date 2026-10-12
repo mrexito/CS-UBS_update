@@ -1,4 +1,4 @@
-export type SearchResultType = "case" | "blog" | "orgchart";
+export type SearchResultType = "case" | "blog" | "orgchart" | "regulatoryCompliance";
 
 /** Zeichenbereich [start, end] innerhalb eines Textes, wie ihn Fuse.js liefert. */
 export type MatchRange = [number, number];

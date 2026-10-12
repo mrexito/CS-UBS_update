@@ -191,7 +191,7 @@
     "userAvatarAltFallback": "User avatar",
     "userFallbackName": "User",
     "regulatoryCompliance": "Regulatory Compliance",
-    "regulatoryComplianceTopics": "Regulatory Compliance — Themen"
+    "regulatoryComplianceTopics": "Regulatory Compliance — Topics"
   },
   "search": {
     "category": {
@@ -743,94 +743,94 @@
   },
   "regulatoryCompliance": {
     "overview": {
-      "eyebrow": "Fallstudie · Bachelorarbeit",
+      "eyebrow": "Case study · Bachelor thesis",
       "title": "Regulatory Compliance",
-      "lead": "Wie Credit Suisse die regulatorischen Kapital- und Liquiditätsanforderungen erfüllte — und warum das die Krise 2023 nicht verhinderte. Fünf Kapitel, von den Kapitalquoten bis zum Write-down der AT1-Anleihen.",
+      "lead": "How Credit Suisse met the regulatory capital and liquidity requirements — and why that did not prevent the 2023 crisis. Five chapters, from capital ratios to the write-down of the AT1 bonds.",
       "storyline": {
         "title": "Storyline",
-        "text": "Die Themen folgen dem Verlauf der Analyse: von formaler Compliance bis zum Vertrauensverlust und dessen regulatorischen Konsequenzen."
+        "text": "The topics follow the course of the analysis: from formal compliance to the loss of trust and its regulatory consequences."
       },
-      "flowLabel": "Ablauf"
+      "flowLabel": "Flow"
     },
     "topics": {
       "capitalRatios": {
-        "title": "Kapitalquoten",
-        "short": "Kapital",
-        "description": "RWA- und Leverage-basierte Kapitalanforderungen im Vergleich zu FINMA-Zielwerten, Q1 2019–Q2 2023.",
-        "meta": "Tabelle 5 · Tabelle 6"
+        "title": "Capital ratios",
+        "short": "Capital",
+        "description": "RWA- and leverage-based capital requirements compared with FINMA target values, Q1 2019–Q2 2023.",
+        "meta": "Table 5 · Table 6"
       },
       "liquidity": {
-        "title": "Liquidität",
-        "short": "Liquidität",
-        "description": "LCR- und NSFR-Kennzahlen: Blieb CS trotz Vertrauensverlust über den Mindestanforderungen?",
-        "meta": "Tabelle 7"
+        "title": "Liquidity",
+        "short": "Liquidity",
+        "description": "LCR and NSFR metrics: did CS stay above the minimum requirements despite the loss of trust?",
+        "meta": "Table 7"
       },
       "crisis": {
-        "title": "Krise & Marktvertrauen",
-        "short": "Krise",
-        "description": "Kapitalquoten, Aktienkursverlauf und Rating-Herabstufungen — wie formal solide Zahlen das Vertrauen nicht retteten.",
-        "meta": "Marktdaten & Ratings"
+        "title": "Crisis & market confidence",
+        "short": "Crisis",
+        "description": "Capital ratios, share price trend and rating downgrades — how formally sound figures failed to restore trust.",
+        "meta": "Market data & ratings"
       },
       "measures": {
-        "title": "Regulatorische Massnahmen",
-        "short": "Massnahmen",
-        "description": "TBTF-Regulierung, Notfallplan, Abwicklungsplan sowie präventive FINMA- und SNB-Massnahmen.",
+        "title": "Regulatory measures",
+        "short": "Measures",
+        "description": "TBTF regulation, emergency plan, resolution plan, and preventive FINMA and SNB measures.",
         "meta": "Recovery & Resolution"
       },
       "at1": {
-        "title": "AT1-Instrumente",
+        "title": "AT1 instruments",
         "short": "AT1",
-        "description": "Trigger-Ereignisse, der Write-down der CS-AT1-Anleihen und die FINMA-Argumentation dahinter.",
-        "meta": "Tabelle 9"
+        "description": "Trigger events, the write-down of the CS AT1 bonds and the FINMA reasoning behind it.",
+        "meta": "Table 9"
       }
     },
     "placeholder": {
       "back": "Regulatory Compliance",
-      "comingSoon": "Inhalt folgt"
+      "comingSoon": "Content to follow"
     },
     "capitalRatios": {
-      "eyebrow": "Kapitel 7 · Capital Compliance Analysis",
-      "title": "Kapitalanforderungen: Blieb CS regulatorisch compliant?",
-      "lead": "Von Q1 2019 bis zur Übernahme durch UBS lagen die RWA- und Leverage-basierten Kapitalquoten von Credit Suisse durchgehend über den bindenden regulatorischen Mindestanforderungen — trotz wiederholter Verluste, Bussgelder und Restrukturierungskosten.",
+      "eyebrow": "Chapter 7 · Capital Compliance Analysis",
+      "title": "Capital requirements: did CS remain compliant with regulation?",
+      "lead": "From Q1 2019 until the takeover by UBS, Credit Suisse's RWA- and leverage-based capital ratios consistently stayed above the binding regulatory minimum requirements, despite repeated losses, fines and restructuring costs.",
       "labels": {
-        "takeaways": "Kernaussagen",
-        "reference": "Quellenangabe",
-        "next": "Liquidität",
-        "actual": "Ist",
-        "target": "Zielwert",
-        "quarter": "Quartal"
+        "takeaways": "Key takeaways",
+        "reference": "Reference",
+        "next": "Liquidity",
+        "actual": "Actual",
+        "target": "Target",
+        "quarter": "Quarter"
       },
       "keyTakeaways": [
-        "CS blieb bei CET1, Going Concern, Gone Concern und TLAC stets über dem institutsspezifischen Zielwert.",
-        "Der sprunghafte CET1-Anstieg in Q1 2023 ist massgeblich durch Bilanzsummen-Rückgang, nicht durch Kapitalzufuhr, bedingt.",
-        "Auch ungewichtet (Leverage Ratio) erfüllte CS die Anforderungen im gesamten Beobachtungszeitraum."
+        "CS stayed above the institution-specific target for CET1, Going Concern, Gone Concern and TLAC at all times.",
+        "The sharp rise in the CET1 ratio in Q1 2023 is largely due to a shrinking balance sheet, not to a capital injection.",
+        "Even unweighted (leverage ratio), CS met the requirements over the entire observation period."
       ],
       "sections": {
         "rwa": {
-          "title": "7.1 RWA-basierte Kapitalquoten",
-          "intro": "Die CET1-Quote von CS wird ihrem institutsspezifischen Zielwert gegenübergestellt. Auch in Krisenquartalen (Q3/Q4 2022) blieb der Abstand zum regulatorischen Minimum deutlich positiv.",
-          "chartTitle": "CET1-Quote: Ist vs. Zielwert (%)",
-          "actualLabel": "CET1 (Ist)",
-          "tableCaption": "Tabelle 5 — CS Capital (RWA-based) Ratios in %, 2019–2023 (Auszug)",
+          "title": "7.1 RWA-based capital ratios",
+          "intro": "CS's CET1 ratio is compared with its institution-specific target. Even in the crisis quarters (Q3/Q4 2022), the distance to the regulatory minimum remained clearly positive.",
+          "chartTitle": "CET1 ratio: actual vs. target (%)",
+          "actualLabel": "CET1 (actual)",
+          "tableCaption": "Table 5 — CS Capital (RWA-based) Ratios in %, 2019–2023 (excerpt)",
           "columns": {
-            "quarter": "Quartal",
+            "quarter": "Quarter",
             "cet1": "CET1",
-            "target": "Ziel CET1",
+            "target": "Target CET1",
             "goingConcern": "Going Concern",
             "goneConcern": "Gone Concern",
             "tlac": "TLAC"
           }
         },
         "leverage": {
-          "title": "7.2 Leverage-basierte Kapitalquoten",
-          "intro": "Auch ungewichtet betrachtet — ohne Risikogewichtung der Aktiven — blieb CS im gesamten Beobachtungszeitraum über den quartalsspezifischen Zielwerten.",
-          "chartTitle": "CET1 Leverage Ratio: Ist vs. Zielwert (%)",
-          "actualLabel": "Leverage Ratio (Ist)",
-          "tableCaption": "Tabelle 6 — CS Leverage Ratios in %, 2019–2023 (Auszug)",
+          "title": "7.2 Leverage-based capital ratios",
+          "intro": "Viewed without risk weighting of the assets, CS also remained above the quarter-specific targets throughout the observation period.",
+          "chartTitle": "CET1 leverage ratio: actual vs. target (%)",
+          "actualLabel": "Leverage ratio (actual)",
+          "tableCaption": "Table 6 — CS Leverage Ratios in %, 2019–2023 (excerpt)",
           "columns": {
-            "quarter": "Quartal",
+            "quarter": "Quarter",
             "cet1": "CET1 Lev.",
-            "target": "Ziel",
+            "target": "Target",
             "goingConcern": "Going Concern",
             "goneConcern": "Gone Concern",
             "tlac": "TLAC"
@@ -838,9 +838,9 @@
         }
       },
       "reference": {
-        "title": "Quellenangabe",
+        "title": "Source reference",
         "lines": [
-          "TODO: Quellenangabe für Kapitel 7 (Bachelorarbeit, CS-Geschäftsberichte, FINMA) ergänzen."
+          "TODO: add the source reference for chapter 7 (bachelor thesis, CS annual reports, FINMA)."
         ]
       }
     }

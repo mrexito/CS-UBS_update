@@ -2,6 +2,7 @@ import type { SearchDocument, SearchProvider } from "../types";
 import { getBlogDocuments } from "./blogs";
 import { getCaseDocuments } from "./cases";
 import { getOrgChartDocuments } from "./orgchart";
+import { getRegulatoryComplianceDocuments } from "./regulatoryCompliance";
 
 /**
  * Registrierung aller durchsuchbaren Inhaltsbereiche. Ein weiterer Bereich
@@ -11,6 +12,7 @@ export const searchProviders: SearchProvider[] = [
   getCaseDocuments,
   getBlogDocuments,
   getOrgChartDocuments,
+  getRegulatoryComplianceDocuments,
 ];
 
 export async function collectSearchDocuments(locale: string): Promise<SearchDocument[]> {

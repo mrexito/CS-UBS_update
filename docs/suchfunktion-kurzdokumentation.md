@@ -16,6 +16,12 @@ Inhaltsbereiche ersetzt:
 | **Fälle**       | `messages/{locale}.json`, Namespace `cases` | `/{slug}` bzw. `/{slug}#<abschnitt>`     |
 | **Blogs**       | Prisma-Modell `BlogPost`                | `/blogs/<id>`                                |
 | **Organigramm** | Prisma-Modell `OrgChart`                | `/organigram?node=<id>` (Detail öffnet sich) |
+| **Regulatory Compliance** | `messages/{locale}.json`, Namespace `regulatoryCompliance` | `/regulatory-compliance`, je Thema `/regulatory-compliance/<slug>`, Kapitel-7-Abschnitte `…/capital-ratios#rwa` bzw. `#leverage` |
+
+Der Bereich Regulatory Compliance ist ein nachträglich ergänzter Provider (Typ `regulatoryCompliance`).
+Er nutzt dieselbe Provider-Schnittstelle wie die übrigen Bereiche, ohne Änderung an Route, Ranking
+oder Frontend. Die Slugs stammen aus `lib/regulatoryCompliance.ts`, die Sprungmarken aus
+`RC_CAPITAL_RATIOS_ANCHORS`.
 
 Merkmale: Fuzzy-Suche mit Tippfehlertoleranz, Relevanz-Ranking, Hervorhebung der Treffer,
 Deep-Links inkl. Sprungmarken, Mehrsprachigkeit (5 Sprachen), Tastaturbedienung und
@@ -33,7 +39,8 @@ Eingabe im Header
       → collectSearchDocuments(locale)      (alle Provider parallel)
           ├─ providers/cases.ts     → messages/{locale}.json
           ├─ providers/blogs.ts     → Prisma (unstable_cache)
-          └─ providers/orgchart.ts  → getOrgChartEntries() (bereits gecacht)
+          ├─ providers/orgchart.ts  → getOrgChartEntries() (bereits gecacht)
+          └─ providers/regulatoryCompliance.ts → messages/{locale}.json, Namespace regulatoryCompliance
       → Fuse.js (gewichtet, unscharf)
       → ausgewogene Auswahl + Snippet + Link
   → { results: SearchResultDTO[] }
@@ -46,7 +53,7 @@ Die drei Bereiche sind strukturell sehr unterschiedlich (statische, übersetzte 
 gegenüber einsprachigen Datenbankmodellen). Sie werden deshalb alle auf ein gemeinsames
 `SearchDocument` abgebildet (`lib/search/types.ts`):
 
-- `id`, `type` (`case` | `blog` | `orgchart`), `title`
+- `id`, `type` (`case` | `blog` | `orgchart` | `regulatoryCompliance`), `title`
 - `body` – vollständiger, HTML-freier Text; Grundlage des Matchings
 - `context` – einordnende Angabe für die Anzeige (Fallname, Funktion/Abteilung)
 - `path`, `hash`, `nodeId` – Bausteine des Ziel-Links, stets **ohne** Locale-Präfix
@@ -68,6 +75,7 @@ lib/search/
     cases.ts               CASE_SLUGS, Übersicht + je Abschnitt ein Dokument
     blogs.ts               gecachte, projizierte Prisma-Query + HTML-zu-Text
     orgchart.ts            Abbildung der bestehenden Organigramm-Einträge
+    regulatoryCompliance.ts  Übersicht, Themen und Kapitel-7-Abschnitte (Sprungmarken)
 app/api/search/route.ts    GET-Handler mit Zod-Validierung
 components/search/
   SearchBox.tsx            ersetzt das <input> in navbar.tsx

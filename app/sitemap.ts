@@ -2,8 +2,22 @@ import type { MetadataRoute } from "next";
 import { prisma } from "@/lib/prisma";
 import { routing } from "@/i18n/routing";
 import { baseUrl, safeJoinUrl } from "@/lib/seo";
+import { RC_BASE_PATH, RC_TOPICS } from "@/lib/regulatoryCompliance";
 
-const staticPaths = ["/", "/about", "/organigram", "/archegos", "/greensill", "/blogs"];
+const regulatoryCompliancePaths = [
+  RC_BASE_PATH,
+  ...RC_TOPICS.map((topic) => `${RC_BASE_PATH}/${topic.slug}`),
+];
+
+const staticPaths = [
+  "/",
+  "/about",
+  "/organigram",
+  "/archegos",
+  "/greensill",
+  "/blogs",
+  ...regulatoryCompliancePaths,
+];
 
 function localizePath(path: string, locale: string): string {
   const normalized = path === "/" ? "" : path;
