@@ -96,8 +96,8 @@
     },
     "heroPrimaryCta": "Sfoglia gli aggiornamenti",
     "heroSecondaryCta": "Esplora l’organigramma",
-        "signInWithGoogle": "Accedi con Google",
-        "signInWithGitHub": "Accedi con GitHub",
+    "signInWithGoogle": "Accedi con Google",
+    "signInWithGitHub": "Accedi con GitHub",
     "highlight": {
       "caseArchive": {
         "title": "Archivio dei casi",
@@ -191,13 +191,16 @@
     "users": "Utenti",
     "userAvatarAlt": "Avatar di {name}",
     "userAvatarAltFallback": "Avatar utente",
-    "userFallbackName": "Utente"
+    "userFallbackName": "Utente",
+    "regulatoryCompliance": "Regulatory Compliance",
+    "regulatoryComplianceTopics": "Regulatory Compliance — Themen"
   },
   "search": {
     "category": {
       "case": "Caso",
       "blog": "Blog",
-      "orgchart": "Organigramma"
+      "orgchart": "Organigramma",
+      "regulatoryCompliance": "Regulatory Compliance"
     },
     "minLength": "Inserisci almeno {count} caratteri.",
     "loading": "Ricerca in corso…",
@@ -738,6 +741,110 @@
         ]
       },
       "cta": "Torna all’analisi di Archegos"
+    }
+  },
+  "regulatoryCompliance": {
+    "overview": {
+      "eyebrow": "Fallstudie · Bachelorarbeit",
+      "title": "Regulatory Compliance",
+      "lead": "Wie Credit Suisse die regulatorischen Kapital- und Liquiditätsanforderungen erfüllte — und warum das die Krise 2023 nicht verhinderte. Fünf Kapitel, von den Kapitalquoten bis zum Write-down der AT1-Anleihen.",
+      "storyline": {
+        "title": "Storyline",
+        "text": "Die Themen folgen dem Verlauf der Analyse: von formaler Compliance bis zum Vertrauensverlust und dessen regulatorischen Konsequenzen."
+      },
+      "flowLabel": "Ablauf"
+    },
+    "topics": {
+      "capitalRatios": {
+        "title": "Kapitalquoten",
+        "short": "Kapital",
+        "description": "RWA- und Leverage-basierte Kapitalanforderungen im Vergleich zu FINMA-Zielwerten, Q1 2019–Q2 2023.",
+        "meta": "Tabelle 5 · Tabelle 6"
+      },
+      "liquidity": {
+        "title": "Liquidität",
+        "short": "Liquidität",
+        "description": "LCR- und NSFR-Kennzahlen: Blieb CS trotz Vertrauensverlust über den Mindestanforderungen?",
+        "meta": "Tabelle 7"
+      },
+      "crisis": {
+        "title": "Krise & Marktvertrauen",
+        "short": "Krise",
+        "description": "Kapitalquoten, Aktienkursverlauf und Rating-Herabstufungen — wie formal solide Zahlen das Vertrauen nicht retteten.",
+        "meta": "Marktdaten & Ratings"
+      },
+      "measures": {
+        "title": "Regulatorische Massnahmen",
+        "short": "Massnahmen",
+        "description": "TBTF-Regulierung, Notfallplan, Abwicklungsplan sowie präventive FINMA- und SNB-Massnahmen.",
+        "meta": "Recovery & Resolution"
+      },
+      "at1": {
+        "title": "AT1-Instrumente",
+        "short": "AT1",
+        "description": "Trigger-Ereignisse, der Write-down der CS-AT1-Anleihen und die FINMA-Argumentation dahinter.",
+        "meta": "Tabelle 9"
+      }
+    },
+    "placeholder": {
+      "back": "Regulatory Compliance",
+      "comingSoon": "Inhalt folgt"
+    },
+    "capitalRatios": {
+      "eyebrow": "Kapitel 7 · Capital Compliance Analysis",
+      "title": "Kapitalanforderungen: Blieb CS regulatorisch compliant?",
+      "lead": "Von Q1 2019 bis zur Übernahme durch UBS lagen die RWA- und Leverage-basierten Kapitalquoten von Credit Suisse durchgehend über den bindenden regulatorischen Mindestanforderungen — trotz wiederholter Verluste, Bussgelder und Restrukturierungskosten.",
+      "labels": {
+        "takeaways": "Kernaussagen",
+        "reference": "Quellenangabe",
+        "next": "Liquidität",
+        "actual": "Ist",
+        "target": "Zielwert",
+        "quarter": "Quartal"
+      },
+      "keyTakeaways": [
+        "CS blieb bei CET1, Going Concern, Gone Concern und TLAC stets über dem institutsspezifischen Zielwert.",
+        "Der sprunghafte CET1-Anstieg in Q1 2023 ist massgeblich durch Bilanzsummen-Rückgang, nicht durch Kapitalzufuhr, bedingt.",
+        "Auch ungewichtet (Leverage Ratio) erfüllte CS die Anforderungen im gesamten Beobachtungszeitraum."
+      ],
+      "sections": {
+        "rwa": {
+          "title": "7.1 RWA-basierte Kapitalquoten",
+          "intro": "Die CET1-Quote von CS wird ihrem institutsspezifischen Zielwert gegenübergestellt. Auch in Krisenquartalen (Q3/Q4 2022) blieb der Abstand zum regulatorischen Minimum deutlich positiv.",
+          "chartTitle": "CET1-Quote: Ist vs. Zielwert (%)",
+          "actualLabel": "CET1 (Ist)",
+          "tableCaption": "Tabelle 5 — CS Capital (RWA-based) Ratios in %, 2019–2023 (Auszug)",
+          "columns": {
+            "quarter": "Quartal",
+            "cet1": "CET1",
+            "target": "Ziel CET1",
+            "goingConcern": "Going Concern",
+            "goneConcern": "Gone Concern",
+            "tlac": "TLAC"
+          }
+        },
+        "leverage": {
+          "title": "7.2 Leverage-basierte Kapitalquoten",
+          "intro": "Auch ungewichtet betrachtet — ohne Risikogewichtung der Aktiven — blieb CS im gesamten Beobachtungszeitraum über den quartalsspezifischen Zielwerten.",
+          "chartTitle": "CET1 Leverage Ratio: Ist vs. Zielwert (%)",
+          "actualLabel": "Leverage Ratio (Ist)",
+          "tableCaption": "Tabelle 6 — CS Leverage Ratios in %, 2019–2023 (Auszug)",
+          "columns": {
+            "quarter": "Quartal",
+            "cet1": "CET1 Lev.",
+            "target": "Ziel",
+            "goingConcern": "Going Concern",
+            "goneConcern": "Gone Concern",
+            "tlac": "TLAC"
+          }
+        }
+      },
+      "reference": {
+        "title": "Quellenangabe",
+        "lines": [
+          "TODO: Quellenangabe für Kapitel 7 (Bachelorarbeit, CS-Geschäftsberichte, FINMA) ergänzen."
+        ]
+      }
     }
   }
 }
