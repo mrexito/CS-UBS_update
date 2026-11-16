@@ -794,7 +794,6 @@
       "lead": "Von Q1 2019 bis zur Übernahme durch UBS lagen die RWA- und Leverage-basierten Kapitalquoten von Credit Suisse durchgehend über den bindenden regulatorischen Mindestanforderungen — trotz wiederholter Verluste, Bussgelder und Restrukturierungskosten.",
       "labels": {
         "takeaways": "Kernaussagen",
-        "reference": "Quellenangabe",
         "next": "Liquidität",
         "actual": "Ist",
         "target": "Zielwert",
@@ -836,12 +835,6 @@
             "tlac": "TLAC"
           }
         }
-      },
-      "reference": {
-        "title": "Quellenangabe",
-        "lines": [
-          "TODO: Quellenangabe für Kapitel 7 (Bachelorarbeit, CS-Geschäftsberichte, FINMA) ergänzen."
-        ]
       }
     }
   }

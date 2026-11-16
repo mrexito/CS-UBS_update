@@ -794,7 +794,6 @@
       "lead": "Du Q1 2019 jusqu’au rachat par UBS, les ratios de fonds propres de Credit Suisse fondés sur les RWA et sur le ratio de levier sont restés en permanence au-dessus des exigences minimales réglementaires contraignantes, malgré des pertes répétées, des amendes et des coûts de restructuration.",
       "labels": {
         "takeaways": "Points clés",
-        "reference": "Référence",
         "next": "Liquidité",
         "actual": "Réel",
         "target": "Cible",
@@ -836,12 +835,6 @@
             "tlac": "TLAC"
           }
         }
-      },
-      "reference": {
-        "title": "Référence",
-        "lines": [
-          "TODO : compléter la source du chapitre 7 (travail de bachelor, rapports annuels de CS, FINMA)."
-        ]
       }
     }
   }

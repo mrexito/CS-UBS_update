@@ -794,7 +794,6 @@
       "lead": "Desde el Q1 2019 hasta la adquisición por parte de UBS, los ratios de capital de Credit Suisse basados en RWA y en el ratio de apalancamiento se mantuvieron de forma constante por encima de los requisitos mínimos regulatorios vinculantes, pese a las pérdidas repetidas, las multas y los costes de reestructuración.",
       "labels": {
         "takeaways": "Conclusiones clave",
-        "reference": "Referencia",
         "next": "Liquidez",
         "actual": "Real",
         "target": "Objetivo",
@@ -836,12 +835,6 @@
             "tlac": "TLAC"
           }
         }
-      },
-      "reference": {
-        "title": "Referencia",
-        "lines": [
-          "TODO: completar la referencia de la fuente del capítulo 7 (trabajo de fin de grado, informes anuales de CS, FINMA)."
-        ]
       }
     }
   }

@@ -52,7 +52,6 @@ export default async function CapitalRatiosPage({ params }: PageProps) {
   const t = await getTranslations({ locale, namespace: "regulatoryCompliance" });
 
   const keyTakeaways = t.raw("capitalRatios.keyTakeaways") as string[];
-  const referenceLines = t.raw("capitalRatios.reference.lines") as string[];
   const columns = {
     quarter: t("capitalRatios.sections.rwa.columns.quarter"),
     cet1: t("capitalRatios.sections.rwa.columns.cet1"),
@@ -146,16 +145,6 @@ export default async function CapitalRatiosPage({ params }: PageProps) {
             />
           </section>
         </article>
-
-        <section className="rounded-3xl border border-border/70 bg-surface/70 p-6 text-sm text-muted shadow-lg dark:border-border/40 animate-fade-up animate-delay-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">{t("capitalRatios.labels.reference")}</p>
-          <div className="mt-4 space-y-1 text-base text-text">
-            <p className="font-semibold">{t("capitalRatios.reference.title")}</p>
-            {referenceLines.map((line, index) => (
-              <p key={`capital-ref-${index}`}>{line}</p>
-            ))}
-          </div>
-        </section>
 
         {nextTopic ? (
           <div className="flex justify-center pt-6 animate-fade-up animate-delay-4">
