@@ -1,6 +1,5 @@
 % Dokumentation DIFA
 % Kompilieren: pdflatex Dokumentation.tex (zweimal ausführen fuer Verzeichnisse)
-% Struktur: siehe Dokumentation_Aenderungen.md
 % Stellen mit \todo{...} sind noch auszufuellen.
 
 \documentclass[11pt,a4paper]{article}
@@ -15,6 +14,8 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{longtable}
+\usepackage{needspace}
+\usepackage{float}
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{enumitem}
@@ -36,6 +37,15 @@
 \fancyhead[L]{Dokumentation DIFA}
 \fancyfoot[C]{Seite \thepage}
 \renewcommand{\headrulewidth}{0.4pt}
+
+% Zwischenüberschriften: nie allein am Seitenende (mind. 5 Zeilen Platz, sonst neue Seite)
+\newcommand{\minihead}[1]{\par\needspace{5\baselineskip}\noindent\textbf{#1}\par\nobreak}
+\newcommand{\miniheadit}[1]{\par\needspace{5\baselineskip}\noindent\textit{#1}\par\nobreak}
+% Auch Abschnittsüberschriften brauchen Platz für etwas Text darunter
+\let\oldsubsection\subsection
+\renewcommand{\subsection}{\needspace{6\baselineskip}\oldsubsection}
+\let\oldsubsubsection\subsubsection
+\renewcommand{\subsubsection}{\needspace{6\baselineskip}\oldsubsubsection}
 
 % Platzhalter-Markierung
 \newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
@@ -198,21 +208,21 @@ Die aktualisierte Applikation läuft unter Next.js 16.3.2 mit React 19.2.8 und P
 \subsection{Resultat des Prompt-Vergleichs}
 Die verglichenen Roh- und optimierten Prompts stehen im Anhang~\ref{app:prompts1}.
 
-\textbf{Prisma}\par
+\minihead{Prisma}
 Mein Rohprompt fragte im Kern, „was kann schiefgehen“, sehr allgemein, ohne der KI die nötigen Datenpunkte zu geben (Ausgangsversion, Nebenabhängigkeiten, Zielarchitektur), um dies präzise zu beantworten. Die Lücke, die am meisten gekostet hat, war die fehlende explizite Frage nach der MongoDB-Kompatibilität mit höheren Prisma-Versionen. Ein generischer Prompt hätte dieses sehr spezifische, aktuelle Detail wahrscheinlich nicht von selbst thematisiert, wenn nicht gezielt danach gefragt wird.
 
-\textbf{Next.js}\par
+\minihead{Next.js}
 Anders als beim Prisma-Prompt lag die Hauptlücke hier nicht bei einer einzelnen fachlichen Frage, sondern bei fehlenden Versionsangaben und Nebenabhängigkeiten (Node.js-Version, React-Version, next-auth-Beta). Das ist ein wiederkehrendes Muster: Der Zielzustand wurde genannt, aber nicht der vollständige Ist-Zustand – und genau dieser ist nötig, damit die KI spezifische statt generische Antworten geben kann.
 
-\textbf{Weitere Pakete (Tailwind, Cloudinary, Quill, Zod)}\par
+\minihead{Weitere Pakete (Tailwind, Cloudinary, Quill, Zod)}
 Auch beim dritten Prompt zeigte sich dasselbe Muster über alle drei Prompts hinweg: Die Zielrichtung und die grobe Frage waren jeweils gut formuliert, es fehlten aber regelmässig die exakten Ist-Versionen und Nebenabhängigkeiten (bei Prisma: @prisma/config und @auth/prisma-adapter; bei Next.js: Node-/React-Version und next-auth-Beta; hier: Tailwind-Plugins und next-cloudinary). Das deutet darauf hin, dass eher der Blick für „was hängt noch alles dran“ fehlte als das technische Fachwissen selbst.
 
 \subsection{Selbstreflexion}
 
-\textbf{Was hat gut funktioniert}\par
+\minihead{Was hat gut funktioniert}
 Die offiziellen Migrations-Tools haben den grössten Teil der Arbeit zuverlässig übernommen. Nach dem Next.js-Update lief der Entwicklungsserver (\texttt{npm run dev}) auf Anhieb ohne Probleme. Für den Code der App meldet ESLint keine Probleme: \texttt{npm run lint} meldet im aktuellen Stand 18\,288 Probleme (1551 Fehler und 16\,737 Warnungen). Alle stammen aus dem Ordner \texttt{.claude} mit Werkzeugdateien, der nicht zur App gehört. Für den Code der App (\texttt{app}, \texttt{components}, \texttt{lib}, \texttt{i18n}) meldet ESLint keine Probleme. Die automatisierte Migration von \texttt{middleware.ts} zu \texttt{proxy.ts} mittels des offiziellen Codemods (\texttt{npx @next/codemod@canary middleware-to-proxy}) funktionierte zuverlässig und ersparte manuelle Sucharbeit. Nach den notwendigen manuellen Korrekturen (siehe unten) lief auch der Produktions-Build (\texttt{npm run build}) fehlerfrei durch.
 
-\textbf{Wo musste manuell korrigiert werden}\par
+\minihead{Wo musste manuell korrigiert werden}
 Ein automatisierter Regressionstest vor bzw. nach dem Upgrade war nicht möglich, da im Projekt kein Test-Framework wie Jest, Vitest oder Playwright eingerichtet ist. Die Verifikation musste deshalb vollständig manuell über \texttt{npm run build} und \texttt{npm run lint} sowie manuelles Testen erfolgen.
 
 Beim Prisma-Update zeigte sich, dass für die geplante Zielversion (Prisma 7) kein offizieller MongoDB-Adapter existiert, da Prisma 7 MongoDB als Datenbank-Provider nicht unterstützt. Das Update konnte deshalb nicht wie ursprünglich vorgesehen durchgeführt werden; stattdessen wurde auf die von Prisma für MongoDB empfohlene Version 6.19 aktualisiert.
@@ -225,13 +235,13 @@ Beim Next.js-Update funktionierte der Entwicklungsserver zwar sofort, der Produk
 \section{Aufgabe 2: Mehrsprachige Suchfunktion}
 
 \subsection{Auftrag und Anforderungen}
-\textbf{Ausgangslage}\par
+\minihead{Ausgangslage}
 Die Webplattform „CS-UBS-Fusion“ dokumentiert und begleitet redaktionell die Übernahme der Credit Suisse durch die UBS. Sie besteht aus drei Inhaltsbereichen: Fallstudien (redaktionelle Hintergrundartikel, aktuell u.\,a. Archegos und Greensill), Blogbeiträge (nutzergenerierte Artikel mit Titel, Text, Kurzbeschreibung und Schlagwörtern) und dem Organigramm (hierarchische Darstellung von Personen und Abteilungen). Im Header ist bereits ein optisch fertiges, in allen Sprachen beschriftetes Suchfeld vorhanden, das aber keinerlei Funktion hat: Es findet keine Suche statt, es gibt keine Ergebnisanzeige und keine Navigation zu gefundenen Inhalten.
 
-\textbf{Ziel}\par
+\minihead{Ziel}
 Das bestehende Suchfeld soll mit einer funktionsfähigen, mehrsprachigen Suche verbunden werden, die alle drei Inhaltsbereiche durchsucht. Nutzer sollen Ergebnisse aus allen Bereichen erhalten, die Herkunft eines Treffers (Fall, Blog, Organigramm) erkennen, per Klick direkt zur passenden Seite springen und die Suche in jeder der fünf unterstützten Sprachen nutzen können. Treffer aus den Fallstudien sollen in der aktuell gewählten Sprache gefunden werden, auch bei sprachspezifischen Suchbegriffen.
 
-\textbf{Technischer Kontext}\par
+\minihead{Technischer Kontext}
 Next.js (App Router) mit React und TypeScript, Tailwind CSS, next-intl mit JSON-Sprachdateien, Prisma mit MongoDB sowie Route Handlers für API-Routen. Unterstützt werden Deutsch (Standardsprache), Englisch, Französisch, Spanisch und Italienisch; die Sprache ist Teil der URL-Struktur.
 
 \begin{center}
@@ -249,7 +259,7 @@ Organigramm & Datenbankeinträge, hierarchisch (Personen/Abteilungen) & Nein, Ei
 
 Die drei Bereiche unterscheiden sich strukturell deutlich (statisch/übersetzt vs. Datenbank/einsprachig). Ein zentraler Teil der Aufgabe ist daher ein Suchkonzept, das mit dieser Heterogenität sinnvoll umgeht.
 
-\textbf{Deliverables}\par
+\minihead{Deliverables}
 Eine funktionsfähige, in die bestehende Applikation integrierte Suchfunktion, eine Kurzdokumentation (Konzept, Architekturentscheidungen, bekannte Einschränkungen) sowie Hinweise zu zusätzlicher Konfiguration oder Abhängigkeiten.
 
 Die funktionalen und nicht-funktionalen Anforderungen sind mit ihrer Herkunft im Auftrag in der Tabelle im Anhang~\ref{app:anforderungen} aufgeführt. Den vollständigen Auftragstext enthält Anhang~\ref{app:auftrag}.
@@ -257,7 +267,7 @@ Die funktionalen und nicht-funktionalen Anforderungen sind mit ihrer Herkunft im
 \subsection{Konzept}
 Die drei Inhaltsbereiche sind strukturell sehr unterschiedlich: Die Fälle liegen als übersetzte Texte in den Sprachdateien von next-intl, Blogs und Organigramm als einsprachige Einträge in MongoDB. Das Konzept bildet deshalb alle Bereiche auf ein gemeinsames Dokumentenmodell ab und durchsucht dieses mit Fuse.js im Speicher. Jeder Bereich wird durch einen eigenen Provider angebunden, der nur normalisierte Dokumente liefert. Bewertung der Treffer, Textauszug und Linkaufbau gibt es genau einmal.
 
-\textbf{Ablauf einer Suche}\par
+\minihead{Ablauf einer Suche}
 Abbildung~\ref{fig:suche-ablauf} zeigt den Weg einer Eingabe. Der Browser sendet die Eingabe erst nach 250 ms Pause an die API-Route, die sie mit Zod prüft. Die Suchlogik sammelt die Dokumente aller Provider parallel, durchsucht sie mit Fuse.js und gibt eine ausgewogene Trefferliste mit Textauszug und Link zurück. Das Dropdown zeigt je Treffer ein Kategorie-Badge und hebt den Suchbegriff hervor.
 
 \begin{figure}[htbp]
@@ -292,7 +302,7 @@ Abbildung~\ref{fig:suche-ablauf} zeigt den Weg einer Eingabe. Der Browser sendet
 \label{fig:suche-ablauf}
 \end{figure}
 
-\textbf{Einheitliches Dokumentenmodell}\par
+\minihead{Einheitliches Dokumentenmodell}
 Jeder Provider erzeugt Objekte vom Typ \texttt{SearchDocument}. Die Trefferanzeige erhält daraus ein \texttt{SearchResultDTO} mit fertigem Link, gekürztem Textauszug, Bewertung und den Positionen der Treffer.
 
 \begin{center}
@@ -316,7 +326,7 @@ keywords & Schlagwörter (aktuell die Blog-Tags) \\
 \end{tabularx}
 \end{center}
 
-\textbf{Konfigurierte Werte}\par
+\minihead{Konfigurierte Werte}
 \begin{center}
 \small
 \begin{tabularx}{\textwidth}{l X}
@@ -381,7 +391,7 @@ Dropdown & UI-Bibliothek, oder eigene Komponente & \textbf{Eigene Komponente.} D
 \subsection{Test und Qualitätssicherung}
 Das Projekt besitzt kein Test-Framework. Die Suche wurde deshalb auf drei Ebenen geprüft: mit automatisierten Tests gegen die API-Route, mit einem manuellen Stichprobentest der Oberfläche nach festem Schema und mit einer Gegenprüfung des Codes durch weitere Modelle (siehe Abschnitt~2.3). Der Testplan wurde vor der Umsetzung festgelegt.
 
-\textbf{Automatisierte API-Tests}\par
+\minihead{Automatisierte API-Tests}
 Die Datei \texttt{tests/search-api.test.mjs} enthält 23 Tests (T1 bis T23). Sie laufen gegen den Entwicklungsserver und die echten Daten (\texttt{npm run test:search}). Geprüft werden:
 \begin{itemize}[nosep]
   \item \textbf{Treffer je Bereich:} Fall-Abschnitt mit Sprungmarke, Blog-Titel, Organigramm-Eintrag mit \texttt{?node=<id>}
@@ -392,7 +402,7 @@ Die Datei \texttt{tests/search-api.test.mjs} enthält 23 Tests (T1 bis T23). Sie
   \item \textbf{Regulatory Compliance:} Kapitalquoten-Seite und Sprungmarke \texttt{\#rwa}
 \end{itemize}
 
-\textbf{Manueller Stichprobentest der Oberfläche}\par
+\minihead{Manueller Stichprobentest der Oberfläche}
 Die Oberfläche wurde von Hand im Browser nach folgendem Schema geprüft:
 \begin{center}
 \small
@@ -422,20 +432,20 @@ Tastatur & Pfeiltasten, Enter, Escape & Auswahl, Öffnen und Schliessen funktion
 \end{longtable}
 \end{center}
 
-\textbf{Statische Prüfungen}\par
+\minihead{Statische Prüfungen}
 \texttt{npx tsc --noEmit} läuft fehlerfrei. ESLint meldet für die neuen Dateien (\texttt{lib/search}, \texttt{components/search}, \texttt{app/api/search}) keine Probleme. \texttt{npm run lint} meldet im aktuellen Stand 18\,288 Probleme (1551 Fehler und 16\,737 Warnungen). Alle stammen aus dem Ordner \texttt{.claude} mit Werkzeugdateien, der nicht zur App gehört. Für den Code der App (\texttt{app}, \texttt{components}, \texttt{lib}, \texttt{i18n}) meldet ESLint keine Probleme.
 
-\textbf{Messwerte}\par
+\minihead{Messwerte}
 Die API antwortet warm in 3,6 bis 5,3 ms. Der erste Aufruf dauert rund 1,4 s (Kaltstart von Modulen, Datenbankverbindung und Cache). Die Anforderung „keine spürbaren Verzögerungen“ ist damit serverseitig erfüllt.
 
-\textbf{Gefundene Fehler}\par
+\minihead{Gefundene Fehler}
 \begin{itemize}[nosep]
   \item Das Ergebnis-Dropdown war zunächst durchsichtig, weil die Farb-Utilities von Tailwind im Projekt wegen fehlender \texttt{@config}-Direktive nicht greifen. Die neuen Komponenten nutzen deshalb \texttt{hsl(var(--token))}.
   \item Beim Entfernen von HTML klebten Absätze zusammen (\glqq WeltZweiter\grqq). Behoben durch Trennzeichen an den Tag-Grenzen.
   \item Die 19 Fall-Abschnitte füllten die Trefferliste fast ganz. Daraus entstand die Regel „höchstens 4 je Bereich, danach nach Relevanz auffüllen“.
 \end{itemize}
 
-\textbf{Grenzen der Prüfung}\par
+\minihead{Grenzen der Prüfung}
 Es gibt keinen automatisierten Oberflächentest. Die Punkte Tastatur und Sprachwechsel bleiben Handarbeit.
 
 \subsection{Ergebnis}
@@ -457,10 +467,10 @@ Das bisher funktionslose Suchfeld im Header liefert jetzt schon während der Ein
 
 \subsection{Selbstreflexion}
 
-\textbf{Was hat gut funktioniert}\par
+\minihead{Was hat gut funktioniert}
 Das Provider-Muster hat sich bewährt: Der Bereich Regulatory Compliance kam später dazu, ohne dass Route, Bewertung der Treffer oder Frontend geändert werden mussten. Damit ist die Anforderung der Wartbarkeit belegt. Gut war auch, dass ich Aufgabenliste und Testplan vor der Umsetzung festgelegt habe. Der Plan half mir, selbst nochmals besser darüber nachzudenken, und gab mir ein klareres Bild davon, was noch offen ist und wie es implementiert wird. Fuse.js im Speicher deckt alle Bereiche ab und braucht keine zusätzliche Infrastruktur.
 
-\textbf{Wo musste nachgebessert werden}\par
+\minihead{Wo musste nachgebessert werden}
 Die Zusammenarbeit mit der KI lief sehr gut, weil ich schon Erfahrung mit dieser Arbeitsweise hatte. Es gab immer wieder kleine Verbesserungen, die sich aber mit weiterem Prompting oder einer kurzen Recherche im Web schnell beheben liessen. Konkret:
 \begin{itemize}[nosep]
   \item Das Dokumentenmodell habe ich während der Umsetzung angepasst (\texttt{body} statt \texttt{snippet}, neues Feld \texttt{context}), weil die Treffer-Positionen sonst nicht zum gekürzten Text passten.
@@ -468,13 +478,13 @@ Die Zusammenarbeit mit der KI lief sehr gut, weil ich schon Erfahrung mit dieser
   \item Beim Deep-Link ins Organigramm brauchte es einen Zwischenspeicher, weil das Diagramm dynamisch nachgeladen wird. Der Parameter wird nach dem Öffnen aus der URL entfernt.
 \end{itemize}
 
-\textbf{Bestehende Fehler im Projekt}\par
+\minihead{Bestehende Fehler im Projekt}
 Beim Testen bin ich auf zwei Fehler gestossen, die nicht von der Suche stammen: Die Farb-Utilities von Tailwind greifen projektweit nicht (Tailwind 4 mit Konfiguration im Stil von Tailwind 3), weshalb das Dropdown zunächst durchsichtig war. Ich habe das mit \texttt{hsl(var(--token))} umgangen. Ausserdem ist die Organigramm-Detailansicht wegen eines CSS-Transforms im Wrapper kein echtes Vollbild. Beides habe ich bewusst nicht behoben, weil es nicht zum Auftrag gehörte, und als eigene Arbeitspakete dokumentiert.
 
-\textbf{Was ich gelernt habe}\par
+\minihead{Was ich gelernt habe}
 Ein guter Prompt lohnt sich. Er sollte klären: Was ist der Stand jetzt, was will ich am Ende haben, soll die KI selbständig entscheiden oder nachfragen, und weiss ich schon etwas Spezifisches darüber, wie ich es umgesetzt haben möchte.
 
-\textbf{Was ich nächstes Mal anders machen würde}\par
+\minihead{Was ich nächstes Mal anders machen würde}
 Ich würde vorab prüfen, ob Lint und Typecheck im Projekt laufen, denn \texttt{npm run lint} meldet wegen des Ordners \texttt{.claude} 18\,288 Probleme, obwohl der App-Code sauber ist. Dieser Ordner gehört in die ESLint-Ignorierliste. Ein Browser-Testläufer würde die manuellen Oberflächentests (Tastatur, Sprachwechsel) ersetzen.
 
 % ------------------------------------------------------------
@@ -579,41 +589,41 @@ Die Aufteilung nach Dateien verhindert Merge-Konflikte. Der Plan liegt im Reposi
 \subsection{Test und Review}
 Für Aufgabe 3 gibt es 13 manuelle Testfälle (TC1 bis TC13) in \texttt{todo/testcases.md}. Sie decken Hauptnavigation, zweite Pill-Reihe, Übersichtsseite, Links, Platzhalter, Aufbau, Diagramme und Tabellen von Kapitel 7, Anker und Suche, Sprachen, Dark Mode, Mobile-Ansicht sowie Sitemap und Direktaufrufe ab. Jeder Testfall hat Schritte und ein erwartetes Ergebnis. Die Suche ist zusätzlich durch drei automatisierte Tests abgedeckt (T21 bis T23): Suche nach „CET1“ und „Kapitalquoten“ führt auf die Kapitalquoten-Seite, und der Abschnitt 7.1 verlinkt auf die Sprungmarke \texttt{\#rwa}.
 
-Zusätzlich liegt ein Review-Dokument mit Befunden zur Umsetzung vor (\texttt{todo/\allowbreak review-\allowbreak regulatory-\allowbreak compliance.md}). Beim Gegenprüfen gegen den Code trafen zwei der als kritisch bezeichneten Befunde nicht zu: Der Export \texttt{RC\_\allowbreak CAPITAL\_\allowbreak RATIOS\_\allowbreak ANCHORS} existiert in \texttt{lib/\allowbreak regulatoryCompliance.ts}, und die Testkonstanten \texttt{rcTerm} und \texttt{rcTopic} sind definiert. Ein solches Review muss deshalb selbst überprüft werden.
+Zusätzlich lag ein automatisch erstelltes Review der Umsetzung vor. Beim Gegenprüfen gegen den Code trafen zwei der als kritisch bezeichneten Befunde nicht zu: Der Export \texttt{RC\_\allowbreak CAPITAL\_\allowbreak RATIOS\_\allowbreak ANCHORS} existiert in \texttt{lib/\allowbreak regulatoryCompliance.ts}, und die Testkonstanten \texttt{rcTerm} und \texttt{rcTopic} sind definiert. Ein solches Review muss deshalb selbst überprüft werden.
 
 \subsection{Ergebnis}
-Der neue Themenbereich ist in die Applikation integriert. Abbildung~\ref{fig:rc-uebersicht} zeigt die Übersichtsseite mit der aktiven Haupt-Pill „Regulatory Compliance“, der zweiten Pill-Reihe mit den fünf Themen, den fünf Karten, der Storyline-Kachel und der Ablauf-Leiste. Die Kapitel-7-Seite (Abbildungen~\ref{fig:rc-kap7-oben} und~\ref{fig:rc-kap7-tabellen}) enthält die Kernaussagen, das CET1-Liniendiagramm mit Ist- und Zielwert sowie Tabelle 5 als HTML-Tabelle. Die Platzhalterseiten zeigen Titel, Kurzbeschreibung und „Inhalt folgt“ (Abbildung~\ref{fig:rc-platzhalter}).
+Der neue Themenbereich ist in die Applikation integriert. Abbildung~\ref{fig:rc-uebersicht} zeigt die Übersichtsseite mit der aktiven Haupt-Pill „Regulatory Compliance“, der zweiten Pill-Reihe mit den fünf Themen, den fünf Karten, der Storyline-Kachel und der Ablauf-Leiste. Die Kapitel-7-Seite (Abbildungen~\ref{fig:rc-kap7-oben} und~\ref{fig:rc-kap7-tabellen}) enthält die Kernaussagen, das CET1-Liniendiagramm mit Ist- und Zielwert sowie Tabelle 5 als HTML-Tabelle. Die Platzhalterseiten zeigen Titel, Kurzbeschreibung und „Inhalt folgt“ (Abbildung~\ref{fig:rc-platzhalter}). Die Abbildungen~\ref{fig:rc-kap7-oben} bis~\ref{fig:rc-platzhalter} stehen nach dem Text von Abschnitt~\ref{sec:rc-reflexion}.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.9\textwidth]{screenshot_rc_uebersicht.png}
   \caption{Übersichtsseite Regulatory Compliance mit zweiter Pill-Reihe, fünf Karten, Storyline und Ablauf-Leiste}
   \label{fig:rc-uebersicht}
 \end{figure}
 
-\begin{figure}[htbp]
+\subsection{Selbstreflexion}\label{sec:rc-reflexion}
+Die Arbeit lief sehr gut. Die parallele Arbeit in eigenen Branches und Worktrees hat sie übersichtlich gehalten, und die Aufteilung nach Dateien vermied weitgehend Konflikte. Es gab nur kleine Probleme beim Zusammenführen der Branches, die sich ebenfalls durch Agents lösen liessen. Der Verbrauch an Token war etwas höher als üblich, dafür war die Umsetzung insgesamt sehr schnell. Der Plan mit festgelegten Entscheidungen half mir, offene Punkte früh zu sehen. Als Datengrundlage dienten die Unterlagen des Auftraggebers. Offen blieb die fachliche Prüfung der Übersetzungen für Französisch, Spanisch und Italienisch, die als Beispielinhalte angelegt sind.
+
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.9\textwidth]{screenshot_rc_kapitel7_oben.png}
   \caption{Kapitel 7: Titel, Kernaussagen und CET1-Diagramm (Ist gegen Zielwert)}
   \label{fig:rc-kap7-oben}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.9\textwidth]{screenshot_rc_kapitel7_tabellen.png}
   \caption{Kapitel 7: CET1-Diagramm und Tabelle 5 (RWA-basierte Kapitalquoten, Auszug)}
   \label{fig:rc-kap7-tabellen}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.9\textwidth]{screenshot_rc_platzhalter.png}
   \caption{Platzhalterseite „Liquidität“ mit dem Hinweis „Inhalt folgt“}
   \label{fig:rc-platzhalter}
 \end{figure}
-
-\subsection{Selbstreflexion}
-Die Arbeit lief sehr gut. Die parallele Arbeit in eigenen Branches und Worktrees hat sie übersichtlich gehalten, und die Aufteilung nach Dateien vermied weitgehend Konflikte. Es gab nur kleine Probleme beim Zusammenführen der Branches, die sich ebenfalls durch Agents lösen liessen. Der Verbrauch an Token war etwas höher als üblich, dafür war die Umsetzung insgesamt sehr schnell. Der Plan mit festgelegten Entscheidungen half mir, offene Punkte früh zu sehen. Als Datengrundlage dienten die Unterlagen des Auftraggebers. Offen blieb die fachliche Prüfung der Übersetzungen für Französisch, Spanisch und Italienisch, die als Beispielinhalte angelegt sind.
 
 % ------------------------------------------------------------
 % 6 Kritische Gesamtreflexion
@@ -722,7 +732,7 @@ Yannic Reust
 
 Das Projekt läuft aktuell auf Next.js 15.5.9 und Prisma 6.17.1. Die aktuellen stabilen Versionen (Stand Juli 2026) sind Next.js 16.2.x und Prisma 7.9.x
 
-\textbf{Vorgehen:}
+\minihead{Vorgehen:}
 
 Nutze zuerst die offiziellen Tools
 \begin{itemize}[nosep]
@@ -738,7 +748,7 @@ Aktualisiere in zwei getrennten Schritten
 
 Aktualisiere anschliessend die anderen Technologien wie Tailwind CSS, Cloudinary, Quill, Zod
 
-\textbf{Dokumentation mittels Prompting}
+\minihead{Dokumentation mittels Prompting}
 
 Es geht hier primär um den Lerneffekt. Bitte gehe wie folgt vor:
 \begin{enumerate}[nosep]
@@ -753,7 +763,7 @@ Im Anhang kannst du die benutzten Prompts darstellen: Prompt für Prisma, Prompt
 
 Pro Aufgabe schreibst du eine Selbstreflexion.
 
-\textbf{Reflexion zur App-Aktualisierung:}
+\minihead{Reflexion zur App-Aktualisierung:}
 \begin{itemize}[nosep]
   \item Was hat gut funktioniert
   \item Wo musste manuell korrigiert werden?
@@ -764,7 +774,7 @@ Sobald du die erste Aufgabe erledigt hast, sende mir einen kurzen Entwurf zur Au
 
 \subsubsection{Originaltext Aufgabe 2: Mehrsprachige Suchfunktion}
 
-\textbf{1. Ausgangslage}
+\minihead{1. Ausgangslage}
 
 Die Webplattform „CS-UBS-Fusion“ dokumentiert und begleitet redaktionell die Übernahme der Credit Suisse durch die UBS. Sie besteht im Wesentlichen aus drei Inhaltsbereichen:
 \begin{itemize}[nosep]
@@ -777,7 +787,7 @@ Im Seitenkopf (Header) der Applikation ist bereits ein Suchfeld vorhanden und si
 
 Ziel dieser Ausschreibung ist es, dieses bestehende Suchfeld mit einer echten, funktionsfähigen und mehrsprachigen Suchfunktion zu verbinden, welche alle drei Inhaltsbereiche (Fälle, Blogs, Organigramm) durchsucht.
 
-\textbf{2. Zielsetzung}
+\minihead{2. Zielsetzung}
 
 Nach Abschluss des Projekts kann ein Nutzer über das bestehende Suchfeld im Header:
 \begin{itemize}[nosep]
@@ -787,11 +797,11 @@ Nach Abschluss des Projekts kann ein Nutzer über das bestehende Suchfeld im Hea
   \item die Suche in jeder der von der Plattform unterstützten Sprachen sinnvoll nutzen – Treffer aus den Fallstudien sollen dabei in der aktuell gewählten Sprache gefunden werden, auch wenn der Suchbegriff sprachspezifische Wörter enthält.
 \end{itemize}
 
-\textbf{3. Technischer Kontext (Ist-Zustand)}
+\minihead{3. Technischer Kontext (Ist-Zustand)}
 
 Die folgenden Rahmenbedingungen sind für die Lösung relevant und wurden aus der bestehenden Applikation abgeleitet. Sie dienen der Einordnung, nicht als Implementierungsvorschrift – die konkrete technische Umsetzung ist Teil der Aufgabe des Studenten bzw. der Studentin.
 
-\textit{3.1 Technologie-Stack}
+\miniheadit{3.1 Technologie-Stack}
 \begin{itemize}[nosep]
   \item Next.js (App Router) mit React und TypeScript
   \item Styling mit Tailwind CSS
@@ -800,11 +810,11 @@ Die folgenden Rahmenbedingungen sind für die Lösung relevant und wurden aus de
   \item Bestehende API-Routen nach dem Next.js-Konventionsschema (Route Handlers)
 \end{itemize}
 
-\textit{3.2 Unterstützte Sprachen}
+\miniheadit{3.2 Unterstützte Sprachen}
 
 Die Applikation unterstützt aktuell fünf Sprachen: Deutsch (Standardsprache), Englisch, Französisch, Spanisch und Italienisch. Die Sprachwahl erfolgt über einen Sprachumschalter und ist Teil der URL-Struktur.
 
-\textit{3.3 Zu durchsuchende Inhaltsbereiche}
+\miniheadit{3.3 Zu durchsuchende Inhaltsbereiche}
 
 \begin{center}
 \small
@@ -821,14 +831,14 @@ Organigramm & Datenbankeinträge, hierarchisch (Personen/Abteilungen) & Nein –
 
 Die drei Bereiche unterscheiden sich strukturell deutlich voneinander (statisch/übersetzt vs. Datenbank/einsprachig). Ein zentraler Teil der Aufgabe besteht darin, ein Suchkonzept zu entwerfen, das mit dieser Heterogenität sinnvoll umgeht.
 
-\textit{3.4 Bestehende Bausteine}
+\miniheadit{3.4 Bestehende Bausteine}
 \begin{itemize}[nosep]
   \item Suchfeld im Header (sichtbar auf allen Seiten), inkl. Label und Platzhaltertext in allen fünf Sprachen
   \item Bestehende Detailseiten für Fälle, Blogs und Organigrammeinträge, auf die von Suchergebnissen aus verlinkt werden kann
   \item Bestehende Datenzugriffsschicht für Blogs und Organigramm (Datenbankmodelle bereits vorhanden)
 \end{itemize}
 
-\textbf{4. Funktionale Anforderungen}
+\minihead{4. Funktionale Anforderungen}
 \begin{enumerate}[nosep]
   \item Die Eingabe im bestehenden Suchfeld löst eine Suche über alle drei Inhaltsbereiche aus (Fälle, Blogs, Organigramm).
   \item Ergebnisse werden dem Nutzer übersichtlich dargestellt, inkl. erkennbarer Kategorie je Treffer (z.\,B. „Fall“, „Blog“, „Organigramm“).
@@ -842,7 +852,7 @@ Die drei Bereiche unterscheiden sich strukturell deutlich voneinander (statisch/
   \item Tastaturbedienbarkeit (Navigation der Ergebnisliste mit Pfeiltasten, Bestätigung mit Enter).
 \end{enumerate}
 
-\textbf{5. Nicht-funktionale Anforderungen}
+\minihead{5. Nicht-funktionale Anforderungen}
 \begin{itemize}[nosep]
   \item Barrierefreiheit: Das bestehende Suchfeld ist bereits mit entsprechenden Labels ausgezeichnet; diese Auszeichnung muss bei der Ergebnisanzeige sinngemäss fortgeführt werden (z.\,B. Ergebnisliste für Screenreader verständlich).
   \item Konsistenz: Die Lösung folgt den bestehenden Code- und Namenskonventionen der Applikation (TypeScript, Ordnerstruktur, i18n-Konzept).
@@ -850,7 +860,7 @@ Die drei Bereiche unterscheiden sich strukturell deutlich voneinander (statisch/
   \item Sicherheit: Nutzereingaben werden serverseitig korrekt behandelt (keine ungeprüfte Weitergabe an die Datenbank).
 \end{itemize}
 
-\textbf{6. Deliverables}
+\minihead{6. Deliverables}
 \begin{itemize}[nosep]
   \item Funktionsfähige, in die bestehende Applikation integrierte Suchfunktion
   \item Kurzdokumentation (Konzept, Architekturentscheidungen, bekannte Einschränkungen)
@@ -858,25 +868,25 @@ Die drei Bereiche unterscheiden sich strukturell deutlich voneinander (statisch/
 \end{itemize}
 
 \subsubsection{Originaltext Aufgabe 3}
-\textbf{Ziel}
+\minihead{Ziel}
 
 Besucher der Plattform sollen nachvollziehen können, dass CS trotz durchgehender Einhaltung der regulatorischen Kapitalanforderungen in eine existenzbedrohende Krise geriet. Dafür entsteht ein neuer Themenbereich „Regulatory Compliance“ mit eigener Navigation und fünf Unterseiten, von denen zunächst nur die erste – Kapitalquoten – inhaltlich mit Tabellen gefüllt wird; die restlichen vier bleiben als Platzhalter bestehen, damit die Struktur bereits vollständig sichtbar ist.
 
-\textbf{Teilaufgaben}
+\minihead{Teilaufgaben}
 
-\textit{Schritt 1 – Navigation}
+\miniheadit{Schritt 1 – Navigation}
 
 Ergänze \texttt{navItems} in \texttt{navbar.tsx} um „Regulatory Compliance“. Auf \texttt{/regulatory-compliance/\allowbreak *} erscheint eine zweite Pill-Reihe mit den 5 Themen – exakt im bestehenden Pill-Stil (\texttt{buttonClassNames}, \texttt{isActive} via \texttt{pathname.startsWith}), kein neues Dropdown-Widget. (Mockup: Abbildung~\ref{fig:mock-nav}.)
 
-\textit{Schritt 2 – Übersichtsseite}
+\miniheadit{Schritt 2 – Übersichtsseite}
 
 Übersichtsseite \texttt{/regulatory-compliance} mit 5 Karten (Titel, Kurzbeschreibung, Pfeil-Icon), die auf die Unterseiten verlinken. (Mockup: Abbildung~\ref{fig:mock-uebersicht}.)
 
-\textit{Schritt 3 – Platzhalterseiten}
+\miniheadit{Schritt 3 – Platzhalterseiten}
 
 Alle 5 Routen anlegen, 4 davon nur mit Titel + „Inhalt folgt“.
 
-\textit{Schritt 4 – Kapitel-7-Seite mit Recharts}
+\miniheadit{Schritt 4 – Kapitel-7-Seite mit Recharts}
 
 Tabelle 5 + 6 als HTML-Tabelle und Recharts-Liniendiagramm (Ist vs. Zielwert), Key-Takeaways-Box, Quellenangabe. (Mockup: Abbildung~\ref{fig:mock-kap7}.)
 
@@ -921,12 +931,12 @@ N4 & Sicherheit: serverseitige Behandlung der Nutzereingaben & „Nutzereingaben
 \label{app:prompts1}
 
 \subsubsection{Prompt für Prisma}
-\textbf{Rohprompt (ohne KI-Hilfe)}
+\minihead{Rohprompt (ohne KI-Hilfe)}
 \begin{quote}
 \textit{«Ich habe ein Projekt mit Nextjs 16.3, MongoDB, Tailwind 4, Zod 4.4 und Quill 2. Prisma möchte ich mit diesen beiden commands updaten: npm install @prisma/client@6.19 npm install --save-dev prisma@6.19, was können für Fehler passieren? kann ich die Commands einfach aufführen? ist die Kompatibilität okay?»}
 \end{quote}
 
-\textbf{Optimierter Prompt}
+\minihead{Optimierter Prompt}
 \begin{lstlisting}
 Ich habe ein Next.js-16.3-Projekt mit folgendem Stack: MongoDB als Datenbank (via Prisma), Tailwind CSS 4, Zod 4.4, Quill 2. Aktuell installiert: @prisma/client und prisma in Version 6.17.1.
 
@@ -945,7 +955,7 @@ Bitte beantworte:
 Bitte antworte strukturiert nach diesen 5 Punkten, nicht als Fliesstext.
 \end{lstlisting}
 
-\textbf{Vergleich: Was im Rohprompt fehlte}
+\minihead{Vergleich: Was im Rohprompt fehlte}
 \begin{center}
 \small
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
@@ -964,12 +974,12 @@ Zukunftsbezug (Prisma 7) & Fehlt komplett & Wichtig, da MongoDB-Inkompatibilitä
 \end{center}
 
 \subsubsection{Prompt für Next.js}
-\textbf{Rohprompt (ohne KI-Hilfe)}
+\minihead{Rohprompt (ohne KI-Hilfe)}
 \begin{quote}
 \textit{«Ich habe ein Projekt mit Nextjs 16.3, MongoDB, Tailwind 4, Zod 4.4 und Quill 2. Wie kann ich das Update machen? Was können für Fehler passieren? Kann ich die Commands einfach aufführen, ist die Kompatibilität okay? Was sind die Breaking Changes? Welche Dinge muss ich sonst noch anpassen ausser der Version in der package.json? Gibt es Tools, die mir dabei helfen können?»}
 \end{quote}
 
-\textbf{Optimierter Prompt}
+\minihead{Optimierter Prompt}
 \begin{lstlisting}
 Ich habe ein Next.js-Projekt, aktuell auf Version 15.5.9, das ich auf 16.3.2 aktualisieren möchte. Weiterer Stack: React/React-DOM 19.1, MongoDB (via Prisma), Tailwind CSS 4, Zod 4.4, Quill 2, next-auth (Beta), next-intl, next-cloudinary.
 
@@ -985,7 +995,7 @@ Bitte beantworte strukturiert:
 Bitte antworte punktuell nach diesen 7 Nummern, nicht als Fliesstext.
 \end{lstlisting}
 
-\textbf{Vergleich: Was im Rohprompt fehlte}
+\minihead{Vergleich: Was im Rohprompt fehlte}
 \begin{center}
 \small
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
@@ -1004,12 +1014,12 @@ Copy-Paste-Fehler im ersten Versuch & Prisma-Befehle versehentlich im „Next.js
 \end{center}
 
 \subsubsection{Weitere Prompts: Tailwind, Zod, Quill, Cloudinary}
-\textbf{Rohprompt (ohne KI-Hilfe)}
+\minihead{Rohprompt (ohne KI-Hilfe)}
 \begin{quote}
 \textit{«Ich habe ein Projekt mit Nextjs 16.3, MongoDB, Tailwind 4, Zod 4.4 und Quill 2. Wie kann ich das Update von Quill, Tailwind, Zod und Cloudinary machen? Macht es Sinn, alles in einem Prompt zu machen oder einzeln? Was können für Fehler passieren? Was sind die Breaking Changes?»}
 \end{quote}
 
-\textbf{Optimierter Prompt}
+\minihead{Optimierter Prompt}
 \begin{lstlisting}
 Ich habe ein Next.js-16.3-Projekt mit MongoDB (via Prisma). Folgende Pakete möchte ich aktualisieren, jeweils aktuell installierte Version:
 - Tailwind CSS: 4.1.14 (+ @tailwindcss/postcss, @tailwindcss/typography, @tailwindcss/line-clamp, tailwindcss-animate)
@@ -1033,7 +1043,7 @@ Danach:
 Bitte antworte nummeriert nach diesen Punkten, nicht als Fliesstext.
 \end{lstlisting}
 
-\textbf{Vergleich: Was im Rohprompt fehlte}
+\minihead{Vergleich: Was im Rohprompt fehlte}
 \begin{center}
 \small
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
