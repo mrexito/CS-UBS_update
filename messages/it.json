@@ -796,7 +796,6 @@
       "lead": "Dal Q1 2019 fino all’acquisizione da parte di UBS, i coefficienti patrimoniali di Credit Suisse basati su RWA e leverage ratio sono rimasti costantemente al di sopra dei requisiti minimi regolamentari vincolanti, nonostante perdite ripetute, multe e costi di ristrutturazione.",
       "labels": {
         "takeaways": "Punti chiave",
-        "reference": "Fonte",
         "next": "Liquidità",
         "actual": "Effettivo",
         "target": "Target",
@@ -838,12 +837,6 @@
             "tlac": "TLAC"
           }
         }
-      },
-      "reference": {
-        "title": "Fonte",
-        "lines": [
-          "TODO: completare la fonte del capitolo 7 (tesi di bachelor, rapporti annuali di CS, FINMA)."
-        ]
       }
     }
   }

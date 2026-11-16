@@ -794,7 +794,6 @@
       "lead": "From Q1 2019 until the takeover by UBS, Credit Suisse's RWA- and leverage-based capital ratios consistently stayed above the binding regulatory minimum requirements, despite repeated losses, fines and restructuring costs.",
       "labels": {
         "takeaways": "Key takeaways",
-        "reference": "Reference",
         "next": "Liquidity",
         "actual": "Actual",
         "target": "Target",
@@ -836,12 +835,6 @@
             "tlac": "TLAC"
           }
         }
-      },
-      "reference": {
-        "title": "Source reference",
-        "lines": [
-          "TODO: add the source reference for chapter 7 (bachelor thesis, CS annual reports, FINMA)."
-        ]
       }
     }
   }
